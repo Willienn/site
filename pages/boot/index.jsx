@@ -18,14 +18,11 @@ export default function Boot() {
   }, []);
   return (
     <>
-      <Box m='10px'>
+      <Box m="10px">
         {test.map((e, idx) => {
           return (
             boot && (
-              <Box
-                color="#11ff11"
-                key={idx}
-              >
+              <Box color="#11ff11" key={idx}>
                 <Typed
                   startDelay={idx * 1800}
                   strings={e}

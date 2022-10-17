@@ -14,7 +14,7 @@ export default function Header() {
           <Box fontSize="1.5em">LOGO</Box>
         </Link>
         <Spacer />
-        {headerItens.map((item, {idx}) => (
+        {headerItens.map((item, idx) => (
           <Link mx="10px" px="10px" key={idx} href={item.link}>
             <Box>{item.name}</Box>
           </Link>
