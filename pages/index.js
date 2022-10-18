@@ -6,6 +6,7 @@ import {
   Heading,
   HStack,
   Image,
+  SimpleGrid,
   Spacer,
   Text,
   VStack,
@@ -14,9 +15,10 @@ import React from "react";
 import Header from "../components/header";
 import {Client} from "@notionhq/client";
 import Link from "next/link";
+import PostCard from "../components/postCard";
 
-export default function _landing({response}) {
-  console.log();
+export default function _landing({Posts}) {
+  console.log(Posts);
   return (
     <>
       <Header />
@@ -36,45 +38,31 @@ export default function _landing({response}) {
         </Container>
       </Center>
       <Center>
-        <Flex direction="column" gap="10px">
+        <Flex mb="100px" direction="column" gap="10px">
           <Heading textAlign="center" fontSize="3em">
             Posts
           </Heading>
-          <HStack>
-            <Link href="/">
-              <Box
-                borderRadius="8px"
-                w="400px"
-                h="200px"
-                bgColor="#2f2f2f"
-                overflow="hidden"
-              >
-                <Image
-                  opacity="60%%"
-                  alt="logo"
-                  w="400px"
-                  h="150px"
-                  src={response[0].cover.external.url}
-                />
-                <Text px="25px">{response[0].properties.Name.title[0].text.content}</Text>
-              </Box>
-            </Link>
-            <Spacer />
-            <Box borderRadius="8px" w="400px" h="200px" bgColor="#2f2f2f"></Box>
-          </HStack>
-          <Spacer />
-          <HStack>
-            <Box borderRadius="8px" w="400px" h="200px" bgColor="#2f2f2f"></Box>
-            <Spacer />
-            <Box borderRadius="8px" w="400px" h="200px" bgColor="#2f2f2f"></Box>
-          </HStack>
+          <SimpleGrid columns={2} spacing={16}>
+            {Posts.map((post, idx) => {
+              return (
+                <>
+                  <PostCard
+                    key={idx}
+                    postLink={`/posts/${post.id}`}
+                    postImg={post.cover?.external?.url}
+                    postTitle={post.properties.Name.title[0].text.content}
+                  />
+                </>
+              );
+            })}
+          </SimpleGrid>
         </Flex>
       </Center>
     </>
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const notion = new Client({auth: process.env.NOTION_API_KEY});
   const response = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_ID,
@@ -82,8 +70,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      response: response.results,
+      Posts: response.results,
     },
-    revalidate: 1,
   };
 }
