@@ -12,16 +12,16 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import Header from "../components/header";
-import {Client} from "@notionhq/client";
-import Link from "next/link";
+import Nav from "../components/nav";
 import PostCard from "../components/postCard";
+import {getDatabase} from "../lib/notion";
 
-export default function _landing({Posts}) {
-  console.log(Posts);
+export const databaseId = process.env.NOTION_DATABASE_ID;
+
+export default function _landing({posts}) {
   return (
     <>
-      <Header />
+      <Nav />
       <Center ml="-10vw">
         <Container>
           <Box mb="10vh">
@@ -43,7 +43,7 @@ export default function _landing({Posts}) {
             Posts
           </Heading>
           <SimpleGrid columns={2} spacing={16}>
-            {Posts.map((post, idx) => {
+            {posts.map((post, idx) => {
               return (
                 <>
                   <PostCard
@@ -62,15 +62,13 @@ export default function _landing({Posts}) {
   );
 }
 
-export async function getServerSideProps() {
-  const notion = new Client({auth: process.env.NOTION_API_KEY});
-  const response = await notion.databases.query({
-    database_id: process.env.NOTION_DATABASE_ID,
-  });
+export const getStaticProps = async () => {
+  const database = await getDatabase(databaseId);
 
   return {
     props: {
-      Posts: response.results,
+      posts: database,
     },
+    revalidate: 100,
   };
-}
+};
