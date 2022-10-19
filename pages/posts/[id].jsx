@@ -28,11 +28,11 @@ export default function Posts({post, blocks}) {
         />
         <Container>
           <Heading>{post.properties.Name.title[0].text.content}</Heading>
-          {blocks.map((block, idx) => {
-            return block.paragraph.rich_text.map((text, key={idx}) => {
+          {blocks.map((block) => {
+            return block.paragraph.rich_text.map((text, idx) => {
               console.log(text.plain_text);
               return (
-                <Text maxW="100vw" color="white">
+                <Text key={idx} maxW="100vw" color="white">
                   {text.plain_text}
                 </Text>
               );
