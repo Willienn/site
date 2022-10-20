@@ -64,11 +64,10 @@ export default function _landing({posts}) {
 
 export const getStaticProps = async () => {
   const database = await getDatabase(databaseId);
-
   return {
     props: {
       posts: database,
     },
-    revalidate: 100,
+    revalidate: 1,
   };
 };
