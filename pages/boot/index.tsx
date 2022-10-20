@@ -6,6 +6,7 @@ import styles from "./index.module.css";
 export default function Boot() {
   const [boot, setBoot] = useState(false);
   const [button, setButton] = useState(true);
+  const [bootAnimation, setBootAnimation] = useState([]);
 
   const test = [
     ["Initializing Boot......"],
@@ -16,23 +17,24 @@ export default function Boot() {
   ];
   useEffect(() => {
     setTimeout(() => {
-      setButton(false);
-    }, 2000);
-  }, []);
+      bootAnimation.length !== 0 && setButton(false);
+    }, 1000);
+  }, [bootAnimation]);
   useEffect(() => {
     !button && setBoot(true);
   }, [button]);
-  const [bootAnimation, setBootAnimation] = useState([]);
   return (
     <>
       {button && (
         <Center h="100vh">
           <Button
+            borderRadius="8px"
+            p="10px"
             border="none"
-            bgColor="#0e6b03"
+            bgColor="#0e4f03"
             className={bootAnimation[0]}
-            w="10vw"
-            h="10vw"
+            w="8vw"
+            h="8vw"
             onClick={() =>
               setBootAnimation([
                 styles.boot,
@@ -42,21 +44,22 @@ export default function Boot() {
             }
           >
             <Box
+              // boxShadow="0px 0px 1px white"
               className={bootAnimation[2]}
-              border="3px solid #000"
+              border="3px solid #05070b"
               borderBlockStart="3px solid transparent"
               borderRadius="100%"
-              w="50px"
-              h="50px"
+              w="5vw"
+              h="10vh"
             >
               <Box
-                className={bootAnimation[1]}
+                className={`${bootAnimation[1]}, ${styles.bootIdle}`}
                 margin="auto"
                 mt="-5px"
                 h="20px"
                 w="2px"
                 borderRadius="2px"
-                border="2px solid #000"
+                border="2px solid #05070b"
               ></Box>
             </Box>
           </Button>
