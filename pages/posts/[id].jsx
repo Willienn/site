@@ -27,13 +27,15 @@ export default function Posts({post, blocks}) {
           src={post.cover.external.url}
         />
         <Container>
-          <Heading>{post.properties.Name.title[0].text.content}</Heading>
+          <Heading textAlign="center">
+            {post.properties.Name.title[0].text.content}
+          </Heading>
           {blocks.map((block) => {
-            return block.paragraph.rich_text.map((text, idx) => {
-              console.log(text.plain_text);
+            return block.paragraph.rich_text.map((paragraph, idx) => {
+              console.log(paragraph.text.content);
               return (
-                <Text key={idx} maxW="100vw" color="white">
-                  {text.plain_text}
+                <Text textAlign="center" key={idx} maxW="100vw" color="white">
+                  {paragraph.text.content}
                 </Text>
               );
             });
