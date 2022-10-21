@@ -18,7 +18,7 @@ export default function Boot() {
   useEffect(() => {
     setTimeout(() => {
       bootAnimation.length !== 0 && setButton(false);
-    }, 1000);
+    },4500);
   }, [bootAnimation]);
   useEffect(() => {
     !button && setBoot(true);
@@ -53,7 +53,7 @@ export default function Boot() {
               h="10vh"
             >
               <Box
-                className={`${bootAnimation[1]}, ${styles.bootIdle}`}
+                className={bootAnimation[1] !== styles.bootIcon1? styles.idle : bootAnimation[1]}
                 margin="auto"
                 mt="-5px"
                 h="20px"
