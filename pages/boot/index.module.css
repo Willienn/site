@@ -24,8 +24,8 @@
 }
 @keyframes bootIcon2 {
   0% {
-    width: 5vw;
-    height: 10vh;
+    width: 65px;
+    height: 60px;
   }
   100% {
     width: 3vw;
@@ -47,6 +47,15 @@
   }
 }
 
+@keyframes bootLoad {
+  0% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(200px);
+  }
+}
+
 .boot {
   animation: boot 1.5s ease infinite;
 }
@@ -56,7 +65,13 @@
 .bootIcon2 {
   animation: bootIcon2 0.5s forwards;
 }
-
 .idle {
   animation: bootIdle 1.5s ease infinite;
+}
+.bootLoad {
+  animation: bootLoad 2s steps(20) infinite;
+}
+
+.windows {
+  background-image: linear-gradient(to right, rgb(0, 168, 64), rgb(133, 131, 0));
 }

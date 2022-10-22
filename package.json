@@ -19,7 +19,9 @@
     "notion-blocks-chakra-ui": "^0.0.15",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-typed": "^1.2.0"
+    "react-typed": "^1.2.0",
+    "react95": "^3.12.2",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@types/node": "^18.11.2",
