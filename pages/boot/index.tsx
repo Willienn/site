@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Typed from "react-typed";
 import styles from "./index.module.css";
 
@@ -37,37 +37,30 @@ export default function Boot() {
     };
   });
 
-  useEffect(() => {
-    setTimeout(() => {
-      bootAnimation.length !== 0 && setButton(false);
-    }, 4500);
+  useMemo(() => {
+    bootAnimation.length !== 0 &&
+      setTimeout(() => {
+        setButton(false);
+        setBoot(true);
+        setTimeout(() => {
+          setBoot(false);
+          setTimeout(() => {
+            setloading(true);
+            setTimeout(() => {
+              setSys(true);
+              setloading(false);
+            }, 5500);
+          }, 500);
+        }, 7500);
+      }, 4500);
   }, [bootAnimation]);
 
-  useEffect(() => {
-    !button && setBoot(true);
-    setTimeout(() => {
-      boot && setBoot(false);
-    }, 7500);
-  }, [button]);
+  useMemo(() => {}, [button]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      boot && setBoot(false);
-      setTimeout(() => {
-        !boot && setloading(true);
-      }, 5500);
-    }, 8500);
-  }, [boot]);
+  useMemo(() => {}, [boot]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      loading && setSys(true);
-      setTimeout(() => {
-        setloading(false);
-      }, 1000);
-    }, 6000);
-  }, [loading]);
-  
+  useMemo(() => {}, [loading]);
+
   return (
     <Box h="100vh" w="100vw" overflow="hidden">
       {button && (
