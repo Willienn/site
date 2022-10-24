@@ -7,6 +7,9 @@ import {
   Spacer,
   Text,
   VStack,
+  chakra,
+  Menu,
+  MenuButton,
 } from "@chakra-ui/react";
 import React, {useEffect, useMemo, useState} from "react";
 import Typed from "react-typed";
@@ -37,7 +40,7 @@ export default function Boot() {
     };
   });
 
-  useMemo(() => {
+  useEffect(() => {
     bootAnimation.length !== 0 &&
       setTimeout(() => {
         setButton(false);
@@ -55,15 +58,9 @@ export default function Boot() {
       }, 4500);
   }, [bootAnimation]);
 
-  useMemo(() => {}, [button]);
-
-  useMemo(() => {}, [boot]);
-
-  useMemo(() => {}, [loading]);
-
   return (
     <Box h="100vh" w="100vw" overflow="hidden">
-      {button && (
+      {false && (
         <Center h="97vh">
           <Button
             borderRadius="8px"
@@ -106,7 +103,7 @@ export default function Boot() {
           </Button>
         </Center>
       )}
-      {boot && (
+      {false && (
         <Box m="10px">
           {test.map((e, idx) => {
             return (
@@ -122,7 +119,7 @@ export default function Boot() {
           })}
         </Box>
       )}
-      {loading && (
+      {false && (
         <VStack h="100vh">
           <Box m="auto">
             <Text textAlign="center" fontSize="1.4em" fontFamily="Fira Code">
@@ -141,7 +138,7 @@ export default function Boot() {
           </Box>
         </VStack>
       )}
-      {sys && (
+      {true && (
         <Box h="100vh" w="100vw">
           <Box className={styles.windows} h="94.5vh" w="100vw"></Box>
           <Flex
@@ -154,13 +151,16 @@ export default function Boot() {
             pos="relative"
           >
             <Button
+              bgColor="#C6C6C6"
               w="full"
               h="full"
               p="4px"
               my="2px"
               ml="5px"
-              borderTop="1.5px solid #dfdfdf"
-              borderLeft="1.5px solid #dfdfdf"
+              borderTop="2px solid #dfdfdf"
+              borderLeft="2px solid #dfdfdf"
+              borderBottom="2px solid #2e2e2e"
+              borderRight="2px solid #2e2e2e"
               onClick={() => {
                 setmenuOpen(menuOpen ? false : true);
               }}
@@ -175,44 +175,58 @@ export default function Boot() {
                 top="-100px"
                 left="5px"
                 pos="absolute"
+                borderTop="2px solid #dfdfdf"
+                borderLeft="2px solid #dfdfdf"
+                borderBottom="2px solid #2e2e2e"
+                borderRight="2px solid #2e2e2e"
               >
-                <Flex direction="column" gap="none">
-                  <Button
-                    border="none"
-                    borderBottom="1px solid #4c4c4c"
-                    w="100px"
-                    m="none"
+                <Flex fontSize="0px" direction="column" gap="none">
+                  <Text
+                    _hover={{bgColor: "#0090E4"}}
+                    as="span"
+                    w="full"
                     bgColor="transparent"
                   >
-                    My computer
-                  </Button>
-                  <Button
-                    border="none"
-                    borderBottom="1px solid #4c4c4c"
-                    w="100px"
-                    m="none"
+                    <Menu>
+                      <MenuButton
+                        border="none"
+                        fontSize="12px"
+                        bgColor="transparent"
+                      >
+                        Progams
+                      </MenuButton>
+                    </Menu>
+                  </Text>
+                  <Text
+                    _hover={{bgColor: "#0090E4"}}
+                    as="span"
+                    textAlign="left"
+                    w="full"
+                  >
+                    <Button border="none" fontSize="12px" bgColor="transparent">
+                      Documents
+                    </Button>
+                  </Text>
+                  <Text
+                    _hover={{bgColor: "#0090E4"}}
+                    as="span"
+                    w="full"
                     bgColor="transparent"
                   >
-                    Progans
-                  </Button>
-                  <Button
-                    border="none"
-                    borderBottom="1px solid #4c4c4c"
-                    w="100px"
-                    m="none"
+                    <Button border="none" fontSize="12px" bgColor="transparent">
+                      Documents
+                    </Button>
+                  </Text>
+                  <Text
+                    _hover={{bgColor: "#0090E4"}}
+                    as="span"
+                    w="full"
                     bgColor="transparent"
                   >
-                    Documents
-                  </Button>
-                  <Button
-                    border="none"
-                    borderBottom="1px solid #4c4c4c"
-                    w="100px"
-                    m="none"
-                    bgColor="transparent"
-                  >
-                    Willien
-                  </Button>
+                    <Button border="none" fontSize="12px" bgColor="transparent">
+                      Willien
+                    </Button>
+                  </Text>
                 </Flex>
               </Box>
             )}
