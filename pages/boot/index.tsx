@@ -14,6 +14,7 @@ import {
 import React, {useEffect, useMemo, useState} from "react";
 import Typed from "react-typed";
 import styles from "./index.module.css";
+import {IoMdArrowDropright} from "react-icons/io";
 
 export default function Boot() {
   const [boot, setBoot] = useState(false);
@@ -60,7 +61,7 @@ export default function Boot() {
 
   return (
     <Box h="100vh" w="100vw" overflow="hidden">
-      {false && (
+      {button && (
         <Center h="97vh">
           <Button
             borderRadius="8px"
@@ -103,7 +104,7 @@ export default function Boot() {
           </Button>
         </Center>
       )}
-      {false && (
+      {boot && (
         <Box m="10px">
           {test.map((e, idx) => {
             return (
@@ -119,7 +120,7 @@ export default function Boot() {
           })}
         </Box>
       )}
-      {false && (
+      {loading && (
         <VStack h="100vh">
           <Box m="auto">
             <Text textAlign="center" fontSize="1.4em" fontFamily="Fira Code">
@@ -138,7 +139,7 @@ export default function Boot() {
           </Box>
         </VStack>
       )}
-      {true && (
+      {sys && (
         <Box h="100vh" w="100vw">
           <Box className={styles.windows} h="94.5vh" w="100vw"></Box>
           <Flex
@@ -187,15 +188,12 @@ export default function Boot() {
                     w="full"
                     bgColor="transparent"
                   >
-                    <Menu>
-                      <MenuButton
-                        border="none"
-                        fontSize="12px"
-                        bgColor="transparent"
-                      >
-                        Progams
-                      </MenuButton>
-                    </Menu>
+                    <Button border="none" fontSize="12px" bgColor="transparent">
+                      Progams
+                      <Box pos="absolute" right="-42px" top="2px">
+                        <IoMdArrowDropright />
+                      </Box>
+                    </Button>
                   </Text>
                   <Text
                     _hover={{bgColor: "#0090E4"}}
@@ -205,6 +203,9 @@ export default function Boot() {
                   >
                     <Button border="none" fontSize="12px" bgColor="transparent">
                       Documents
+                      <Box pos="absolute" right="-29px" top="2px">
+                        <IoMdArrowDropright />
+                      </Box>
                     </Button>
                   </Text>
                   <Text
