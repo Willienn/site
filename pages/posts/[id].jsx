@@ -4,7 +4,17 @@ import {getDatabase, getPage, getBlocks} from "../../lib/notion";
 import Link from "next/link";
 import {databaseId} from "../index.js";
 import styles from "./[id].module.css";
-import {Box, Image} from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Heading,
+  OrderedList,
+  UnorderedList,
+  Text as TextC,
+  ListItem,
+  Input,
+  Code,
+} from "@chakra-ui/react";
 import Nav from "../../components/nav";
 
 export const Text = ({text}) => {
@@ -17,7 +27,8 @@ export const Text = ({text}) => {
       text,
     } = value;
     return (
-      <span
+      <Box
+        as="span"
         className={[
           bold ? styles.bold : "",
           code ? styles.code : "",
@@ -25,10 +36,16 @@ export const Text = ({text}) => {
           strikethrough ? styles.strikethrough : "",
           underline ? styles.underline : "",
         ].join(" ")}
-        style={color !== "default" ? {color} : {}}
+        color={color !== "default" ? color : "white"}
       >
-        {text.link ? <a href={text.link.url}>{text.content}</a> : text.content}
-      </span>
+        {text.link ? (
+          <Link href={text.link.url} target="_blank">
+            {text.content}
+          </Link>
+        ) : (
+          text.content
+        )}
+      </Box>
     );
   });
 };
@@ -41,40 +58,43 @@ const renderNestedList = (block) => {
   const isNumberedList = value.children[0].type === "numbered_list_item";
 
   if (isNumberedList) {
-    return <ol>{value.children.map((block) => renderBlock(block))}</ol>;
+    return (
+      <OrderedList>
+        {value.children.map((block) => renderBlock(block))}
+      </OrderedList>
+    );
   }
-  return <ul>{value.children.map((block) => renderBlock(block))}</ul>;
+  return <TextC>{value.children.map((block) => renderBlock(block))}</TextC>;
 };
 
 const renderBlock = (block) => {
   const {type, id} = block;
   const value = block[type];
-  console.log(value);
 
   switch (type) {
     case "paragraph":
       return (
-        <p>
+        <TextC>
           <Text text={value.rich_text} />
-        </p>
+        </TextC>
       );
     case "heading_1":
       return (
-        <h1>
+        <Heading as="h1">
           <Text text={value.rich_text} />
-        </h1>
+        </Heading>
       );
     case "heading_2":
       return (
-        <h2>
+        <Heading as="h2">
           <Text text={value.rich_text} />
-        </h2>
+        </Heading>
       );
     case "heading_3":
       return (
-        <h3>
+        <Heading as="h3">
           <Text text={value.rich_text} />
-        </h3>
+        </Heading>
       );
     case "bulleted_list_item":
     case "numbered_list_item":
@@ -86,12 +106,12 @@ const renderBlock = (block) => {
       );
     case "to_do":
       return (
-        <div>
+        <Box>
           <label htmlFor={id}>
-            <input type="checkbox" id={id} defaultChecked={value.checked} />{" "}
+            <Input type="checkbox" id={id} defaultChecked={value.checked} />{" "}
             <Text text={value.rich_text} />
           </label>
-        </div>
+        </Box>
       );
     case "toggle":
       return (
@@ -112,20 +132,30 @@ const renderBlock = (block) => {
       const caption = value.caption ? value.caption[0]?.plain_text : "";
       return (
         <figure>
-          <img src={src} alt={caption} />
+          <Image src={src} alt={caption} />
           {caption && <figcaption>{caption}</figcaption>}
         </figure>
       );
     case "divider":
       return <hr key={id} />;
     case "quote":
-      return <blockquote key={id}>{value.rich_text[0].plain_text}</blockquote>;
+      return (
+        <TextC
+          borderLeft="2px solid red"
+          pl="15px"
+          fontSize=".9em"
+          fontStyle
+          key={id}
+        >
+          {value.rich_text[0].plain_text}
+        </TextC>
+      );
     case "code":
       return (
         <pre className={styles.pre}>
-          <code className={styles.code_block} key={id}>
+          <Code className={styles.code_block} key={id}>
             {value.rich_text[0].plain_text}
-          </code>
+          </Code>
         </pre>
       );
     case "file":
@@ -136,21 +166,21 @@ const renderBlock = (block) => {
       const caption_file = value.caption ? value.caption[0]?.plain_text : "";
       return (
         <figure>
-          <div className={styles.file}>
+          <Box className={styles.file}>
             📎{" "}
             <Link href={src_file} passHref>
               {lastElementInArray.split("?")[0]}
             </Link>
-          </div>
+          </Box>
           {caption_file && <figcaption>{caption_file}</figcaption>}
         </figure>
       );
     case "bookmark":
       const href = value.url;
       return (
-        <a href={href} target="_brank" className={styles.bookmark}>
+        <Link href={href} target="_brank" className={styles.bookmark}>
           {href}
-        </a>
+        </Link>
       );
     default:
       return `❌ Unsupported block (${
@@ -161,10 +191,10 @@ const renderBlock = (block) => {
 
 export default function Post({post, blocks}) {
   if (!post || !blocks) {
-    return <div />;
+    return <Box />;
   }
   return (
-    <div>
+    <Fragment>
       <Head>
         <title>{post.properties.Name.title[0].plain_text}</title>
         <link rel="icon" href="/favicon.ico" />
@@ -182,17 +212,17 @@ export default function Post({post, blocks}) {
             : post.cover.file.url
         }
       />
-      <article className={styles.container}>
-        <h1 className={styles.name}>
+      <Box as="article" className={styles.container}>
+        <Heading className={styles.name}>
           <Text text={post.properties.Name.title} />
-        </h1>
-        <section>
+        </Heading>
+        <Box as="section">
           {blocks.map((block) => (
             <Box key={block.id}>{renderBlock(block)}</Box>
           ))}
-        </section>
-      </article>
-    </div>
+        </Box>
+      </Box>
+    </Fragment>
   );
 }
 
