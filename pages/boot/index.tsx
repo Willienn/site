@@ -15,6 +15,7 @@ import React, {useEffect, useMemo, useState} from "react";
 import Typed from "react-typed";
 import styles from "./index.module.css";
 import {IoMdArrowDropright} from "react-icons/io";
+import {type} from "os";
 
 export default function Boot() {
   const [boot, setBoot] = useState(false);
@@ -26,12 +27,19 @@ export default function Boot() {
 
   const [date, setDate] = useState(new Date());
 
-  const test = [
+  const bootText = [
     ["Initializing Boot......"],
     ["Checking for errors"],
     ["Bios ................... OK"],
     ["Kernel ................... OK"],
-    ["Initializing OS loading"],
+    ["Initializing OS"],
+  ];
+
+  const icons: {name: string; type: string}[] = [
+    {name: "Computer", type: "computer"},
+    {name: "text.txt", type: "txt"},
+    {name: "About.vfx", type: "css"},
+    {name: "Contact", type: "mail"},
   ];
 
   useEffect(() => {
@@ -61,7 +69,7 @@ export default function Boot() {
 
   return (
     <Box h="100vh" w="100vw" overflow="hidden">
-      {button && (
+      {false && (
         <Center h="97vh">
           <Button
             borderRadius="8px"
@@ -104,9 +112,9 @@ export default function Boot() {
           </Button>
         </Center>
       )}
-      {boot && (
+      {false && (
         <Box m="10px">
-          {test.map((e, idx) => {
+          {bootText.map((e, idx) => {
             return (
               <Box color="#11ff11" key={idx}>
                 <Typed
@@ -120,7 +128,7 @@ export default function Boot() {
           })}
         </Box>
       )}
-      {loading && (
+      {false && (
         <VStack h="100vh">
           <Box m="auto">
             <Text textAlign="center" fontSize="1.4em" fontFamily="Fira Code">
@@ -139,9 +147,40 @@ export default function Boot() {
           </Box>
         </VStack>
       )}
-      {sys && (
+      {true && (
         <Box h="100vh" w="100vw">
-          <Box className={styles.windows} h="94.5vh" w="100vw"></Box>
+          <Box className={styles.windows} h="94.5vh" w="100vw" p="10px">
+            {icons.map(({name, type}, idx) => (
+              <Button
+                cursor="pointer"
+                bgColor="transparent"
+                border="none"
+                m="2px"
+                key={idx}
+                onClick={() => {}}
+              >
+                <VStack>
+                  <Image
+                    mb="-5px"
+                    src={
+                      type === "computer"
+                        ? "/computer.png"
+                        : type === "txt"
+                        ? "/text.png"
+                        : type === "css"
+                        ? "/question.png"
+                        : type === "mail"
+                        ? "/mail.png"
+                        : null
+                    }
+                  />
+                  <Text fontSize="12px" color="#F0F0F0">
+                    {name}
+                  </Text>
+                </VStack>
+              </Button>
+            ))}
+          </Box>
           <Flex
             justify="space-between"
             w="100vw"
@@ -215,7 +254,7 @@ export default function Boot() {
                     bgColor="transparent"
                   >
                     <Button border="none" fontSize="12px" bgColor="transparent">
-                      Documents
+                      Contact
                     </Button>
                   </Text>
                   <Text

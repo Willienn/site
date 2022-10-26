@@ -33,6 +33,19 @@ export const Text = ({text}) => {
   });
 };
 
+const renderNestedList = (block) => {
+  const {type} = block;
+  const value = block[type];
+  if (!value) return null;
+
+  const isNumberedList = value.children[0].type === "numbered_list_item";
+
+  if (isNumberedList) {
+    return <ol>{value.children.map((block) => renderBlock(block))}</ol>;
+  }
+  return <ul>{value.children.map((block) => renderBlock(block))}</ul>;
+};
+
 const renderBlock = (block) => {
   const {type, id} = block;
   const value = block[type];
@@ -163,7 +176,11 @@ export default function Post({post, blocks}) {
         h="30vh"
         objectFit="cover"
         objectPosition="center 70%"
-        src={post.cover.external.url}
+        src={
+          post.cover?.external?.url !== undefined
+            ? post.cover.external.url
+            : post.cover.file.url
+        }
       />
       <article className={styles.container}>
         <h1 className={styles.name}>
@@ -217,6 +234,6 @@ export const getStaticProps = async (context) => {
       post,
       blocks: blocksWithChildren,
     },
-    revalidate: 1,
+    revalidate: 10000,
   };
 };
