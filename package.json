@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@babel/preset-env": "7.19.4",
     "@chakra-ui/react": "^2.3.6",
     "@emotion/core": "10.3.1",
     "@emotion/react": "^11.10.4",
@@ -28,7 +29,8 @@
     "react-native": "0.70.4",
     "react-typed": "^1.2.0",
     "styled-components": "^5.3.6",
-    "three": "0.145.0"
+    "three": "0.145.0",
+    "webpack": "5.74.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.6",

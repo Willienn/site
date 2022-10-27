@@ -47,7 +47,7 @@ export default function _landing({posts}) {
               return (
                 <>
                   <PostCard
-                    key={idx}
+                    key={post.id}
                     postLink={`/posts/${post.id}`}
                     postImg={
                       post.cover?.external?.url !== undefined

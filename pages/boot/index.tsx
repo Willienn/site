@@ -69,7 +69,7 @@ export default function Boot() {
 
   return (
     <Box h="100vh" w="100vw" overflow="hidden">
-      {false && (
+      {button && (
         <Center h="97vh">
           <Button
             borderRadius="8px"
@@ -112,7 +112,7 @@ export default function Boot() {
           </Button>
         </Center>
       )}
-      {false && (
+      {boot && (
         <Box m="10px">
           {bootText.map((e, idx) => {
             return (
@@ -128,7 +128,7 @@ export default function Boot() {
           })}
         </Box>
       )}
-      {false && (
+      {loading && (
         <VStack h="100vh">
           <Box m="auto">
             <Text textAlign="center" fontSize="1.4em" fontFamily="Fira Code">
@@ -147,7 +147,7 @@ export default function Boot() {
           </Box>
         </VStack>
       )}
-      {true && (
+      {sys && (
         <Box h="100vh" w="100vw">
           <Box className={styles.windows} h="94.5vh" w="100vw" p="10px">
             {icons.map(({name, type}, idx) => (

@@ -11,16 +11,26 @@ export default function PostCard({postLink, postImg, postTitle}) {
         h="200px"
         bgColor="#2f2f2f"
         overflow="hidden"
+        pos="relative"
       >
         <Image
           opacity="80%"
           alt="logo"
           w="100%"
-          h="75%"
+          h="100%"
           objectFit="cover"
           src={postImg}
         />
-        <Text px="25px">{postTitle}</Text>
+        <Box
+          w="100%"
+          h="fit-content"
+          bgColor="#2f2f2f88"
+          _hover={{bgColor: "#2f2f2fe0"}}
+          bottom="0"
+          pos="absolute"
+        >
+          <Box m="10px">{postTitle}</Box>
+        </Box>
       </Box>
     </Link>
   );
