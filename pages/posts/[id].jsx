@@ -14,6 +14,7 @@ import {
   ListItem,
   Input,
   Code,
+  AspectRatio,
 } from "@chakra-ui/react";
 import Nav from "../../components/nav";
 
@@ -28,7 +29,7 @@ export const Text = ({text}) => {
     } = value;
     return (
       <Box
-      key={idx}
+        key={idx}
         as="span"
         className={[
           bold ? styles.bold : "",
@@ -201,18 +202,16 @@ export default function Post({post, blocks}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav />
-      <Image
-        alt="Banner do Post"
-        w="100%"
-        h="30vh"
-        objectFit="cover"
-        objectPosition="center 70%"
-        src={
-          post.cover?.external?.url !== undefined
-            ? post.cover.external.url
-            : post.cover.file.url
-        }
-      />
+      <AspectRatio w="100vw" maxW="100vw" ratio={16 / 4}>
+        <Image
+          alt="Banner do Post"
+          src={
+            post.cover?.external?.url !== undefined
+              ? post.cover.external.url
+              : post.cover.file.url
+          }
+        />
+      </AspectRatio>
       <Box as="article" className={styles.container}>
         <Heading className={styles.name}>
           <Text text={post.properties.Name.title} />
