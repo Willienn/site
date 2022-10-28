@@ -6,7 +6,7 @@ export default function PostCard({postLink, postImg, postTitle}) {
   return (
     <Link href={postLink} className="link">
       <Box
-        _hover={{boxShadow: "0 0 40px #4c4c4c88"}}
+        _hover={{boxShadow: "0 0 40px #4c4c4c88", transform: "scale(1.05)"}}
         borderRadius="8px"
         w="400px"
         h="200px"
@@ -25,10 +25,10 @@ export default function PostCard({postLink, postImg, postTitle}) {
         <Box
           w="100%"
           h="fit-content"
-          bgColor="#2f2f2f88"
+          bgColor="#0d0d0d88"
           sx={{
             ".link:hover &": {
-              bgColor: "#2f2f2fe0",
+              bgColor: "#0d0d0db0",
             },
           }}
           bottom="0"

@@ -42,7 +42,7 @@ export default function _landing({posts}) {
           <Heading textAlign="center" fontSize="3em">
             Posts
           </Heading>
-          <SimpleGrid columns={2} spacing={16}>
+          <SimpleGrid columns={2} spacing={24}>
             {posts.map((post, idx) => {
               return (
                 <>

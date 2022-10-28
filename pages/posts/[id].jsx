@@ -202,7 +202,13 @@ export default function Post({post, blocks}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav />
-      <AspectRatio w="100vw" maxW="100vw" ratio={16 / 4}>
+      <AspectRatio
+        w="100vw"
+        maxW="100vw"
+        ratio={16 / 4}
+        borderY="50px solid #00001255"
+        borderX="60px solid #111120"
+      >
         <Image
           alt="Banner do Post"
           src={
