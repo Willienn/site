@@ -24,3 +24,6 @@ body {
 li {
   list-style-type: "- ";
 }
+.cursor {
+  cursor: url(../public/cursor.png), auto;
+}

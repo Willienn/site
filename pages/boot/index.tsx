@@ -68,7 +68,7 @@ export default function Boot() {
   }, [bootAnimation]);
 
   return (
-    <Box h="100vh" w="100vw" overflow="hidden">
+    <Box className="cursor" h="100vh" w="100vw" overflow="hidden">
       {button && (
         <Center h="97vh">
           <Button

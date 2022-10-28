@@ -14,6 +14,7 @@ import {
 import React from "react";
 import Nav from "../components/nav";
 import PostCard from "../components/postCard";
+import Footer from "../components/footer";
 import {getDatabase} from "../lib/notion";
 
 export const databaseId = process.env.NOTION_DATABASE_ID;
@@ -62,6 +63,7 @@ export default function _landing({posts}) {
           </SimpleGrid>
         </Flex>
       </Center>
+      <Footer/>
     </>
   );
 }

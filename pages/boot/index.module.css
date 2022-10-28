@@ -73,5 +73,9 @@
 }
 
 .windows {
-  background-image: linear-gradient(to right, rgb(0, 168, 64), rgb(133, 131, 0));
+  background-image: linear-gradient(
+    to right,
+    rgb(0, 168, 64),
+    rgb(133, 131, 0)
+  );
 }
