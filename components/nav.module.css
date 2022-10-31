@@ -1,0 +1,14 @@
+@keyframes hide {
+  0% {
+    top: -40px;
+  }
+  50% {
+  }
+  100% {
+    top: 0px;
+  }
+}
+
+.dash {
+  animation: hide 1s forwards;
+}

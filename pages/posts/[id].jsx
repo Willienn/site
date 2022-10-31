@@ -143,6 +143,7 @@ const renderBlock = (block) => {
     case "quote":
       return (
         <TextC
+          bgColor="#0d0d0d"
           borderLeft="2px solid red"
           pl="15px"
           fontSize=".9em"
@@ -203,6 +204,7 @@ export default function Post({post, blocks}) {
       </Head>
       <Nav />
       <AspectRatio
+        mt="25px"
         w="100vw"
         maxW="100vw"
         ratio={16 / 4}
