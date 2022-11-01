@@ -1,0 +1,25 @@
+@keyframes inview {
+  0% {
+    height: 0%;
+  }
+
+  100% {
+    height: 90%;
+  }
+}
+
+.inview::before {
+  animation: inview 1s forwards;
+  content: "";
+  border-left: 1px solid white;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+.outview::before {
+  content: "";
+  border-left: 1px solid white;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}

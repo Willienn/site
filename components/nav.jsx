@@ -1,4 +1,4 @@
-import {Box, Flex, Spacer, Link} from "@chakra-ui/react";
+import {Box, Flex, Spacer, Link, Image} from "@chakra-ui/react";
 import {useInView} from "react-intersection-observer";
 import styles from "./nav.module.css";
 
@@ -14,14 +14,19 @@ export default function Nav() {
     initialInView: true,
     threshold: 0,
   });
-  console.log(inView);
   return (
     <Box ref={ref}>
       {inView ? (
-        <Box key="block" py="15px" w="100vw">
-          <Flex color="white" fontSize="1.4em" mx="2vw">
+        <Box
+          className={styles.fade}
+          key="block"
+          py="10px"
+          w="100vw"
+          bgColor="#0d0d0daa"
+        >
+          <Flex color="white" align="center" fontSize="1.4em" mx="2vw">
             <Link href="/">
-              <Box fontSize="1.5em">LOGO</Box>
+              <Image w="45" h="45" src="/logo.svg"></Image>
             </Link>
             <Spacer />
             {navItens.map((item, idx) => (
@@ -33,6 +38,7 @@ export default function Nav() {
         </Box>
       ) : (
         <Box
+          bgColor="#00000033"
           className={styles.dash}
           key="fix"
           pos="fixed"
@@ -41,6 +47,9 @@ export default function Nav() {
           zIndex={1}
         >
           <Flex color="white" fontSize="1.4em" mx="2vw">
+            <Link href="/">
+              <Image w="38" h="38" src="/logo.svg"></Image>
+            </Link>
             <Spacer />
             {navItens.map((item, idx) => (
               <Link mx="10px" px="10px" key={idx} href={item.link}>

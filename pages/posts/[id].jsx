@@ -2,7 +2,7 @@ import {Fragment} from "react";
 import Head from "next/head";
 import {getDatabase, getPage, getBlocks} from "../../lib/notion";
 import Link from "next/link";
-import {databaseId} from "../index.js";
+import {databaseId} from "../index.jsx";
 import styles from "./[id].module.css";
 import {
   Box,
@@ -17,6 +17,8 @@ import {
   AspectRatio,
 } from "@chakra-ui/react";
 import Nav from "../../components/nav";
+import LazyLoad from "react-lazy-load";
+import Footer from "../../components/footer";
 
 export const Text = ({text}) => {
   if (!text) {
@@ -211,14 +213,16 @@ export default function Post({post, blocks}) {
         borderY="50px solid #00001255"
         borderX="60px solid #111120"
       >
-        <Image
-          alt="Banner do Post"
-          src={
-            post.cover?.external?.url !== undefined
-              ? post.cover.external.url
-              : post.cover.file.url
-          }
-        />
+        <LazyLoad>
+          <Image
+            alt="Banner do Post"
+            src={
+              post.cover?.external?.url !== undefined
+                ? post.cover.external.url
+                : post.cover.file.url
+            }
+          />
+        </LazyLoad>
       </AspectRatio>
       <Box as="article" className={styles.container}>
         <Heading className={styles.name}>
@@ -230,6 +234,7 @@ export default function Post({post, blocks}) {
           ))}
         </Box>
       </Box>
+      <Footer />
     </Fragment>
   );
 }

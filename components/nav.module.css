@@ -1,14 +1,27 @@
 @keyframes hide {
   0% {
-    top: -40px;
-  }
-  50% {
+    top: -60px;
   }
   100% {
     top: 0px;
   }
 }
 
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .dash {
   animation: hide 1s forwards;
+}
+.fade {
+  animation: fade 0.8s forwards;
 }
