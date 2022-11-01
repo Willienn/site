@@ -26,7 +26,7 @@ export default function Nav() {
         >
           <Flex color="white" align="center" fontSize="1.4em" mx="2vw">
             <Link href="/">
-              <Image w="45" h="45" src="/logo.svg" />
+              <Image w="45" h="45" src="/sitelogo.svg" />
             </Link>
             <Spacer />
             {navItens.map((item, idx) => (
@@ -48,7 +48,7 @@ export default function Nav() {
         >
           <Flex color="white" fontSize="1.4em" mx="2vw">
             <Link href="/">
-              <Image w="38" h="38" src="/logo.svg"></Image>
+              <Image w="38" h="38" src="/sitelogo.svg"></Image>
             </Link>
             <Spacer />
             {navItens.map((item, idx) => (
