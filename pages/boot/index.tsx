@@ -243,7 +243,7 @@ export default function Boot() {
                 console.log(openWindow);
                 return (
                   <>
-                  {openWindow}
+                  {window}
                     <Button
                       cursor="pointer"
                       bgColor="transparent"
