@@ -7,8 +7,11 @@ body {
 
 a {
   text-decoration: none;
-  position: relative;
   color: inherit;
+}
+
+.link {
+  position: relative;
 }
 
 .link:hover::before {

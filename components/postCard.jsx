@@ -5,7 +5,7 @@ import LazyLoad from "react-lazy-load";
 
 export default function PostCard({postLink, postImg, postTitle}) {
   return (
-    <Link href={postLink} className="link">
+    <Link href={postLink}>
       <Box
         _hover={{boxShadow: "0 0 40px #4c4c4c88", transform: "scale(1.05)"}}
         borderRadius="8px"
