@@ -13,13 +13,13 @@
   content: "";
   border-left: 1px solid white;
   position: absolute;
-  left: 0;
+  left: -20px;
   top: 5px;
 }
 .outview::before {
   content: "";
   border-left: 1px solid white;
   position: absolute;
-  left: 0;
+  left: -20px;
   top: 5px;
 }

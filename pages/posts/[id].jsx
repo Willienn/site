@@ -11,16 +11,19 @@ import {
   OrderedList,
   UnorderedList,
   Text as TextC,
-  ListItem,
+  chakra,
   Input,
   Code,
   AspectRatio,
+  Center,
+  Container,
 } from "@chakra-ui/react";
 import Nav from "../../components/nav";
 import LazyLoad from "react-lazy-load";
 import Footer from "../../components/footer";
+import useIsMobile from "../../hooks/isMobile";
 
-export const Text = ({text}) => {
+export const Text = ({text, title}) => {
   if (!text) {
     return null;
   }
@@ -33,6 +36,7 @@ export const Text = ({text}) => {
       <Box
         key={idx}
         as="span"
+        fontSize={title ? [".7em", "1em"] : null}
         className={[
           bold ? styles.bold : "",
           code ? styles.code : "",
@@ -68,7 +72,9 @@ const renderNestedList = (block) => {
       </OrderedList>
     );
   }
-  return <TextC>{value.children.map((block) => renderBlock(block))}</TextC>;
+  return (
+    <TextC mt="10px">{value.children.map((block) => renderBlock(block))}</TextC>
+  );
 };
 
 const renderBlock = (block) => {
@@ -84,29 +90,29 @@ const renderBlock = (block) => {
       );
     case "heading_1":
       return (
-        <Heading as="h1">
+        <Heading as="h1" my="30px">
           <Text text={value.rich_text} />
         </Heading>
       );
     case "heading_2":
       return (
-        <Heading as="h2">
+        <Heading as="h2" my="20px" fontSize={["1.2em", "1.4em", "1.8em"]}>
           <Text text={value.rich_text} />
         </Heading>
       );
     case "heading_3":
       return (
-        <Heading as="h3">
+        <Heading as="h3" my="10px" fontSize={["1.2em", "1.4em", "1.6em"]}>
           <Text text={value.rich_text} />
         </Heading>
       );
     case "bulleted_list_item":
     case "numbered_list_item":
       return (
-        <li>
+        <chakra.li my="5px">
           <Text text={value.rich_text} />
           {!!value.children && renderNestedList(block)}
-        </li>
+        </chakra.li>
       );
     case "to_do":
       return (
@@ -135,20 +141,21 @@ const renderBlock = (block) => {
         value.type === "external" ? value.external.url : value.file.url;
       const caption = value.caption ? value.caption[0]?.plain_text : "";
       return (
-        <figure>
+        <chakra.figure my="10px">
           <Image src={src} alt={caption} />
           {caption && <figcaption>{caption}</figcaption>}
-        </figure>
+        </chakra.figure>
       );
     case "divider":
       return <hr key={id} />;
     case "quote":
       return (
         <TextC
+          mb="10px"
           bgColor="#0d0d0d"
           borderLeft="2px solid red"
           pl="15px"
-          fontSize=".9em"
+          fontSize={[".8em", ".8em", ".9em"]}
           fontStyle
           key={id}
         >
@@ -195,6 +202,8 @@ const renderBlock = (block) => {
 };
 
 export default function Post({post, blocks}) {
+  const isMobile = useIsMobile();
+
   if (!post || !blocks) {
     return <Box />;
   }
@@ -208,10 +217,9 @@ export default function Post({post, blocks}) {
       <AspectRatio
         mt="25px"
         w="100vw"
-        maxW="100vw"
-        ratio={16 / 4}
-        borderY="50px solid #00001255"
-        borderX="60px solid #111120"
+        ratio={[10 / 4, 16 / 4]}
+        borderY={["25px solid #00001255", "50px solid #00001255"]}
+        borderX={["30px solid #111120", "60px solid #111120"]}
       >
         <LazyLoad>
           <Image
@@ -224,13 +232,25 @@ export default function Post({post, blocks}) {
           />
         </LazyLoad>
       </AspectRatio>
-      <Box as="article" className={styles.container}>
-        <Heading className={styles.name}>
-          <Text text={post.properties.Name.title} />
-        </Heading>
+      <Box w="fit-content" as="article" className={styles.container}>
+        {!isMobile ? (
+          <Center>
+            <Heading my="30px" as="h1" className={styles.name}>
+              <Text title={true} text={post.properties.Name.title} />
+            </Heading>
+          </Center>
+        ) : (
+          <Heading as="h1" className={styles.name}>
+            <Text title={true} text={post.properties.Name.title} />
+          </Heading>
+        )}
         <Box as="section">
           {blocks.map((block) => (
-            <Box key={block.id}>{renderBlock(block)}</Box>
+            <Center>
+              <Box w={["80vw", "70vw", "50vw"]} key={block.id}>
+                {renderBlock(block)}
+              </Box>
+            </Center>
           ))}
         </Box>
       </Box>

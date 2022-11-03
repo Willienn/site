@@ -19,19 +19,18 @@ import Footer from "../components/footer";
 import {getDatabase} from "../lib/notion";
 import Link from "next/link";
 import Head from "next/head";
+import useIsMobile from "../hooks/isMobile";
 
 export const databaseId = process.env.NOTION_DATABASE_ID;
 
 export default function _landing({posts}) {
+  const isMobile = useIsMobile();
+
   return (
     <>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;800&display=swap"
-          rel="stylesheet"
-        />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="icon" sizes="16x16 32x32 64x64" href="/favicon.ico" />
         <link
@@ -85,14 +84,37 @@ export default function _landing({posts}) {
       </Head>
       <Nav />
       <Center>
-        <Container>
-          <Box mb="10vh">
-            <Heading mb="5px" ml="-2.5vw" fontSize="3em">
-              <Link fontFamily="Fira Code" className="link" href="/about">
-                Willien
-              </Link>
-            </Heading>
-            <Code whiteSpace="pre-wrap" fontSize="1.8em" w="60vw">
+        <Flex mx="10px" direction="column" mb="10vh" mt="5vh">
+          <Heading mb="5px" ml="-2.5vw" fontSize={["2em", "3em"]}>
+            <Link fontFamily="Fira Code" className="link" href="/about">
+              Willien
+            </Link>
+          </Heading>
+          {isMobile ? (
+            <Code
+              bgColor="transparent"
+              color="#d0d0d0"
+              whiteSpace="pre-wrap"
+              fontSize={["1em", "1.4em"]}
+              w="auto"
+            >
+              {`{
+ age: 20,
+ occupation: "Progamador Front-End"
+ siteDescription: "Meu blog pessoal,
+ para postar notícias,
+ coisas úteis e poemas/textos.
+ (todos autorais)",
+}`}
+            </Code>
+          ) : (
+            <Code
+              bgColor="transparent"
+              color="#d0d0d0"
+              whiteSpace="pre-wrap"
+              fontSize={[".9em", "1.4em"]}
+              w="auto"
+            >
               {`{
  age: 20,
  occupation: "Progamador Front-End"
@@ -100,29 +122,27 @@ export default function _landing({posts}) {
  coisas úteis e poemas/textos autorais",
 }`}
             </Code>
-          </Box>
-        </Container>
+          )}
+        </Flex>
       </Center>
       <Center>
-        <Flex mb="100px" direction="column" gap="10px">
-          <Heading textAlign="center" fontSize="3em">
+        <Flex mb="10vh" direction="column" gap="30px">
+          <Heading textAlign="center" fontSize={["2em", "3em"]}>
             Posts
           </Heading>
-          <SimpleGrid columns={2} spacing={24}>
-            {posts.map((post, idx) => {
+          <SimpleGrid columns={2} spacing={5}>
+            {posts.map((post) => {
               return (
-                <>
-                  <PostCard
-                    key={post.id}
-                    postLink={`/posts/${post.id}`}
-                    postImg={
-                      post.cover?.external?.url !== undefined
-                        ? post.cover.external.url
-                        : post.cover.file.url
-                    }
-                    postTitle={post.properties.Name.title[0].text.content}
-                  />
-                </>
+                <PostCard
+                  key={post.id}
+                  postLink={`/posts/${post.id}`}
+                  postImg={
+                    post.cover?.external?.url !== undefined
+                      ? post.cover.external.url
+                      : post.cover.file.url
+                  }
+                  postTitle={post.properties.Name.title[0].text.content}
+                />
               );
             })}
           </SimpleGrid>
