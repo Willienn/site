@@ -3,8 +3,8 @@ import {useState} from "react";
 import styles from "./index.module.css";
 
 export default function index() {
-  const [a, setA] = useState();
-  const [b, setB] = useState();
+  const [a, setA] = useState(undefined);
+  const [b, setB] = useState(undefined);
   setInterval(function () {
     setA(Math.floor(Math.random() * (300 - 200) + 200));
     setB(Math.floor(Math.random() * (300 - 100) + 0));
