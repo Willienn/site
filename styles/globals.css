@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto+Slab:wght@400;500;700;800&display=swap');
+
 .link {
   position: relative;
 }
@@ -39,6 +41,6 @@ li {
     width: 0em;
   }
   100% {
-    width: 3.7em;
+    width: 3.3em;
   }
 }

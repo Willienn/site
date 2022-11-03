@@ -1,0 +1,85 @@
+.bowl::before {
+  content: "";
+  width: 200px;
+  top: -1px;
+  transform: translateX(-50%);
+  background-color: black;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+.bowl::after {
+  content: "";
+  width: 200px;
+  height: 120px;
+  position: absolute;
+  left: 100px;
+  top: 25%;
+  background-color: #ffffff51;
+  border-radius: 50%;
+}
+.waves {
+  position: relative;
+  height: inherit;
+  border-radius: inherit;
+  box-shadow: inset 0 0 50px #00000099;
+  overflow: hidden;
+}
+.waves::before,
+.waves::after {
+  content: "";
+  position: absolute;
+  width: 100vw;
+  left: 250px;
+  transform: translate(50%, 75%);
+}
+.waves::before {
+  background-color: #999999;
+  border-radius: 100%;
+  bottom: -30px;
+  height: 20vw;
+
+  animation: waves1 10s ease-in-out infinite;
+}
+.waves::after {
+  background-color: #99999999;
+  border-radius: 50%;
+  bottom: -20px;
+  height: 21vw;
+  animation: waves2 8s ease-in-out infinite;
+}
+@keyframes waves1 {
+  0% {
+    transform: translate(-30%) rotate(0deg);
+  }
+  50% {
+    transform: translate(-80%) rotate(-1deg);
+  }
+  100% {
+    transform: translate(-30%) rotate(0deg);
+  }
+}
+@keyframes waves2 {
+  0% {
+    transform: translate(-80%);
+  }
+  50% {
+    transform: translate(-30%);
+  }
+  100% {
+    transform: translate(-80%);
+  }
+}
+.fish::before {
+  content: "";
+  border-top: 25px solid transparent;
+  border-bottom: 25px solid transparent;
+
+  border-left: 30px solid orange;
+
+  position: absolute;
+  top: -5px;
+  left: -15px;
+}

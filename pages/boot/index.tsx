@@ -47,7 +47,7 @@ export default function Boot() {
           style={{
             width: "200px",
             height: "200px",
-            backgroundColor: '#C0C0C0',
+            backgroundColor: "#C0C0C0",
             borderTop: "2px solid #dfdfdf",
             borderLeft: "2px solid #dfdfdf",
             borderBottom: "2px solid #2e2e2e",
@@ -66,7 +66,7 @@ export default function Boot() {
           style={{
             width: "200px",
             height: "200px",
-            backgroundColor: '#C0C0C0',
+            backgroundColor: "#C0C0C0",
             borderTop: "2px solid #dfdfdf",
             borderLeft: "2px solid #dfdfdf",
             borderBottom: "2px solid #2e2e2e",
@@ -85,7 +85,7 @@ export default function Boot() {
           style={{
             width: "200px",
             height: "200px",
-            backgroundColor: '#C0C0C0',
+            backgroundColor: "#C0C0C0",
             borderTop: "2px solid #dfdfdf",
             borderLeft: "2px solid #dfdfdf",
             borderBottom: "2px solid #2e2e2e",
@@ -104,7 +104,7 @@ export default function Boot() {
           style={{
             width: "200px",
             height: "200px",
-            backgroundColor: '#C0C0C0',
+            backgroundColor: "#C0C0C0",
             borderTop: "2px solid #dfdfdf",
             borderLeft: "2px solid #dfdfdf",
             borderBottom: "2px solid #2e2e2e",
@@ -156,8 +156,9 @@ export default function Boot() {
         {button && (
           <Center h="97vh">
             <Button
+              display="flex"
+              variant="unstyled"
               borderRadius="8px"
-              p="10px"
               border="none"
               bgColor="#0e4f03"
               className={bootAnimation[0]}
@@ -243,12 +244,12 @@ export default function Boot() {
                 console.log(openWindow);
                 return (
                   <>
-                  {window}
                     <Button
+                      variant="unstyled"
                       cursor="pointer"
                       bgColor="transparent"
                       border="none"
-                      m="2px"
+                      m="2px 4px"
                       key={idx}
                       onClick={() => {
                         setOpenWindow(openWindow.concat(window));
@@ -273,6 +274,7 @@ export default function Boot() {
                           fontFamily="VT323"
                           fontSize="14px"
                           color="#F0F0F0"
+                          textShadow="1px 1px #303030ee"
                         >
                           {name}
                         </Text>
@@ -292,9 +294,11 @@ export default function Boot() {
               pos="relative"
             >
               <Button
+                variant="unstyled"
+                borderRadius="none"
                 bgColor="#C6C6C6"
-                w="full"
-                h="full"
+                w="fit-content"
+                h="fit-content"
                 p="4px"
                 my="2px"
                 ml="5px"
@@ -329,6 +333,7 @@ export default function Boot() {
                       bgColor="transparent"
                     >
                       <Button
+                        variant="unstyled"
                         fontFamily="VT323"
                         border="none"
                         fontSize="14px"
@@ -347,6 +352,7 @@ export default function Boot() {
                       w="full"
                     >
                       <Button
+                        variant="unstyled"
                         fontFamily="VT323"
                         border="none"
                         fontSize="14px"
@@ -365,6 +371,7 @@ export default function Boot() {
                       bgColor="transparent"
                     >
                       <Button
+                        variant="unstyled"
                         fontFamily="VT323"
                         border="none"
                         fontSize="14px"
@@ -380,6 +387,7 @@ export default function Boot() {
                       bgColor="transparent"
                     >
                       <Button
+                        variant="unstyled"
                         fontFamily="VT323"
                         border="none"
                         fontSize="14px"
@@ -392,9 +400,13 @@ export default function Boot() {
                 </Box>
               )}
               <Button
+                borderRadius="none"
+                variant="unstyled"
                 w="50px"
-                h="full"
-                p="4px"
+                color="#0d0d0d"
+                h="fit-content"
+                fontSize=".8em"
+                p="2px"
                 my="2px"
                 mr="5px"
                 border="none"
