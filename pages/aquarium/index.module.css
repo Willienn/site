@@ -1,24 +1,26 @@
 .bowl::before {
   content: "";
   width: 200px;
-  top: -1px;
+  top: -2px;
   transform: translateX(-50%);
-  background-color: black;
+  background-color: #1e1d21;
   height: 50px;
   position: absolute;
   left: 50%;
   border: 2px solid white;
   border-radius: 50%;
+  z-index: 1;
 }
 .bowl::after {
   content: "";
-  width: 200px;
-  height: 120px;
+  width: 250px;
+  height: 150px;
   position: absolute;
-  left: 100px;
+  left: 18%;
   top: 25%;
-  background-color: #ffffff51;
+  background-color: #ffffff22;
   border-radius: 50%;
+  z-index: 1;
 }
 .waves {
   position: relative;
@@ -29,6 +31,7 @@
 }
 .waves::before,
 .waves::after {
+  z-index: 2;
   content: "";
   position: absolute;
   width: 100vw;
@@ -36,7 +39,7 @@
   transform: translate(50%, 75%);
 }
 .waves::before {
-  background-color: #999999;
+  background-color: #0000aa99;
   border-radius: 100%;
   bottom: -30px;
   height: 20vw;
@@ -44,7 +47,7 @@
   animation: waves1 10s ease-in-out infinite;
 }
 .waves::after {
-  background-color: #99999999;
+  background-color: #0000ff55;
   border-radius: 50%;
   bottom: -20px;
   height: 21vw;
@@ -77,9 +80,39 @@
   border-top: 25px solid transparent;
   border-bottom: 25px solid transparent;
 
-  border-left: 30px solid orange;
-
+  border-left: 30px solid #e07f4e;
   position: absolute;
   top: -5px;
   left: -15px;
+}
+.table::before {
+  content: "";
+  position: absolute;
+  top: -310px;
+  left: 0%;
+  width: 700px;
+  border-left: 250px solid transparent;
+  border-right: 250px solid transparent;
+  border-bottom: 620px solid #ebdc8f88;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+}
+.table::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: -150px;
+  border-radius: 100%;
+  background-image: radial-gradient(
+    black 10%,
+    #ebdd8f 30%,
+    #ebee8f 32%,
+    #ebdc8f 34%,
+    #ebdc8f55 50%,
+    #ebdc8f44 52%,
+    #ebdc8f33 55%,
+    transparent 70%
+  );
+  width: 1000px;
+  height: 400px;
 }
