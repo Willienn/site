@@ -218,8 +218,8 @@ export default function Post({post, blocks}) {
         mt="25px"
         w="100vw"
         ratio={[10 / 4, 16 / 4]}
-        borderY={["25px solid #00001255", "50px solid #00001255"]}
-        borderX={["30px solid #111120", "60px solid #111120"]}
+        borderY={["25px solid #0c0c12", "50px solid #0c0c12"]}
+        borderX={["30px solid #15151c", "60px solid #15151c"]}
       >
         <LazyLoad>
           <Image

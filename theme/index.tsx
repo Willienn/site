@@ -12,7 +12,7 @@ const overrides = extendTheme({
       },
       body: {
         color: "#d0d0d0",
-        bg: "#000812",
+        bg: "#101015",
       },
       a: {
         textDecoration: "none",
