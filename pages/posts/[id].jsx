@@ -217,7 +217,7 @@ export default function Post({post, blocks}) {
       <AspectRatio
         mt="25px"
         w="100vw"
-        ratio={[10 / 4, 16 / 4]}
+        ratio={[2 / 1, 4/ 1]}
         borderY={["25px solid #00001255", "50px solid #00001255"]}
         borderX={["30px solid #111120", "60px solid #111120"]}
       >
@@ -297,6 +297,6 @@ export const getStaticProps = async (context) => {
       post,
       blocks: blocksWithChildren,
     },
-    revalidate: 10000,
+    revalidate: 1000,
   };
 };
