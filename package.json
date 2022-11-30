@@ -11,9 +11,12 @@
   "dependencies": {
     "@babel/core": "7.19.6",
     "@babel/preset-env": "7.19.4",
-    "@chakra-ui/react": "^2.3.6",
+    "@chakra-ui/react": "^2.3.7",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@notionhq/client": "^2.2.1",
     "@vercel/node": "^2.5.26",
+    "framer-motion": "^6",
     "next": "^13.0.0",
     "next-fonts": "^1.5.1",
     "next-seo": "^5.13.0",
