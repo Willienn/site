@@ -217,15 +217,9 @@ export default function Post({post, blocks}) {
       <AspectRatio
         mt="25px"
         w="100vw"
-<<<<<<< HEAD
-        ratio={[2 / 1, 4/ 1]}
+        ratio={[2 / 1, 4 / 1]}
         borderY={["25px solid #00001255", "50px solid #00001255"]}
         borderX={["30px solid #111120", "60px solid #111120"]}
-=======
-        ratio={[10 / 4, 16 / 4]}
-        borderY={["25px solid #0c0c12", "50px solid #0c0c12"]}
-        borderX={["30px solid #15151c", "60px solid #15151c"]}
->>>>>>> c9669b907c2f21c1a3353c42bf017c8b89869104
       >
         <LazyLoad>
           <Image
@@ -252,10 +246,8 @@ export default function Post({post, blocks}) {
         )}
         <Box as="section">
           {blocks.map((block) => (
-            <Center>
-              <Box w={["80vw", "70vw", "50vw"]} key={block.id}>
-                {renderBlock(block)}
-              </Box>
+            <Center key={block.id}>
+              <Box w={["80vw", "70vw", "50vw"]}>{renderBlock(block)}</Box>
             </Center>
           ))}
         </Box>
