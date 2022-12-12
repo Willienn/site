@@ -10,6 +10,7 @@ class MyDocument extends Document {
     return (
       <Html lang="pt-br">
         <Head>
+          <meta name="google-site-verification" content="a9WvUWUgrdGoNizhM8stU7ycvk83LEMaODs_8wXyw0M" />
           <title>Daily Codes</title>
           <meta
             name="description"
