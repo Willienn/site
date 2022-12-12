@@ -1,7 +1,9 @@
 {
   "pipeline": {
     "build": {
-      "outputs": [".next/**"]
+      "outputs": [
+        ".next/**"
+      ]
     },
     "lint": {
       "outputs": []
