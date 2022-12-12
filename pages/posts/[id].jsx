@@ -137,11 +137,10 @@ const renderBlock = (block) => {
     case 'image':
       const src =
         value.type === 'external' ? value.external.url : value.file.url
-      const caption = value.caption ? value.caption[0]?.plain_text : ''
+      const caption = value.caption ? value.caption[0]?.plain_text : 'Imagem Ilustrativa'
       return (
         <chakra.figure my="10px">
-          <Image src={src} alt={caption} />
-          {caption && <figcaption>{caption}</figcaption>}
+          <Image src={src} alt={caption} w="auto" h="auto" />
         </chakra.figure>
       )
     case 'divider':
@@ -217,7 +216,7 @@ export default function Post({ post, blocks }) {
       <AspectRatio
         mt="25px"
         w="100vw"
-        ratio={[2 / 1, 4 / 1]}
+        ratio={[2 / 1, 4]}
         borderY={['25px solid #00001255', '50px solid #00001255']}
         borderX={['30px solid #111120', '60px solid #111120']}
       >
@@ -254,7 +253,6 @@ export default function Post({ post, blocks }) {
 }
 
 export const getStaticPaths = async () => {
-  const database = await getDatabase(databaseId)
   return {
     paths: [],
     fallback: true,
