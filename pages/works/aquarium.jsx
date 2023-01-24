@@ -1,8 +1,8 @@
 import { Box, Flex } from '@chakra-ui/react'
 import { useState } from 'react'
-import styles from './index.module.css'
+import styles from './aquarium.module.css'
 
-export default function index() {
+export default function aquarium() {
   const [a, setA] = useState(undefined)
   const [b, setB] = useState(undefined)
   setInterval(function () {

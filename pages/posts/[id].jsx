@@ -1,8 +1,7 @@
 import { Fragment } from 'react'
 import Head from 'next/head'
-import { getBlocks, getDatabase, getPage } from '../../lib/notion'
+import { getBlocks, getPage } from '../../lib/notion'
 import Link from 'next/link'
-import { databaseId } from '../index.jsx'
 import styles from './[id].module.css'
 import {
   AspectRatio,
@@ -16,10 +15,9 @@ import {
   OrderedList,
   Text as TextC,
 } from '@chakra-ui/react'
-import Nav from '../../components/nav'
 import LazyLoad from 'react-lazy-load'
-import Footer from '../../components/footer'
 import useIsMobile from '../../hooks/isMobile'
+import Layout from '../../components/layout'
 
 export const Text = ({ text, title }) => {
   if (!text) {
@@ -137,7 +135,9 @@ const renderBlock = (block) => {
     case 'image':
       const src =
         value.type === 'external' ? value.external.url : value.file.url
-      const caption = value.caption ? value.caption[0]?.plain_text : 'Imagem Ilustrativa'
+      const caption = value.caption
+        ? value.caption[0]?.plain_text
+        : 'Imagem Ilustrativa'
       return (
         <chakra.figure my="10px">
           <Image src={src} alt={caption} w="auto" h="auto" />
@@ -207,16 +207,15 @@ export default function Post({ post, blocks }) {
 
   console.log(post.cover)
   return (
-    <Fragment>
+    <Layout>
       <Head>
         <title>{post.properties.Name.title[0].plain_text}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Nav />
       <AspectRatio
         mt="25px"
         w="100vw"
-        ratio={[2 / 1, 4]}
+        ratio={[2, 4]}
         borderY={['25px solid #00001255', '50px solid #00001255']}
         borderX={['30px solid #111120', '60px solid #111120']}
       >
@@ -227,7 +226,7 @@ export default function Post({ post, blocks }) {
           />
         </LazyLoad>
       </AspectRatio>
-      <Box w="fit-content" as="article" className={styles.container}>
+      <Box mb="80px" w="fit-content" as="article" className={styles.container}>
         {!isMobile ? (
           <Center>
             <Heading my="30px" as="h1" className={styles.name}>
@@ -247,8 +246,7 @@ export default function Post({ post, blocks }) {
           ))}
         </Box>
       </Box>
-      <Footer />
-    </Fragment>
+    </Layout>
   )
 }
 

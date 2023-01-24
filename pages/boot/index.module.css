@@ -1,87 +1,87 @@
 @keyframes boot {
-    0% {
-        box-shadow: 0px 0px 4px #ffffff;
-    }
+  0% {
+    box-shadow: 0px 0px 4px #ffffff;
+  }
 
-    50% {
-        box-shadow: 0px 0px 100px #ffffff99;
-    }
-    100% {
-        box-shadow: 0px 0px 90px #ffffff33;
-    }
+  50% {
+    box-shadow: 0px 0px 100px #ffffff99;
+  }
+  100% {
+    box-shadow: 0px 0px 90px #ffffff33;
+  }
 }
 
 @keyframes bootIcon1 {
-    0% {
-        box-shadow: 0px 0px 10px white;
-        border-color: #ffffff44;
-    }
-    50% {
-        box-shadow: 0px 0px 30px white;
-    }
-    100% {
-        box-shadow: 0px 0px 15px white;
-    }
+  0% {
+    box-shadow: 0px 0px 10px white;
+    border-color: #ffffff44;
+  }
+  50% {
+    box-shadow: 0px 0px 30px white;
+  }
+  100% {
+    box-shadow: 0px 0px 15px white;
+  }
 }
 
 @keyframes bootIcon2 {
-    0% {
-        width: 65px;
-        height: 60px;
-    }
-    100% {
-        width: 3vw;
-        height: 2vh;
-        border-color: transparent;
-    }
+  0% {
+    width: 65px;
+    height: 60px;
+  }
+  100% {
+    width: 3vw;
+    height: 2vh;
+    border-color: transparent;
+  }
 }
 
 @keyframes bootIdle {
-    0% {
-        box-shadow: 0px 0px 10px white;
-        border-color: #ffffff44;
-    }
-    50% {
-        box-shadow: 0px 0px 30px white;
-    }
-    100% {
-        box-shadow: 0px 0px 15px white;
-    }
+  0% {
+    box-shadow: 0px 0px 10px white;
+    border-color: #ffffff44;
+  }
+  50% {
+    box-shadow: 0px 0px 30px white;
+  }
+  100% {
+    box-shadow: 0px 0px 15px white;
+  }
 }
 
 @keyframes bootLoad {
-    0% {
-        transform: translateX(-10px);
-    }
-    100% {
-        transform: translateX(200px);
-    }
+  0% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(200px);
+  }
 }
 
 .boot {
-    animation: boot 1.5s ease infinite;
+  animation: boot 1.5s ease infinite;
 }
 
 .bootIcon1 {
-    animation: bootIcon1 1.5s ease infinite;
+  animation: bootIcon1 1.5s ease infinite;
 }
 
 .bootIcon2 {
-    animation: bootIcon2 0.5s forwards;
+  animation: bootIcon2 0.5s forwards;
 }
 
 .idle {
-    animation: bootIdle 1.5s ease infinite;
+  animation: bootIdle 1.5s ease infinite;
 }
 
 .bootLoad {
-    animation: bootLoad 2s steps(20) infinite;
+  animation: bootLoad 2s steps(20) infinite;
 }
 
 .windows {
-    background-image: linear-gradient(
-            to right,
-            rgb(0, 168, 64),
-            rgb(133, 131, 0)
-    );
+  background-image: linear-gradient(
+    to right,
+    rgb(0, 168, 64),
+    rgb(133, 131, 0)
+  );
 }

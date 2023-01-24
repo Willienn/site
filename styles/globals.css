@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto+Slab:wght@400;500;700;800&display=swap');
 
+body {
+    height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
 .link {
     position: relative;
 }
@@ -8,10 +14,9 @@
     animation: link 0.8s ease forwards;
     border-bottom: 1px solid white;
     position: absolute;
-    border-width: 2px;
-    content: "";
-    bottom: 0px;
-    width: 0px;
+    content: '';
+    bottom: 0;
+    width: 0;
 }
 
 * {
@@ -20,7 +25,7 @@
 }
 
 li {
-    list-style-type: "- ";
+    list-style-type: '- ';
 }
 
 .cursor {
@@ -38,7 +43,7 @@ li {
 
 @keyframes link {
     0% {
-        width: 0em;
+        width: 0;
     }
     100% {
         width: 3.3em;

@@ -1,13 +1,11 @@
 import { Center, Code, Flex, Heading, SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
-import Nav from '../components/nav'
 import PostCard from '../components/postCard'
-import Footer from '../components/footer'
 import { getDatabase } from '../lib/notion'
 import Link from 'next/link'
-import Head from 'next/head'
 import useIsMobile from '../hooks/isMobile'
 import StructuredData from '../components/structureData'
+import Layout from '../components/layout'
 
 export const databaseId = process.env.NOTION_DATABASE_ID
 
@@ -21,9 +19,8 @@ export default function _landing({ posts }) {
       'Falo sobre notícias, curiosidades e também posto coisas autorais.',
   }
   return (
-    <>
+    <Layout>
       <StructuredData data={structuredData} />
-      <Nav />
       <Center>
         <Flex mx="10px" direction="column" mb="10vh" mt="5vh">
           <Heading mb="5px" ml="-2.5vw" fontSize={['2em', '3em']}>
@@ -31,43 +28,29 @@ export default function _landing({ posts }) {
               Willien
             </Link>
           </Heading>
-          {isMobile ? (
-            <Code
-              bgColor="transparent"
-              color="#d0d0d0"
-              whiteSpace="pre-wrap"
-              fontSize={['1em', '1.4em']}
-              w="auto"
-            >
-              {`{
+          <Code
+            bgColor="transparent"
+            color="#d0d0d0"
+            whiteSpace="pre-wrap"
+            fontSize={['1em', '1.4em']}
+            w="auto"
+          >
+            {`{
  age: 20,
- occupation: "Progamador Front-End"
- siteDescription: "Meu blog pessoal,
- para postar notícias,
- coisas úteis e poemas/textos.
- (todos autorais)",
+ occupation: "Front-End Programmer"
+ siteDescription: "Blog to post
+ whatever i want (Mostly mine)."
 }`}
-            </Code>
-          ) : (
-            <Code
-              bgColor="transparent"
-              color="#d0d0d0"
-              whiteSpace="pre-wrap"
-              fontSize={['.9em', '1.4em']}
-              w="auto"
-            >
-              {`{
- age: 20,
- occupation: "Progamador Front-End"
- siteDescription: "Meu blog pessoal, para postar notícias,
- coisas úteis e poemas/textos autorais",
-}`}
-            </Code>
-          )}
+          </Code>
         </Flex>
       </Center>
       <Center>
-        <Flex mb="10vh" direction="column" gap="30px">
+        <Flex
+          h={['35vh', '50vh', '50vh']}
+          mb="10vh"
+          direction="column"
+          gap="30px"
+        >
           <Heading textAlign="center" fontSize={['2em', '3em']}>
             Posts
           </Heading>
@@ -85,8 +68,7 @@ export default function _landing({ posts }) {
           </SimpleGrid>
         </Flex>
       </Center>
-      <Footer />
-    </>
+    </Layout>
   )
 }
 

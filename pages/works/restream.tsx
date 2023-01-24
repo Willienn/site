@@ -4,7 +4,7 @@ import Header from './components/header'
 import Highlight from './components/highlight'
 import Search from './components/search'
 
-export default function index() {
+export default function restream() {
   return (
     <>
       <Header />

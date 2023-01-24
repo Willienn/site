@@ -7,7 +7,7 @@ import React from 'react'
 
 export default function Nav() {
   const navItens = [
-    { name: 'Works', link: '/' },
+    { name: 'Works', link: '/works' },
     { name: 'About', link: '/' },
   ]
   const { ref, inView } = useInView({
