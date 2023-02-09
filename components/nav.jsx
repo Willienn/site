@@ -1,8 +1,8 @@
-import { Box, Flex, Image, Link, Spacer } from '@chakra-ui/react'
+import { Box, Flex, Image, Spacer } from '@chakra-ui/react'
 import { useInView } from 'react-intersection-observer'
 import styles from './nav.module.css'
 
-// import Link from "next/link"; TODO ATIVAR DPS
+import Link from 'next/link'
 import React from 'react'
 
 export default function Nav() {
@@ -41,8 +41,16 @@ export default function Nav() {
             </Link>
             <Spacer />
             {navItens.map((item, idx) => (
-              <Link mx="10px" px="10px" key={idx} href={item.link}>
-                <Box>{item.name}</Box>
+              <Link href={item.link}>
+                <Box
+                  mx="10px"
+                  px="10px"
+                  key={idx}
+                  _hover={{ transform: 'scale(1.1)' }}
+                  _active={{ transform: 'scale(.9)' }}
+                >
+                  {item.name}
+                </Box>
               </Link>
             ))}
           </Flex>

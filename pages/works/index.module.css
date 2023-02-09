@@ -1,0 +1,70 @@
+.box {
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  gap: 4vmin;
+}
+.clickedBox {
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  gap: 4vmin;
+}
+
+.opened:not(.noImage) {
+  animation: expandImage 1s forwards;
+}
+
+.closed {
+  display: none;
+  object-fit: cover;
+  object-position: center;
+  width: 40vw;
+  height: 56vh;
+}
+.default {
+  opacity: 1;
+  object-fit: cover;
+  object-position: 85%;
+  width: 20vw;
+  height: 56vh;
+}
+
+@keyframes expandImage {
+  0% {
+    object-fit: cover;
+    object-position: 85%;
+    width: 20vw;
+    height: 56vh;
+  }
+  50% {
+    object-fit: cover;
+    object-position: 85%;
+    width: 40vw;
+    height: 95vh;
+    translate: 10%;
+  }
+  100% {
+    object-fit: cover;
+    object-position: 0;
+    width: 40vw;
+    height: 95vh;
+    translate: -29vw;
+  }
+}
+/*@keyframes expandBox {*/
+/*  0% {*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    top: 25%;*/
+/*    left: 20%;*/
+/*  }*/
+/*  100% {*/
+/*    height: 100vh;*/
+/*    width: 100vw;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*  }*/
+/*}*/
