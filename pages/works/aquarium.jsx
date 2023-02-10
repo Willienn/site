@@ -27,7 +27,7 @@ export default function aquarium() {
           zIndex="-1"
           pos="absolute"
           className={styles.table}
-        ></Box>
+        />
         <Box
           className={styles.bowl}
           pos="relative"

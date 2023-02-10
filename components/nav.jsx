@@ -41,7 +41,7 @@ export default function Nav() {
             </Link>
             <Spacer />
             {navItens.map((item, idx) => (
-              <Link href={item.link}>
+              <Link href={item.link} key={idx}>
                 <Box
                   mx="10px"
                   px="10px"
@@ -77,8 +77,10 @@ export default function Nav() {
             </Link>
             <Spacer />
             {navItens.map((item, idx) => (
-              <Link mx="10px" px="10px" key={idx} href={item.link}>
-                <Box fontFamily="Roboto Slab">{item.name}</Box>
+              <Link fontFamily="Roboto Slab" href={item.link}>
+                <Box mx="10px" px="10px" key={idx}>
+                  {item.name}
+                </Box>
               </Link>
             ))}
           </Flex>

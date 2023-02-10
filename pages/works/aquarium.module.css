@@ -59,30 +59,6 @@
   animation: waves2 8s ease-in-out infinite;
 }
 
-@keyframes waves1 {
-  0% {
-    transform: translate(-30%) rotate(0deg);
-  }
-  50% {
-    transform: translate(-80%) rotate(-1deg);
-  }
-  100% {
-    transform: translate(-30%) rotate(0deg);
-  }
-}
-
-@keyframes waves2 {
-  0% {
-    transform: translate(-80%);
-  }
-  50% {
-    transform: translate(-30%);
-  }
-  100% {
-    transform: translate(-80%);
-  }
-}
-
 .fish::before {
   content: '';
   border-top: 25px solid transparent;
@@ -94,11 +70,13 @@
   left: -15px;
 }
 
+/*light*/
 .table::before {
+  animation: light 10s infinite;
   content: '';
   position: absolute;
   top: -310px;
-  left: 0%;
+  left: 0;
   width: 700px;
   border-left: 250px solid transparent;
   border-right: 250px solid transparent;
@@ -125,4 +103,43 @@
   );
   width: 1000px;
   height: 400px;
+}
+
+@keyframes waves1 {
+  0% {
+    transform: translate(-30%) rotate(0deg);
+  }
+  50% {
+    transform: translate(-80%) rotate(-1deg);
+  }
+  100% {
+    transform: translate(-30%) rotate(0deg);
+  }
+}
+
+@keyframes waves2 {
+  0% {
+    transform: translate(-80%);
+  }
+  50% {
+    transform: translate(-30%);
+  }
+  100% {
+    transform: translate(-80%);
+  }
+}
+
+@keyframes light {
+  0% {
+    border-bottom: 620px solid #ebdc8f88;
+  }
+  99% {
+    border-bottom: 620px solid #ebdc8f88;
+  }
+  99.9% {
+    border-bottom: 620px solid #ebdc8f44;
+  }
+  100% {
+    border-bottom: 620px solid #ebdc8f00;
+  }
 }
