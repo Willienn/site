@@ -1,8 +1,8 @@
-import { Box } from '@chakra-ui/react'
-import React from 'react'
-import Header from './components/header'
-import Highlight from './components/highlight'
-import Search from './components/search'
+import { Box } from "@chakra-ui/react";
+import React from "react";
+import Header from "./components/header";
+import Highlight from "./components/highlight";
+import Search from "./components/search";
 
 export default function restream() {
   return (
@@ -13,5 +13,5 @@ export default function restream() {
         <Highlight />
       </Box>
     </>
-  )
+  );
 }

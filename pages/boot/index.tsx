@@ -6,134 +6,134 @@ import {
   Image,
   Text,
   VStack,
-} from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
-import Typed from 'react-typed'
-import styles from './index.module.css'
-import { IoMdArrowDropright } from 'react-icons/io'
-import Head from 'next/head'
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import Typed from "react-typed";
+import styles from "./index.module.css";
+import { IoMdArrowDropright } from "react-icons/io";
+import Head from "next/head";
 
 export default function Boot() {
-  const [boot, setBoot] = useState(false)
-  const [button, setButton] = useState(true)
-  const [bootAnimation, setBootAnimation] = useState([])
-  const [loading, setloading] = useState(false)
-  const [sys, setSys] = useState(false)
-  const [menuOpen, setmenuOpen] = useState(false)
-  const [openWindow, setOpenWindow] = useState([])
-  const [date, setDate] = useState(new Date())
+  const [boot, setBoot] = useState(false);
+  const [button, setButton] = useState(true);
+  const [bootAnimation, setBootAnimation] = useState([]);
+  const [loading, setloading] = useState(false);
+  const [sys, setSys] = useState(false);
+  const [menuOpen, setmenuOpen] = useState(false);
+  const [openWindow, setOpenWindow] = useState([]);
+  const [date, setDate] = useState(new Date());
 
   const bootText = [
-    ['Initializing Boot......'],
-    ['Checking for errors'],
-    ['Bios ................... OK'],
-    ['Kernel ................... OK'],
-    ['Initializing OS'],
-  ]
+    ["Initializing Boot......"],
+    ["Checking for errors"],
+    ["Bios ................... OK"],
+    ["Kernel ................... OK"],
+    ["Initializing OS"],
+  ];
 
   const icons: { name: string; type: string; window: any }[] = [
     {
-      name: 'Computer',
-      type: 'computer',
+      name: "Computer",
+      type: "computer",
       window: (
         <div
           style={{
-            width: '200px',
-            height: '200px',
-            backgroundColor: '#C0C0C0',
-            borderTop: '2px solid #dfdfdf',
-            borderLeft: '2px solid #dfdfdf',
-            borderBottom: '2px solid #2e2e2e',
-            borderRight: '2px solid #2e2e2e',
+            width: "200px",
+            height: "200px",
+            backgroundColor: "#C0C0C0",
+            borderTop: "2px solid #dfdfdf",
+            borderLeft: "2px solid #dfdfdf",
+            borderBottom: "2px solid #2e2e2e",
+            borderRight: "2px solid #2e2e2e",
           }}
         >
-          {' '}
+          {" "}
         </div>
       ),
     },
     {
-      name: 'text.txt',
-      type: 'txt',
+      name: "text.txt",
+      type: "txt",
       window: (
         <div
           style={{
-            width: '200px',
-            height: '200px',
-            backgroundColor: '#C0C0C0',
-            borderTop: '2px solid #dfdfdf',
-            borderLeft: '2px solid #dfdfdf',
-            borderBottom: '2px solid #2e2e2e',
-            borderRight: '2px solid #2e2e2e',
+            width: "200px",
+            height: "200px",
+            backgroundColor: "#C0C0C0",
+            borderTop: "2px solid #dfdfdf",
+            borderLeft: "2px solid #dfdfdf",
+            borderBottom: "2px solid #2e2e2e",
+            borderRight: "2px solid #2e2e2e",
           }}
         >
-          {' '}
+          {" "}
         </div>
       ),
     },
     {
-      name: 'About.vfx',
-      type: 'css',
+      name: "About.vfx",
+      type: "css",
       window: (
         <div
           style={{
-            width: '200px',
-            height: '200px',
-            backgroundColor: '#C0C0C0',
-            borderTop: '2px solid #dfdfdf',
-            borderLeft: '2px solid #dfdfdf',
-            borderBottom: '2px solid #2e2e2e',
-            borderRight: '2px solid #2e2e2e',
+            width: "200px",
+            height: "200px",
+            backgroundColor: "#C0C0C0",
+            borderTop: "2px solid #dfdfdf",
+            borderLeft: "2px solid #dfdfdf",
+            borderBottom: "2px solid #2e2e2e",
+            borderRight: "2px solid #2e2e2e",
           }}
         >
-          {' '}
+          {" "}
         </div>
       ),
     },
     {
-      name: 'Contact',
-      type: 'mail',
+      name: "Contact",
+      type: "mail",
       window: (
         <div
           style={{
-            width: '200px',
-            height: '200px',
-            backgroundColor: '#C0C0C0',
-            borderTop: '2px solid #dfdfdf',
-            borderLeft: '2px solid #dfdfdf',
-            borderBottom: '2px solid #2e2e2e',
-            borderRight: '2px solid #2e2e2e',
+            width: "200px",
+            height: "200px",
+            backgroundColor: "#C0C0C0",
+            borderTop: "2px solid #dfdfdf",
+            borderLeft: "2px solid #dfdfdf",
+            borderBottom: "2px solid #2e2e2e",
+            borderRight: "2px solid #2e2e2e",
           }}
         >
-          {' '}
+          {" "}
         </div>
       ),
     },
-  ]
+  ];
 
   useEffect(() => {
-    const timer = setInterval(() => setDate(new Date()), 1000)
+    const timer = setInterval(() => setDate(new Date()), 1000);
     return function cleanup() {
-      clearInterval(timer)
-    }
-  })
+      clearInterval(timer);
+    };
+  });
 
   useEffect(() => {
     bootAnimation.length !== 0 &&
       setTimeout(() => {
-        setButton(false)
-        setBoot(true)
+        setButton(false);
+        setBoot(true);
         setTimeout(() => {
-          setBoot(false)
+          setBoot(false);
           setTimeout(() => {
-            setloading(true)
+            setloading(true);
             setTimeout(() => {
-              setSys(true)
-              setloading(false)
-            }, 5500)
-          }, 500)
-        }, 7500)
-      }, 4500)
-  }, [bootAnimation])
+              setSys(true);
+              setloading(false);
+            }, 5500);
+          }, 500);
+        }, 7500);
+      }, 4500);
+  }, [bootAnimation]);
 
   return (
     <>
@@ -202,7 +202,7 @@ export default function Boot() {
                     typeSpeed={10}
                   />
                 </Box>
-              )
+              );
             })}
           </Box>
         )}
@@ -234,7 +234,6 @@ export default function Boot() {
           <Box h="100vh" w="100vw">
             <Box className={styles.windows} h="94.5vh" w="100vw" p="10px">
               {icons.map(({ name, type, window }, idx) => {
-                console.log(openWindow)
                 return (
                   <>
                     <Button
@@ -245,21 +244,21 @@ export default function Boot() {
                       m="2px 4px"
                       key={idx}
                       onClick={() => {
-                        setOpenWindow(openWindow.concat(window))
+                        setOpenWindow(openWindow.concat(window));
                       }}
                     >
                       <VStack>
                         <Image
                           mb="-5px"
                           src={
-                            type === 'computer'
-                              ? '/computer.png'
-                              : type === 'txt'
-                              ? '/text.png'
-                              : type === 'css'
-                              ? '/question.png'
-                              : type === 'mail'
-                              ? '/mail.png'
+                            type === "computer"
+                              ? "/computer.png"
+                              : type === "txt"
+                              ? "/text.png"
+                              : type === "css"
+                              ? "/question.png"
+                              : type === "mail"
+                              ? "/mail.png"
                               : null
                           }
                         />
@@ -274,7 +273,7 @@ export default function Boot() {
                       </VStack>
                     </Button>
                   </>
-                )
+                );
               })}
             </Box>
             <Flex
@@ -300,7 +299,7 @@ export default function Boot() {
                 borderBottom="2px solid #2e2e2e"
                 borderRight="2px solid #2e2e2e"
                 onClick={() => {
-                  setmenuOpen(menuOpen ? false : true)
+                  setmenuOpen(menuOpen ? false : true);
                 }}
               >
                 <Image src="/start-button.png" />
@@ -320,7 +319,7 @@ export default function Boot() {
                 >
                   <Flex fontSize="0px" direction="column" gap="none">
                     <Text
-                      _hover={{ bgColor: '#0090E4' }}
+                      _hover={{ bgColor: "#0090E4" }}
                       as="span"
                       w="full"
                       bgColor="transparent"
@@ -339,7 +338,7 @@ export default function Boot() {
                       </Button>
                     </Text>
                     <Text
-                      _hover={{ bgColor: '#0090E4' }}
+                      _hover={{ bgColor: "#0090E4" }}
                       as="span"
                       textAlign="left"
                       w="full"
@@ -358,7 +357,7 @@ export default function Boot() {
                       </Button>
                     </Text>
                     <Text
-                      _hover={{ bgColor: '#0090E4' }}
+                      _hover={{ bgColor: "#0090E4" }}
                       as="span"
                       w="full"
                       bgColor="transparent"
@@ -374,7 +373,7 @@ export default function Boot() {
                       </Button>
                     </Text>
                     <Text
-                      _hover={{ bgColor: '#0090E4' }}
+                      _hover={{ bgColor: "#0090E4" }}
                       as="span"
                       w="full"
                       bgColor="transparent"
@@ -406,8 +405,8 @@ export default function Boot() {
                 boxShadow="inset 0 0 2px 1px #4c4c4c"
               >
                 {date.toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
+                  hour: "2-digit",
+                  minute: "2-digit",
                 })}
               </Button>
             </Flex>
@@ -415,5 +414,5 @@ export default function Boot() {
         )}
       </Box>
     </>
-  )
+  );
 }

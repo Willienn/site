@@ -1,5 +1,5 @@
-import { Box, Flex, Input } from '@chakra-ui/react'
-import React from 'react'
+import { Box, Flex, Input } from "@chakra-ui/react";
+import React from "react";
 
 export default function Search() {
   return (
@@ -19,5 +19,5 @@ export default function Search() {
       <Box>Laboratório</Box>
       <Input w="100px" placeholder="Buscar"></Input>
     </Flex>
-  )
+  );
 }

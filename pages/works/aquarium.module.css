@@ -1,5 +1,5 @@
 .bowl::before {
-  content: '';
+  content: "";
   width: 200px;
   top: -2px;
   transform: translateX(-50%);
@@ -13,7 +13,7 @@
 }
 
 .bowl::after {
-  content: '';
+  content: "";
   width: 250px;
   height: 150px;
   position: absolute;
@@ -35,7 +35,7 @@
 .waves::before,
 .waves::after {
   z-index: 2;
-  content: '';
+  content: "";
   position: absolute;
   width: 100vw;
   left: 250px;
@@ -60,7 +60,7 @@
 }
 
 .fish::before {
-  content: '';
+  content: "";
   border-top: 25px solid transparent;
   border-bottom: 25px solid transparent;
 
@@ -73,7 +73,7 @@
 /*light*/
 .table::before {
   animation: light 10s infinite;
-  content: '';
+  content: "";
   position: absolute;
   top: -310px;
   left: 0;
@@ -86,7 +86,7 @@
 }
 
 .table::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 20px;
   left: -150px;

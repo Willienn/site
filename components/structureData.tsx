@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import React from 'react'
+import Head from "next/head";
+import React from "react";
 
 export default function StructuredData({ data }) {
   return (
@@ -10,5 +10,5 @@ export default function StructuredData({ data }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
       />
     </Head>
-  )
+  );
 }

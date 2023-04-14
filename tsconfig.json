@@ -1,35 +1,38 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "target": "es5",
+    "allowJs": true,
+    "incremental": true,
+    "jsx": "preserve",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "incremental": true,
-    "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "noEmit": true,
     "resolveJsonModule": true,
+    "strict": false,
+    "target": "ESNext",
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true
   },
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "pages/boot/index.tsx",
-    "pages/_app.jsx",
-    "pages/posts/[id].jsx",
-    "pages/index.jsx",
-    "pages/index.jsx"
-  ],
-  "exclude": [
-    "node_modules"
+    "**/*.tsx"
   ]
 }

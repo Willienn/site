@@ -1,14 +1,14 @@
-import { Box, Flex } from '@chakra-ui/react'
-import { useState } from 'react'
-import styles from './aquarium.module.css'
+import { Box, Flex } from "@chakra-ui/react";
+import { useState } from "react";
+import styles from "./aquarium.module.css";
 
 export default function aquarium() {
-  const [a, setA] = useState(undefined)
-  const [b, setB] = useState(undefined)
+  const [a, setA] = useState(undefined);
+  const [b, setB] = useState(undefined);
   setInterval(function () {
-    setA(Math.floor(Math.random() * (300 - 200) + 200))
-    setB(Math.floor(Math.random() * (300 - 100) + 0))
-  }, 2000)
+    setA(Math.floor(Math.random() * (300 - 200) + 200));
+    setB(Math.floor(Math.random() * (300 - 100) + 0));
+  }, 2000);
   return (
     <Box
       overflow="hidden"
@@ -53,5 +53,5 @@ export default function aquarium() {
         </Box>
       </Flex>
     </Box>
-  )
+  );
 }

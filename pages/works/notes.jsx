@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -10,12 +10,12 @@ import {
   SimpleGrid,
   Text,
   Textarea,
-} from '@chakra-ui/react'
-import { useFieldArray, useForm } from 'react-hook-form'
-import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai'
+} from "@chakra-ui/react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
 
 export default function Memos() {
-  var [page, setPage] = useState(true)
+  var [page, setPage] = useState(true);
   const {
     control,
     register,
@@ -23,25 +23,25 @@ export default function Memos() {
     watch,
     getValues,
     formState: { errors },
-  } = useForm()
-  const [notes, setNotes] = useState([])
+  } = useForm();
+  const [notes, setNotes] = useState([]);
 
   const {
     fields: notesFields,
     append: notesAppend,
     remove: notesRemove,
-  } = useFieldArray({ control, name: 'notes' })
+  } = useFieldArray({ control, name: "notes" });
   const onSubmit = (data) => {
-    setNotes([...notes, data])
-  }
+    setNotes([...notes, data]);
+  };
 
   return (
     <Box w="100wv" minH="100vh" bgColor="#2a2a2a">
       <Button
         onClick={() => setPage(!page)}
         bgColor="#2a2a2a"
-        _hover={{ bgColor: '#282828' }}
-        _active={{ bgColor: '#222' }}
+        _hover={{ bgColor: "#282828" }}
+        _active={{ bgColor: "#222" }}
       />
 
       {page && (
@@ -57,10 +57,10 @@ export default function Memos() {
               ml="-18px"
               mt="-5px"
               icon={<AiOutlinePlus />}
-              _hover={{ transform: 'scale(1.25)' }}
-              _active={{ transform: 'scale(.85)' }}
+              _hover={{ transform: "scale(1.25)" }}
+              _active={{ transform: "scale(.85)" }}
               onClick={() => {
-                notesAppend({ noteTitle: 'Title', noteText: 'Text' })
+                notesAppend({ noteTitle: "Title", noteText: "Text" });
               }}
             />
           </Flex>
@@ -89,8 +89,8 @@ export default function Memos() {
                       fontWeight="bolder"
                       aria-label="removeItem"
                       bgColor="transparent"
-                      _hover={{ transform: 'scale(1.1)' }}
-                      _active={{ transform: 'scale(.85)' }}
+                      _hover={{ transform: "scale(1.1)" }}
+                      _active={{ transform: "scale(.85)" }}
                     />
                   </Flex>
                   <Textarea
@@ -120,9 +120,9 @@ export default function Memos() {
             <Heading mb="25px" textAlign="center">
               Submit
             </Heading>
-            <Input {...register('noteTitle', { required: 'required' })} />
+            <Input {...register("noteTitle", { required: "required" })} />
             <Input
-              {...register('noteText', { required: 'required' })}
+              {...register("noteText", { required: "required" })}
               as="textarea"
               p="10px 15px"
               resize="none"
@@ -165,12 +165,12 @@ export default function Memos() {
                     p="none"
                     mt="-5px"
                     mr="-5px"
-                    _hover={{ transform: 'scale(1.15)' }}
-                    _active={{ transform: 'scale(.85)' }}
+                    _hover={{ transform: "scale(1.15)" }}
+                    _active={{ transform: "scale(.85)" }}
                     onClick={() => {
-                      const newNotes = [...notes]
-                      newNotes.splice(idx, 1)
-                      setNotes(newNotes)
+                      const newNotes = [...notes];
+                      newNotes.splice(idx, 1);
+                      setNotes(newNotes);
                     }}
                   />
                   <Heading fontSize="1.5em" my="20px" textAlign="center">
@@ -184,5 +184,5 @@ export default function Memos() {
         </Grid>
       )}
     </Box>
-  )
+  );
 }

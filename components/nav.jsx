@@ -1,19 +1,17 @@
-import { Box, Flex, Image, Spacer } from '@chakra-ui/react'
-import { useInView } from 'react-intersection-observer'
-import styles from './nav.module.css'
-
-import Link from 'next/link'
-import React from 'react'
+import { Box, Flex, Image, Spacer } from "@chakra-ui/react";
+import { useInView } from "react-intersection-observer";
+import styles from "./nav.module.css";
+import Link from "next/link";
 
 export default function Nav() {
   const navItens = [
-    { name: 'Works', link: '/works' },
-    { name: 'About', link: '/' },
-  ]
+    { name: "Works", link: "/works" },
+    { name: "About", link: "/" },
+  ];
   const { ref, inView } = useInView({
     initialInView: true,
     threshold: 0,
-  })
+  });
   return (
     <Box ref={ref}>
       {inView ? (
@@ -21,20 +19,20 @@ export default function Nav() {
           className={styles.fade}
           key="block"
           py="10px"
-          px={['10px', '0']}
+          px={["10px", "0"]}
           w="100vw"
           bgColor="#0d0d0daa"
         >
           <Flex
             color="white"
             align="center"
-            fontSize={['1.2em', '1.4em']}
+            fontSize={["1.2em", "1.4em"]}
             mx="2vw"
           >
             <Link href="/">
               <Image
-                w={['30', '45']}
-                h={['30', '45']}
+                w={["30", "45"]}
+                h={["30", "45"]}
                 src="/sitelogo.svg"
                 alt="Logo do site"
               />
@@ -46,8 +44,8 @@ export default function Nav() {
                   mx="10px"
                   px="10px"
                   key={idx}
-                  _hover={{ transform: 'scale(1.1)' }}
-                  _active={{ transform: 'scale(.9)' }}
+                  _hover={{ transform: "scale(1.1)" }}
+                  _active={{ transform: "scale(.9)" }}
                 >
                   {item.name}
                 </Box>
@@ -62,22 +60,22 @@ export default function Nav() {
           key="fix"
           pos="fixed"
           py="15px"
-          px={['10px', '0']}
+          px={["10px", "0"]}
           w="100vw"
           zIndex={1}
         >
-          <Flex color="white" fontSize={['1.2em', '1.4em']} mx="2vw">
+          <Flex color="white" fontSize={["1.2em", "1.4em"]} mx="2vw">
             <Link href="/">
               <Image
-                w={['30', '38']}
-                h={['30', '38']}
+                w={["30", "38"]}
+                h={["30", "38"]}
                 src="/sitelogo.svg"
                 alt="Logo do site"
               />
             </Link>
             <Spacer />
             {navItens.map((item, idx) => (
-              <Link fontFamily="Roboto Slab" href={item.link}>
+              <Link key={idx} fontFamily="Roboto Slab" href={item.link}>
                 <Box mx="10px" px="10px" key={idx}>
                   {item.name}
                 </Box>
@@ -87,5 +85,5 @@ export default function Nav() {
         </Box>
       )}
     </Box>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import '../styles/globals.css'
-import { ChakraProvider } from '@chakra-ui/react'
-import Head from 'next/head'
-import { Analytics } from '@vercel/analytics/react'
-import overrides from '../theme/index'
+import "../styles/globals.css";
+import { ChakraProvider } from "@chakra-ui/react";
+import Head from "next/head";
+import { Analytics } from "@vercel/analytics/react";
+import overrides from "../theme/index";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
       <Analytics />
     </ChakraProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

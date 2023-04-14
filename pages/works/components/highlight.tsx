@@ -1,5 +1,5 @@
-import { Box, Flex, Grid, Image, SimpleGrid, Text } from '@chakra-ui/react'
-import React from 'react'
+import { Box, Flex, Grid, Image, SimpleGrid, Text } from "@chakra-ui/react";
+import React from "react";
 
 export default function Highlight() {
   return (
@@ -14,7 +14,7 @@ export default function Highlight() {
         src="/cape.webp"
         boxShadow="0px 0px 10px 2px black"
         _hover={{
-          boxShadow: '0px 0px 40px 2px #a7a7a733',
+          boxShadow: "0px 0px 40px 2px #a7a7a733",
         }}
         zIndex={1}
         borderRadius="10px"
@@ -35,5 +35,5 @@ export default function Highlight() {
         </Box>
       </Grid>
     </SimpleGrid>
-  )
+  );
 }

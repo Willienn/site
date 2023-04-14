@@ -3,12 +3,12 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   i18n: {
-    locales: ['pt-br'],
-    defaultLocale: 'pt-br',
+    locales: ["pt-br"],
+    defaultLocale: "pt-br",
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
 
-const withFonts = require('next-fonts')
-module.exports = withFonts()
+const withFonts = require("next-fonts");
+module.exports = withFonts();
