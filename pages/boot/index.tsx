@@ -137,6 +137,7 @@ export default function Boot() {
 
   // @ts-ignore
     // @ts-ignore
+    // @ts-ignore
     return (
     <>
       <Head>
@@ -161,8 +162,13 @@ export default function Boot() {
               h="120px"
               onClick={() =>
                 setBootAnimation([
+                  //@ts-ignore
                   styles.boot,
+                    //@ts-ignore
+
                   styles.bootIcon1,
+                    //@ts-ignore
+
                   styles.bootIcon2,
                 ])
               }
@@ -252,6 +258,7 @@ export default function Boot() {
                       <VStack>
                         <Image
                           mb="-5px"
+                            //@ts-ignore
                           src={
                             type === "computer"
                               ? "/computer.png"
