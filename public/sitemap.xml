@@ -9,17 +9,27 @@
 
 <url>
   <loc>https://dailycodes.dev/</loc>
-  <lastmod>2022-12-12T20:45:47+00:00</lastmod>
+  <lastmod>2023-07-18T21:18:37+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
+  <loc>https://dailycodes.dev/works</loc>
+  <lastmod>2023-07-18T21:18:37+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://dailycodes.dev/posts/00cb1b70-4f3c-448c-9281-2358523a6a71</loc>
+  <lastmod>2023-07-18T21:18:37+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
   <loc>https://dailycodes.dev/posts/14ae9b21-1c1d-41a3-ab69-09c58784a5c1</loc>
-  <lastmod>2022-12-12T20:45:47+00:00</lastmod>
+  <lastmod>2023-07-18T21:18:37+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://dailycodes.dev/posts/e1433d6c-37e6-484c-b709-15459b7287af</loc>
-  <lastmod>2022-12-12T20:45:47+00:00</lastmod>
+  <lastmod>2023-07-18T21:18:37+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 
