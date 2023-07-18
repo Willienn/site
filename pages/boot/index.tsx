@@ -135,7 +135,9 @@ export default function Boot() {
       }, 4500);
   }, [bootAnimation]);
 
-  return (
+  // @ts-ignore
+    // @ts-ignore
+    return (
     <>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
