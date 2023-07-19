@@ -29,7 +29,7 @@ li {
 }
 
 .cursor {
-  cursor: url(../public/cursor.png), auto;
+  cursor: url(/public/cursor.png), auto;
 }
 
 .LazyLoad {

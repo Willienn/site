@@ -1,18 +1,12 @@
-import { Box, Flex, Image, Link, SimpleGrid, Text } from "@chakra-ui/react";
-import { useInView } from "react-intersection-observer";
+import { Box, Flex, Image, Link, SimpleGrid, Text } from "@CS-chakra";
 import React from "react";
 import styles from "./footer.module.css";
 
 export default function Footer() {
-  const { ref, inView, entry } = useInView({
-    threshold: 0,
-    triggerOnce: true,
-  });
   return (
     <SimpleGrid
       position={"absolute"}
       bottom={0}
-      ref={ref}
       columns={[2, 3]}
       as="footer"
       w="100vw"
@@ -30,7 +24,7 @@ export default function Footer() {
           marginLeft={["10px", "20px", "0px"]}
           gap={["10px", "10px", "20px"]}
           align="center"
-          className={inView ? styles.inview : styles.outview}
+          className={styles.inview}
         >
           <Text
             pos="absolute"

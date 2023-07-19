@@ -1,3 +1,4 @@
+"use client";
 import { Box, Flex, Image, Spacer } from "@chakra-ui/react";
 import { useInView } from "react-intersection-observer";
 import styles from "./nav.module.css";

@@ -1,23 +1,23 @@
 import { Fragment } from "react";
 import Head from "next/head";
-import { getBlocks, getPage } from "../../lib/notion";
+import { getBlocks, getPage } from "../../../lib/notion";
 import Link from "next/link";
-import styles from "./[id].module.css";
+import styles from "./page.module.css";
 import {
   AspectRatio,
   Box,
   Center,
   chakra,
+  ChakraProvider,
   Code,
   Heading,
   Image,
   Input,
   OrderedList,
   Text as TextC,
-} from "@chakra-ui/react";
-import LazyLoad from "react-lazy-load";
-import useIsMobile from "../../hooks/isMobile";
-import Layout from "../../components/layout";
+  ListItem,
+  Flex,
+} from "@CS-chakra";
 
 export const Text = ({ text, title }) => {
   if (!text) {
@@ -105,10 +105,10 @@ const renderBlock = (block, idx) => {
     case "bulleted_list_item":
     case "numbered_list_item":
       return (
-        <chakra.li my="5px">
+        <>
           <Text text={value.rich_text} />
           {!!value.children && renderNestedList(block)}
-        </chakra.li>
+        </>
       );
     case "to_do":
       return (
@@ -139,9 +139,9 @@ const renderBlock = (block, idx) => {
         ? value.caption[0]?.plain_text
         : "Imagem Ilustrativa";
       return (
-        <chakra.figure my="10px">
+        <figure style={{ margin: "10px 0px" }}>
           <Image src={src} alt={caption} w="auto" h="auto" />
-        </chakra.figure>
+        </figure>
       );
     case "divider":
       return <hr key={id} />;
@@ -197,67 +197,22 @@ const renderBlock = (block, idx) => {
       })`;
   }
 };
+export async function generateMetadata({ params }) {
+  const { id } = params;
+  const post = await getPage(id);
 
-export default function Post({ post, blocks }) {
-  const isMobile = useIsMobile();
-
-  if (!post || !blocks) {
-    return <Box />;
-  }
-
-  return (
-    <Layout>
-      <Head>
-        <title>{post.properties.Name.title[0].plain_text}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <AspectRatio
-        mt="25px"
-        w="100vw"
-        ratio={[2, 4]}
-        borderY={["25px solid #00001255", "50px solid #00001255"]}
-        borderX={["30px solid #111120", "60px solid #111120"]}
-      >
-        <LazyLoad>
-          <Image
-            alt="Banner do Post"
-            src={post.cover.external.url || post.cover.file.url}
-          />
-        </LazyLoad>
-      </AspectRatio>
-      <Box mb="80px" w="fit-content" as="article" className={styles.container}>
-        {!isMobile ? (
-          <Center>
-            <Heading my="30px" as="h1" className={styles.name}>
-              <Text title={true} text={post.properties.Name.title} />
-            </Heading>
-          </Center>
-        ) : (
-          <Heading as="h1" className={styles.name}>
-            <Text title={true} text={post.properties.Name.title} />
-          </Heading>
-        )}
-        <Box as="section">
-          {blocks.map((block) => (
-            <Center key={block.id}>
-              <Box w={["80vw", "70vw", "50vw"]}>{renderBlock(block)}</Box>
-            </Center>
-          ))}
-        </Box>
-      </Box>
-    </Layout>
-  );
+  return {
+    title: post?.properties?.Name?.title[0].plain_text,
+    openGraph: {
+      images: post.cover.external.url || post.cover.file.url,
+    },
+  };
 }
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
+export default async function Post({ params }) {
+  // : { params: { id: string }}
 
-export const getStaticProps = async (context) => {
-  const { id } = context.params;
+  const { id } = params;
   const post = await getPage(id);
   const blocks = await getBlocks(id);
 
@@ -269,23 +224,61 @@ export const getStaticProps = async (context) => {
           id: block.id,
           children: await getBlocks(block.id),
         };
-      })
+      }),
   );
-  const blocksWithChildren = blocks.map((block) => {
-    // Add child blocks if the block should contain children but none exists
-    if (block.has_children && !block[block.type].children) {
-      block[block.type]["children"] = childBlocks.find(
-        (x) => x.id === block.id
-      )?.children;
-    }
-    return block;
-  });
+  // const blocksWithChildren = blocks.map((block) => {
+  //   // Add child blocks if the block should contain children but none exists
+  //   if (block.has_children && !block[block.type].children) {
+  //     block[block.type]["children"] = childBlocks.find(
+  //       (x) => x.id === block.id,
+  //     )?.children;
+  //   }
+  //   return block;
+  // });
 
-  return {
-    props: {
-      post,
-      blocks: blocksWithChildren,
-    },
-    revalidate: 1000,
-  };
-};
+  if (!post || !blocks) {
+    return <Box />;
+  }
+
+  return (
+    <Flex direction="column">
+      <AspectRatio
+        mt="25px"
+        w="100vw"
+        ratio={[2, 4]}
+        borderY={["25px solid #00001255", "50px solid #00001255"]}
+        borderX={["30px solid #111120", "60px solid #111120"]}
+      >
+        <Image
+          alt="Banner do Post"
+          src={post.cover.external.url || post.cover.file.url}
+        />
+      </AspectRatio>
+      <Flex
+        direction="column"
+        mb="80px"
+        w="fit-content"
+        as="article"
+        className={styles.container}
+      >
+        <Heading as="h1" className={styles.name} mx="auto">
+          <Text title={true} text={post.properties.Name.title} />
+        </Heading>
+        <Box as="section">
+          {blocks.map((block) => (
+            <Center key={block.id}>
+              <Box w={["80vw", "70vw", "50vw"]}>{renderBlock(block)}</Box>
+            </Center>
+          ))}
+        </Box>
+      </Flex>
+    </Flex>
+  );
+}
+//
+// export const getStaticPaths = async () => {
+//   return {
+//     paths: [],
+//     fallback: true,
+//   };
+// };

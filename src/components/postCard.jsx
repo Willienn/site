@@ -1,4 +1,5 @@
-import { Box, Image } from "@chakra-ui/react";
+"use client";
+import { Box, Image } from "@CS-chakra";
 import Link from "next/link";
 import React from "react";
 import LazyLoad from "react-lazy-load";
