@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import styles from "./index.module.css";
+import { useRouter } from "next/router";
 
 const myProjects = [
   {
@@ -27,6 +28,12 @@ const myProjects = [
 ];
 
 export default function Works() {
+  const { push } = useRouter();
+
+  useEffect(() => {
+    push("/wip");
+  }, []);
+  return <></>;
   const [clicked, setClicked] = useState<number>();
   return (
     <Flex className={clicked !== undefined ? styles.clickedBox : styles.box}>

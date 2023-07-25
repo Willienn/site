@@ -35,11 +35,7 @@ export default function RootLayout({
       </Head>
       <body>
         <Providers>
-          <Box
-            minHeight={"100vh"}
-            pos={"relative"}
-            pb={["80px", "80px", "100px"]}
-          >
+          <Box minHeight="100%" pos={"relative"} pb={["80px", "80px", "100px"]}>
             <Nav />
             {children}
             <Footer />

@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto+Slab:wght@400;500;700;800&display=swap");
 
-body {
-  height: 100vh;
+html body {
+  height: 100svh;
+  width: 100svw;
   position: relative;
   overflow-x: hidden;
 }
@@ -20,7 +21,6 @@ body {
 }
 
 * {
-  box-sizing: border-box;
   transition: all 0.3s;
 }
 
