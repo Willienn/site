@@ -1,9 +1,11 @@
 import { Providers } from "./providers";
 import Head from "next/head";
+import { WebSite, WithContext } from "schema-dts";
+import { ReactNode } from "react";
 
-export default function RootLayout({ children }) {
-  const jsonLd = {
-    "@context": "http://www.schema.org",
+export default function RootLayout({ children }: { children: ReactNode }) {
+  const jsonLd: WithContext<WebSite> = {
+    "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Daily Codes",
     alternateName: "dailycodes",
@@ -27,12 +29,14 @@ export default function RootLayout({ children }) {
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="msapplication-TileImage" content="/favicon-144.png" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
       </Head>
       <body>
+        <section>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+        </section>
         <Providers>{children}</Providers>
       </body>
     </html>
