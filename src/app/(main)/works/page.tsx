@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import styles from "./page.module.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const myProjects = [
   {
@@ -34,10 +35,12 @@ const myProjects = [
 ];
 
 export default function Works() {
+  const { refresh } = useRouter();
+
   const [clicked, setClicked] = useState<number>();
   return (
     <Flex
-      py="40px"
+      pt="40px"
       className={clicked !== undefined ? styles.clickedBox : styles.box}
     >
       {myProjects.map((project, idx) => (
@@ -57,6 +60,7 @@ export default function Works() {
             }
             onClick={() => setClicked(idx)}
           />
+
           <Box
             display={clicked === idx ? "block" : "none"}
             minW="25svw"
@@ -77,9 +81,14 @@ export default function Works() {
               <Heading>{project.name}</Heading>
               <Text maxW="55svw">{project.text}</Text>
             </VStack>
-            <Button as={Link} href={project.link}>
-              Let me see it
-            </Button>
+            <VStack gap="10px">
+              <Button fontSize="1.1rem" as={Link} href={project.link}>
+                Let me see it
+              </Button>
+              <Button onClick={() => location.reload()} fontSize="0.9rem">
+                Go Back
+              </Button>
+            </VStack>
           </VStack>
         </>
       ))}

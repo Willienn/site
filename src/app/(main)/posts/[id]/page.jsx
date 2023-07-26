@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Head from "next/head";
-import { getBlocks, getPage } from "../../../lib/notion";
+import { getBlocks, getPage } from "../../../../lib/notion";
 import Link from "next/link";
 import styles from "./page.module.css";
 import {
