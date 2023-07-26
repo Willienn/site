@@ -8,7 +8,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Daily Codes",
-    alternateName: "dailycodes",
+    alternateName: "daily codes",
+    description: "Talk about anything i want and sometimes my poems",
     url: "https://dailycodes.dev/",
   };
 
