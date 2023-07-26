@@ -1,8 +1,9 @@
+"use client";
 import { Box, Flex } from "@chakra-ui/react";
 import { useState } from "react";
-import styles from "./aquarium.module.css";
+import styles from "./page.module.css";
 
-export default function aquarium() {
+export default function Aquarium() {
   const [a, setA] = useState(undefined);
   const [b, setB] = useState(undefined);
   setInterval(function () {
@@ -14,10 +15,17 @@ export default function aquarium() {
       overflow="hidden"
       display="flex"
       justifyContent="center"
-      w="100vw"
-      h="100vh"
+      minW="100vw"
+      minH="100vh"
+      bgColor="#000812"
+      zIndex={-1}
     >
-      <Flex justifyContent="center" alignItems="center" pos="relative">
+      <Flex
+        zIndex={1}
+        justifyContent="center"
+        alignItems="center"
+        pos="relative"
+      >
         <Box
           w="1500px"
           borderBottom="400px solid #16161c"
@@ -48,7 +56,7 @@ export default function aquarium() {
               left={b}
               className={styles.fish}
               zIndex="2"
-            ></Box>
+            />
           </Box>
         </Box>
       </Flex>

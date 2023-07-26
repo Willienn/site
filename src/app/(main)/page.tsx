@@ -1,8 +1,8 @@
 import { Center, Code, Flex, Heading, SimpleGrid } from "@CS-chakra";
 import React, { Suspense } from "react";
-import PostCard from "../components/postCard";
-import { getDatabase } from "../lib/notion";
 import Link from "next/link";
+import { getDatabase } from "@/lib/notion";
+import PostCard from "@/components/postCard";
 
 export default async function Home() {
   const databaseId = process.env.NOTION_DATABASE_ID;

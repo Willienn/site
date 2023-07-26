@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import {
   Box,
@@ -47,13 +48,14 @@ export default function Memos() {
       {page && (
         <Flex w="full" direction="column" align="center">
           <Flex gap="10px">
-            <Heading mb="20px" textAlign="center">
+            <Heading mb="20px" textAlign="center" zIndex={1}>
               Notes
             </Heading>
             <IconButton
               fontWeight="bolder"
               aria-label="addItem"
-              bgColor="transparent"
+              bgColor="#0002"
+              color="white"
               ml="-18px"
               mt="-5px"
               icon={<AiOutlinePlus />}
@@ -151,7 +153,6 @@ export default function Memos() {
                   borderRadius="8px"
                   w="250px"
                   h="250px"
-                  overflowY="scroll"
                   overflowX="hidden"
                 >
                   <IconButton

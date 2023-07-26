@@ -1,36 +1,36 @@
 .box {
-  height: 100vh;
+  height: 80svh;
   width: 100vw;
   justify-content: center;
   align-items: center;
   gap: 4vmin;
 }
+
 .clickedBox {
-  height: 100vh;
+  height: 79svh;
   width: 100vw;
   justify-content: center;
-  align-items: center;
   gap: 4vmin;
 }
+
 .closedText,
 .defaultText {
-  display: none;
+  display: none !important;
   opacity: 0;
 }
 
 .openedText {
-  position: absolute;
-  top: 100px;
-  left: 550px;
   animation: showText 1s forwards !important;
 }
 
 .opened:not(.noImage) {
   animation: expandImage 1s forwards;
 }
+
 .noImage.opened {
   animation: expandNoImage 1s forwards;
 }
+
 .closed {
   display: none;
   object-fit: cover;
@@ -38,6 +38,7 @@
   width: 40vw;
   height: 56vh;
 }
+
 .default {
   opacity: 1;
   object-fit: cover;
@@ -52,43 +53,71 @@
     object-position: 85%;
     width: 20vw;
     height: 56vh;
+    position: absolute;
+    left: 50%;
+    scale: 0.5;
+    top: 50%;
+    translate: -50% -53%;
   }
   50% {
     object-fit: cover;
     object-position: 85%;
-    width: 40vw;
-    height: 95vh;
-    translate: 10%;
+    width: 20vw;
+    height: 56vh;
+    scale: 1.4;
+    left: 50%;
+    top: 50%;
+    translate: -50% -53%;
   }
   100% {
     object-fit: cover;
     object-position: 0;
-    width: 40vw;
-    height: 95vh;
-    translate: -29vw;
+    width: 20vw;
+    height: 56vh;
+    scale: 1.4;
     cursor: initial;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -215% -53%;
   }
 }
+
 @keyframes expandNoImage {
   0% {
     object-fit: contain;
     width: 20vw;
+    scale: 0.5;
     height: 56vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -53%;
   }
   50% {
     object-fit: contain;
-    width: 40vw;
-    height: 95vh;
-    translate: 10%;
+    width: 20vw;
+    scale: 1.4;
+    height: 56vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -53%;
   }
   100% {
     object-fit: contain;
-    width: 40vw;
-    height: 95vh;
-    translate: -29vw;
+    width: 20vw;
+    height: 56vh;
+    scale: 1.4;
     cursor: initial;
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+    translate: -215% -53%;
   }
 }
+
 @keyframes showText {
   0% {
     opacity: 0;

@@ -1,10 +1,11 @@
+"use client";
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import Header from "./components/header";
-import Highlight from "./components/highlight";
-import Search from "./components/search";
+import Header from "../components/header";
+import Search from "../components/search";
+import Highlight from "../components/highlight";
 
-export default function restream() {
+export default function Restream() {
   return (
     <>
       <Header />

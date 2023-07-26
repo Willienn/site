@@ -1,42 +1,45 @@
-import Nav from "../../components/nav";
-import Footer from "../../components/footer";
+"use client";
 import { useState, useEffect, useRef } from "react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import styles from "./page.module.css";
 import Link from "next/link";
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import styles from "./index.module.css";
-import { useRouter } from "next/router";
 
 const myProjects = [
   {
     name: "Aquarium",
     link: "/works/aquarium",
     image: "/aquarium.jpg",
-    text: "Paes é o prefeito mais feliz do mundo, que dirige a cidade mais importante do mundo e da galáxia. Por que da galáxia? Porque a galáxia é o Rio de Janeiro. A via Láctea é fichinha perto da galáxia que o nosso querido Eduardo Paes tem a honra de ser prefeito. Primeiro, eu queria te dizer que eu tenho muito respeito pelo ET de Varginha. E eu sei que aqui, quem não viu conhece alguém que viu, ou tem alguém na família que viu, mas de qualquer jeito eu começo dizendo que esse respeito pelo ET de Varginha está garantido",
+    text: "Aquarium with a fish :D",
   },
   {
-    name: "WIP-Win98Retroative-WIP",
+    name: "OLD WIN",
     link: "/boot",
     image: "/oldwin.jpg",
-    text: "some text",
+    text: "Making old windows on web",
   },
   {
-    name: "WIP-Resteam-WIP",
-    link: "/works/restream",
+    name: "Notes",
+    link: "/works/notes",
     image: "",
-    text: "some text",
+    text: "Just some notes",
   },
 ];
 
 export default function Works() {
-  const { push } = useRouter();
-
-  useEffect(() => {
-    push("/wip");
-  }, []);
-  return <></>;
   const [clicked, setClicked] = useState<number>();
   return (
-    <Flex className={clicked !== undefined ? styles.clickedBox : styles.box}>
+    <Flex
+      py="40px"
+      className={clicked !== undefined ? styles.clickedBox : styles.box}
+    >
       {myProjects.map((project, idx) => (
         <>
           <Image
@@ -54,8 +57,14 @@ export default function Works() {
             }
             onClick={() => setClicked(idx)}
           />
-          <Text
-            w="50%"
+          <Box
+            display={clicked === idx ? "block" : "none"}
+            minW="25svw"
+            minH="100%"
+            transform="scale(1.5)"
+          />
+          <VStack
+            justifyContent="space-between"
             className={
               clicked === idx
                 ? styles.openedText
@@ -64,8 +73,14 @@ export default function Works() {
                 : styles.defaultText
             }
           >
-            {project.text}
-          </Text>
+            <VStack gap="20px">
+              <Heading>{project.name}</Heading>
+              <Text maxW="55svw">{project.text}</Text>
+            </VStack>
+            <Button as={Link} href={project.link}>
+              Let me see it
+            </Button>
+          </VStack>
         </>
       ))}
     </Flex>

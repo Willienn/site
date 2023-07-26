@@ -1,3 +1,4 @@
+"use client";
 import {
   Box,
   Button,
@@ -9,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Typed from "react-typed";
-import styles from "./index.module.css";
+import styles from "./page.module.css";
 import { IoMdArrowDropright } from "react-icons/io";
 import Head from "next/head";
 
@@ -135,10 +136,7 @@ export default function Boot() {
       }, 4500);
   }, [bootAnimation]);
 
-  // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
-    return (
+  return (
     <>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -164,10 +162,10 @@ export default function Boot() {
                 setBootAnimation([
                   //@ts-ignore
                   styles.boot,
-                    //@ts-ignore
+                  //@ts-ignore
 
                   styles.bootIcon1,
-                    //@ts-ignore
+                  //@ts-ignore
 
                   styles.bootIcon2,
                 ])
@@ -258,7 +256,7 @@ export default function Boot() {
                       <VStack>
                         <Image
                           mb="-5px"
-                            //@ts-ignore
+                          //@ts-ignore
                           src={
                             type === "computer"
                               ? "/computer.png"

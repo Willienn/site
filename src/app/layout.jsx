@@ -1,20 +1,15 @@
-import "./global.css";
-import { Providers } from "@/app/providers";
+import { Providers } from "./providers";
 import Head from "next/head";
-import { Box } from "@CS-chakra";
-import Nav from "@/components/nav";
-import Footer from "@/components/footer";
 
-export const metadata = {
-  title: "Daily Codes",
-  description: "Talk about anything i want and sometimes my poems",
-};
+export default function RootLayout({ children }) {
+  const jsonLd = {
+    "@context": "http://www.schema.org",
+    "@type": "WebSite",
+    name: "Daily Codes",
+    alternateName: "dailycodes",
+    url: "https://dailycodes.dev/",
+  };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
   return (
     <html lang="en">
       <Head>
@@ -32,15 +27,13 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="msapplication-TileImage" content="/favicon-144.png" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </Head>
       <body>
-        <Providers>
-          <Box minHeight="100%" pos={"relative"} pb={["80px", "80px", "100px"]}>
-            <Nav />
-            {children}
-            <Footer />
-          </Box>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
