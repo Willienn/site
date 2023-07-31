@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Head from "next/head";
-import { getBlocks, getPage } from "../../../../lib/notion";
+import {getBlocks, getPage, getPost} from "../../../../lib/notion";
 import Link from "next/link";
 import styles from "./page.module.css";
 import {
@@ -198,45 +198,47 @@ const renderBlock = (block, idx) => {
   }
 };
 export async function generateMetadata({ params }) {
-  const { id } = params;
-  const post = await getPage(id);
+  const { slug } = params;
+
+  const { page,pageError} = await getPost(slug);
+
+  if (pageError !== undefined) {
+    return <Box />;
+  }
 
   return {
-    title: post?.properties?.Name?.title[0].plain_text,
+    title: page?.properties?.Name?.title[0].plain_text,
     openGraph: {
-      images: post.cover.external.url || post.cover.file.url,
+      images: page.cover.external.url || page.cover.file.url,
     },
   };
 }
 
 export default async function Post({ params }) {
-  // : { params: { id: string }}
+  const { slug } = params;
+ const {blocks,page, pageError} = await getPost(slug)
 
-  const { id } = params;
-  const post = await getPage(id);
-  const blocks = await getBlocks(id);
-
-  const childBlocks = await Promise.all(
-    blocks
-      .filter((block) => block.has_children)
-      .map(async (block) => {
-        return {
-          id: block.id,
-          children: await getBlocks(block.id),
-        };
-      }),
-  );
+  // const childBlocks = await Promise.all(
+  //   blocks
+  //     .filter((block) => block.has_children)
+  //     .map(async (block) => {
+  //       return {
+  //         id: block.id,
+  //         children: await getBlocks(block.id),
+  //       };
+  //     }),
+  // );
   // const blocksWithChildren = blocks.map((block) => {
   //   // Add child blocks if the block should contain children but none exists
   //   if (block.has_children && !block[block.type].children) {
   //     block[block.type]["children"] = childBlocks.find(
   //       (x) => x.id === block.id,
   //     )?.children;
-  //   }
+  // //   }
   //   return block;
   // });
 
-  if (!post || !blocks) {
+  if (!blocks && pageError !== undefined) {
     return <Box />;
   }
 
@@ -251,7 +253,7 @@ export default async function Post({ params }) {
       >
         <Image
           alt="Banner do Post"
-          src={post.cover.external.url || post.cover.file.url}
+          src={page.cover.external.url || page.cover.file.url}
         />
       </AspectRatio>
       <Flex
@@ -262,7 +264,7 @@ export default async function Post({ params }) {
         className={styles.container}
       >
         <Heading as="h1" className={styles.name} mx="auto">
-          <Text title={true} text={post.properties.Name.title} />
+          <Text title={true} text={page.properties.Name.title} />
         </Heading>
         <Box as="section">
           {blocks.map((block) => (
@@ -275,10 +277,3 @@ export default async function Post({ params }) {
     </Flex>
   );
 }
-//
-// export const getStaticPaths = async () => {
-//   return {
-//     paths: [],
-//     fallback: true,
-//   };
-// };

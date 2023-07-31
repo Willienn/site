@@ -17,7 +17,7 @@
     "@emotion/styled": "^11.11.0",
     "@manypkg/cli": "0.21.0",
     "@next/eslint-plugin-next": "^13.4.10",
-    "@notionhq/client": "^2.2.8",
+    "@notionhq/client": "^2.2.9",
     "@types/node": "^20.4.2",
     "@types/react": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.1.0",

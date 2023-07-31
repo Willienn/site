@@ -18,7 +18,7 @@ export default function Nav() {
       {inView ? (
         <Box
           className={styles.fade}
-          key="block"
+          key="blocks"
           py="10px"
           px={["10px", "0"]}
           w="100vw"

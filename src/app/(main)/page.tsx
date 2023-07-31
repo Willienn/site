@@ -5,8 +5,7 @@ import { getDatabase } from "@/lib/notion";
 import PostCard from "@/components/postCard";
 
 export default async function Home() {
-  const databaseId = process.env.NOTION_DATABASE_ID;
-  const database = await getDatabase(databaseId);
+  const database = await getDatabase();
   return (
     <>
       <Center>
@@ -44,11 +43,12 @@ export default async function Home() {
           </Heading>
           <Suspense>
             <SimpleGrid columns={2} spacing={5}>
+
               {database.map((post) => {
                 return (
                   <PostCard
                     key={post.id}
-                    postLink={`/posts/${post.id}`}
+                    postLink={`/posts/${post.properties.Slug.url}`}
                     postImg={post.cover?.external?.url || post.cover?.file?.url}
                     postTitle={post.properties?.Name?.title[0].text?.content}
                   />
