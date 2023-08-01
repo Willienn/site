@@ -1,5 +1,5 @@
 import { Center, Code, Flex, Heading, SimpleGrid } from "@CS-chakra";
-import React, { Suspense } from "react";
+import React from "react";
 import Link from "next/link";
 import { getPosts } from "@/lib/notion";
 import PostCard from "@/components/postCard";
@@ -47,20 +47,18 @@ export default async function Home() {
           <Heading textAlign="center" fontSize={["2em", "3em"]}>
             Posts
           </Heading>
-          <Suspense>
-            <SimpleGrid columns={2} spacing={5}>
-              {posts.map((post) => {
-                return (
-                  <PostCard
-                    key={post.id}
-                    postLink={`/posts/${post.tags.Slug.url}`}
-                    postImg={post.cover?.external?.url || post.cover?.file?.url}
-                    postTitle={post.title}
-                  />
-                );
-              })}
-            </SimpleGrid>
-          </Suspense>
+          <SimpleGrid columns={2} spacing={5}>
+            {posts.map((post) => {
+              return (
+                <PostCard
+                  key={post.id}
+                  postLink={`/posts/${post.tags.Slug.url}`}
+                  postImg={post.cover?.external?.url || post.cover?.file?.url}
+                  postTitle={post.title}
+                />
+              );
+            })}
+          </SimpleGrid>
         </Flex>
       </Center>
     </>

@@ -16,7 +16,7 @@ import {
   Text,
 } from "@CS-chakra";
 import { Block, RichText } from "@/types/blocks";
-import {notFound} from "next/navigation";
+import { notFound } from "next/navigation";
 
 export function RenderText({
   text,
@@ -220,7 +220,11 @@ function renderBlock(block: Block, idx: number) {
   }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = params;
 
   const { post } = await getPost(slug);
