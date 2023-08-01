@@ -16,6 +16,7 @@ import {
   Text,
 } from "@CS-chakra";
 import { Block, RichText } from "@/types/blocks";
+import {notFound} from "next/navigation";
 
 export function RenderText({
   text,
@@ -237,7 +238,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
   const { blocks, post, pageError } = await getPost(slug);
 
   if (!blocks && pageError !== undefined) {
-    return <Box />;
+    return notFound();
   }
 
   return (
