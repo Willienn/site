@@ -1,17 +1,23 @@
 import { Center, Code, Flex, Heading, SimpleGrid } from "@CS-chakra";
 import React, { Suspense } from "react";
 import Link from "next/link";
-import { getDatabase } from "@/lib/notion";
+import { getPosts } from "@/lib/notion";
 import PostCard from "@/components/postCard";
+import { Fira_Code } from "next/font/google";
+
+const firaCode = Fira_Code({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default async function Home() {
-  const database = await getDatabase();
+  const posts = await getPosts();
   return (
     <>
       <Center>
         <Flex mx="10px" direction="column" mb="10vh" mt="5vh">
           <Heading mb="5px" ml="-2.5vw" fontSize={["2em", "3em"]}>
-            <Link fontFamily="Fira Code" className="link" href="/about">
+            <Link className={firaCode.className + " link"} href="/about">
               Willien
             </Link>
           </Heading>
@@ -43,14 +49,13 @@ export default async function Home() {
           </Heading>
           <Suspense>
             <SimpleGrid columns={2} spacing={5}>
-
-              {database.map((post) => {
+              {posts.map((post) => {
                 return (
                   <PostCard
                     key={post.id}
-                    postLink={`/posts/${post.properties.Slug.url}`}
+                    postLink={`/posts/${post.tags.Slug.url}`}
                     postImg={post.cover?.external?.url || post.cover?.file?.url}
-                    postTitle={post.properties?.Name?.title[0].text?.content}
+                    postTitle={post.title}
                   />
                 );
               })}

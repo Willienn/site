@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+    <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 
-<url>
-  <loc>https://dailycodes.dev/</loc>
-  <lastmod>2023-07-18T21:18:37+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://dailycodes.dev/works</loc>
-  <lastmod>2023-07-18T21:18:37+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dailycodes.dev/posts/00cb1b70-4f3c-448c-9281-2358523a6a71</loc>
-  <lastmod>2023-07-18T21:18:37+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dailycodes.dev/posts/14ae9b21-1c1d-41a3-ab69-09c58784a5c1</loc>
-  <lastmod>2023-07-18T21:18:37+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dailycodes.dev/posts/e1433d6c-37e6-484c-b709-15459b7287af</loc>
-  <lastmod>2023-07-18T21:18:37+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+    <url>
+        <loc>https://dailycodes.dev/</loc>
+        <lastmod>2023-07-18T21:18:37+00:00</lastmod>
+        <priority>1.00</priority>
+    </url>
+    <url>
+        <loc>https://dailycodes.dev/works</loc>
+        <lastmod>2023-07-18T21:18:37+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://dailycodes.dev/post/00cb1b70-4f3c-448c-9281-2358523a6a71</loc>
+        <lastmod>2023-07-18T21:18:37+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://dailycodes.dev/post/14ae9b21-1c1d-41a3-ab69-09c58784a5c1</loc>
+        <lastmod>2023-07-18T21:18:37+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://dailycodes.dev/post/e1433d6c-37e6-484c-b709-15459b7287af</loc>
+        <lastmod>2023-07-18T21:18:37+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
 
 
 </urlset>

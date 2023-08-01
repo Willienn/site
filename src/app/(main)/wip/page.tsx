@@ -1,6 +1,6 @@
 "use client";
-import { Box, Heading } from "@CS-chakra";
-import { Center, Flex, Text, VStack } from "@chakra-ui/react";
+import { Heading } from "@CS-chakra";
+import { Flex, Text, VStack } from "@chakra-ui/react";
 
 export default function () {
   return (

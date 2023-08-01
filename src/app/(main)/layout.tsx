@@ -1,5 +1,4 @@
 import "./global.css";
-import Head from "next/head";
 import { Box } from "@CS-chakra";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
