@@ -18,6 +18,8 @@ import {
 import { Block, RichText } from "@/types/blocks";
 import { notFound } from "next/navigation";
 
+export const dynamic = 'force-static'
+
 export function RenderText({
   text,
   title,

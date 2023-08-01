@@ -21,24 +21,6 @@ export async function getPosts() {
   return posts;
 }
 
-export async function getPost(slug: string) {
-  try {
-    const posts = await getPosts();
-    const post = posts.find((post) => post.tags.Slug.url === slug);
-    if (!post) {
-      throw new Error("Post not found.");
-    }
-
-    const filteredPageId = post.id;
-    const blocks = await getPostBlocks(filteredPageId);
-
-    return { blocks, post, pageError: null };
-  } catch (error) {
-    const typedError = error as Error;
-    return { blocks: null, post: null, pageError: typedError.message };
-  }
-}
-
 export async function getBlocks(blockId: string): Promise<Block[]> {
   const blocks: Block[] = [];
   let response = await notion.blocks.children.list({
@@ -117,4 +99,21 @@ async function extractPosts(
   );
 
   return posts;
+}
+export async function getPost(slug: string) {
+  try {
+    const posts = await getPosts();
+    const post = posts.find((post) => post.tags.Slug.url === slug);
+    if (!post) {
+      throw new Error("Post not found.");
+    }
+
+    const filteredPageId = post.id;
+    const blocks = await getPostBlocks(filteredPageId);
+
+    return { blocks, post, pageError: null };
+  } catch (error) {
+    const typedError = error as Error;
+    return { blocks: null, post: null, pageError: typedError.message };
+  }
 }

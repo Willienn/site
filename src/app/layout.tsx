@@ -3,6 +3,8 @@ import Head from "next/head";
 import { WebSite, WithContext } from "schema-dts";
 import { ReactNode } from "react";
 
+export const runtime = 'edge'
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   const jsonLd: WithContext<WebSite> = {
     "@context": "https://schema.org",
