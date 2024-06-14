@@ -11,12 +11,14 @@ const firaCode = Fira_Code({
 });
 
 export default async function Home() {
+  const age = new Date().getFullYear() - 2002;
+
   const posts = await getPosts();
   return (
     <>
       <Center>
-        <Flex mx="10px" direction="column" mb="10vh" mt="5vh">
-          <Heading mb="5px" ml="-2.5vw" fontSize={["2em", "3em"]}>
+        <Flex mx="10px" direction="column" mb="10svh" mt="5svh">
+          <Heading mb="5px" ml="-2.5svw" fontSize={["2em", "3em"]}>
             <Link className={firaCode.className + " link"} href="/about">
               Willien
             </Link>
@@ -29,7 +31,7 @@ export default async function Home() {
             w="auto"
           >
             {`{
- age: 20,
+ age: ${age},
  occupation: "Front-End Programmer"
  siteDescription: "Blog to post
  whatever i want (Mostly mine)."
@@ -39,8 +41,8 @@ export default async function Home() {
       </Center>
       <Center>
         <Flex
-          h={["35vh", "50vh", "50vh"]}
-          mb="10vh"
+          h={["35svh", "50svh", "50svh"]}
+          mb="10svh"
           direction="column"
           gap="30px"
         >

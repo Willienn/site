@@ -13,6 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     alternateName: "daily codes",
     description: "Talk about anything i want and sometimes my poems",
     url: "https://dailycodes.dev/",
+    keywords: "blog, daily, codes, poems, programming, web development",
   };
 
   return (
@@ -21,12 +22,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <meta
           name="google-site-verification"
           content="a9WvUWUgrdGoNizhM8stU7ycvk83LEMaODs_8wXyw0M"
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="true"
         />
 
         <meta name="msapplication-TileColor" content="#FFFFFF" />

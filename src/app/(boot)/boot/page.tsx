@@ -146,9 +146,9 @@ export default function Boot() {
           rel="stylesheet"
         />
       </Head>
-      <Box className="cursor" h="100vh" w="100vw" overflow="hidden">
+      <Box className="cursor" h="100svh" w="100svw" overflow="hidden">
         {button && (
-          <Center h="97vh">
+          <Center h="97svh">
             <Button
               display="flex"
               variant="unstyled"
@@ -198,22 +198,20 @@ export default function Boot() {
         )}
         {boot && (
           <Box m="10px">
-            {bootText.map((e, idx) => {
-              return (
-                <Box color="#11ff11" key={idx}>
-                  <Typed
-                    startDelay={idx * 1600}
-                    strings={e}
-                    showCursor={false}
-                    typeSpeed={10}
-                  />
-                </Box>
-              );
-            })}
+            {bootText.map((e, idx) => (
+              <Box color="#11ff11" key={idx}>
+                <Typed
+                  startDelay={idx * 1600}
+                  strings={e}
+                  showCursor={false}
+                  typeSpeed={10}
+                />
+              </Box>
+            ))}
           </Box>
         )}
         {loading && (
-          <VStack h="100vh">
+          <VStack h="100svh">
             <Box m="auto">
               <Text textAlign="center" fontSize="1.4em" fontFamily="Fira Code">
                 Windows 91
@@ -237,56 +235,54 @@ export default function Boot() {
           </VStack>
         )}
         {sys && (
-          <Box h="100vh" w="100vw">
-            <Box className={styles.windows} h="94.5vh" w="100vw" p="10px">
+          <Box h="100svh" w="100svw">
+            <Box className={styles.windows} h="94.5svh" w="100svw" p="10px">
               {icons.map(({ name, type, window }, idx) => {
                 return (
-                  <>
-                    <Button
-                      variant="unstyled"
-                      cursor="pointer"
-                      bgColor="transparent"
-                      border="none"
-                      m="2px 4px"
-                      key={idx}
-                      onClick={() => {
-                        setOpenWindow(openWindow.concat(window));
-                      }}
-                    >
-                      <VStack>
-                        <Image
-                          mb="-5px"
-                          //@ts-ignore
-                          src={
-                            type === "computer"
-                              ? "/computer.png"
-                              : type === "txt"
+                  <Button
+                    variant="unstyled"
+                    cursor="pointer"
+                    bgColor="transparent"
+                    border="none"
+                    m="2px 4px"
+                    key={idx}
+                    onClick={() => {
+                      setOpenWindow(openWindow.concat(window));
+                    }}
+                  >
+                    <VStack>
+                      <Image
+                        mb="-5px"
+                        //@ts-ignore
+                        src={
+                          type === "computer"
+                            ? "/computer.png"
+                            : type === "txt"
                               ? "/text.png"
                               : type === "css"
-                              ? "/question.png"
-                              : type === "mail"
-                              ? "/mail.png"
-                              : null
-                          }
-                        />
-                        <Text
-                          fontFamily="VT323"
-                          fontSize="14px"
-                          color="#F0F0F0"
-                          textShadow="1px 1px #303030ee"
-                        >
-                          {name}
-                        </Text>
-                      </VStack>
-                    </Button>
-                  </>
+                                ? "/question.png"
+                                : type === "mail"
+                                  ? "/mail.png"
+                                  : null
+                        }
+                      />
+                      <Text
+                        fontFamily="VT323"
+                        fontSize="14px"
+                        color="#F0F0F0"
+                        textShadow="1px 1px #303030ee"
+                      >
+                        {name}
+                      </Text>
+                    </VStack>
+                  </Button>
                 );
               })}
             </Box>
             <Flex
               justify="space-between"
-              w="100vw"
-              h="5.5vh"
+              w="100svw"
+              h="5.5svh"
               bgColor="#C0C0C0"
               borderTop="3px solid #cfcfcf"
               borderLeft="3px solid #cfcfcf"

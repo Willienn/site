@@ -100,6 +100,7 @@ async function extractPosts(
 
   return posts;
 }
+
 export async function getPost(slug: string) {
   try {
     const posts = await getPosts();

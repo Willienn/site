@@ -18,7 +18,7 @@ import {
 import { Block, RichText } from "@/types/blocks";
 import { notFound } from "next/navigation";
 
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 export function RenderText({
   text,
@@ -251,7 +251,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
     <Flex direction="column">
       <AspectRatio
         mt="25px"
-        w="100vw"
+        w="100svw"
         ratio={[2, 4]}
         borderY={["25px solid #00001255", "50px solid #00001255"]}
         borderX={["30px solid #111120", "60px solid #111120"]}
@@ -274,7 +274,9 @@ export default async function Post({ params }: { params: { slug: string } }) {
         <Box as="section">
           {blocks?.map((block: Block, idx) => (
             <Center key={block.id}>
-              <Box w={["80vw", "70vw", "50vw"]}>{renderBlock(block, idx)}</Box>
+              <Box w={["80svw", "70svw", "50svw"]}>
+                {renderBlock(block, idx)}
+              </Box>
             </Center>
           ))}
         </Box>

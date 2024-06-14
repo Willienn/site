@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import {
   Box,
   Button,
@@ -44,9 +44,8 @@ export default function Works() {
       className={clicked !== undefined ? styles.clickedBox : styles.box}
     >
       {myProjects.map((project, idx) => (
-        <>
+        <Fragment key={idx}>
           <Image
-            key={idx}
             cursor="pointer"
             src={project.image ? project.image : "/noImage.webp"}
             borderRadius="8px"
@@ -55,8 +54,9 @@ export default function Works() {
               (clicked === idx
                 ? styles.opened
                 : clicked !== undefined
-                ? styles.closed
-                : styles.default) + (project.image ? "" : ` ${styles.noImage}`)
+                  ? styles.closed
+                  : styles.default) +
+              (project.image ? "" : ` ${styles.noImage}`)
             }
             onClick={() => setClicked(idx)}
           />
@@ -73,8 +73,8 @@ export default function Works() {
               clicked === idx
                 ? styles.openedText
                 : clicked !== undefined
-                ? styles.closedText
-                : styles.defaultText
+                  ? styles.closedText
+                  : styles.defaultText
             }
           >
             <VStack gap="20px">
@@ -90,7 +90,7 @@ export default function Works() {
               </Button>
             </VStack>
           </VStack>
-        </>
+        </Fragment>
       ))}
     </Flex>
   );

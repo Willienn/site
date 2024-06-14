@@ -21,14 +21,14 @@ export default function Nav() {
           key="blocks"
           py="10px"
           px={["10px", "0"]}
-          w="100vw"
+          w="100svw"
           bgColor="#0d0d0daa"
         >
           <Flex
             color="white"
             align="center"
             fontSize={["1.2em", "1.4em"]}
-            mx="2vw"
+            mx="2svw"
           >
             <Link href="/">
               <Image
@@ -44,7 +44,7 @@ export default function Nav() {
                 <Box
                   mx="10px"
                   px="10px"
-                  key={idx}
+                  transition="all 0.1s"
                   _hover={{ transform: "scale(1.1)" }}
                   _active={{ transform: "scale(.9)" }}
                 >
@@ -62,10 +62,10 @@ export default function Nav() {
           pos="fixed"
           py="15px"
           px={["10px", "0"]}
-          w="100vw"
+          w="100svw"
           zIndex={1}
         >
-          <Flex color="white" fontSize={["1.2em", "1.4em"]} mx="2vw">
+          <Flex color="white" fontSize={["1.2em", "1.4em"]} mx="2svw">
             <Link href="/">
               <Image
                 w={["30", "38"]}

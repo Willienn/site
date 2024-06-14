@@ -1,6 +1,6 @@
 .box {
   height: 80svh;
-  width: 100vw;
+  width: 100svw;
   justify-content: center;
   align-items: center;
   gap: 4vmin;
@@ -8,7 +8,7 @@
 
 .clickedBox {
   height: 79svh;
-  width: 100vw;
+  width: 100svw;
   justify-content: center;
   gap: 4vmin;
 }
@@ -35,24 +35,24 @@
   display: none;
   object-fit: cover;
   object-position: center;
-  width: 40vw;
-  height: 56vh;
+  width: 40svw;
+  height: 56svh;
 }
 
 .default {
   opacity: 1;
   object-fit: cover;
   object-position: 85%;
-  width: 20vw;
-  height: 56vh;
+  width: 20svw;
+  height: 56svh;
 }
 
 @keyframes expandImage {
   0% {
     object-fit: cover;
     object-position: 85%;
-    width: 20vw;
-    height: 56vh;
+    width: 20svw;
+    height: 56svh;
     position: absolute;
     left: 50%;
     scale: 0.5;
@@ -62,8 +62,8 @@
   50% {
     object-fit: cover;
     object-position: 85%;
-    width: 20vw;
-    height: 56vh;
+    width: 20svw;
+    height: 56svh;
     scale: 1.4;
     left: 50%;
     top: 50%;
@@ -72,8 +72,8 @@
   100% {
     object-fit: cover;
     object-position: 0;
-    width: 20vw;
-    height: 56vh;
+    width: 20svw;
+    height: 56svh;
     scale: 1.4;
     cursor: initial;
     position: absolute;
@@ -86,9 +86,9 @@
 @keyframes expandNoImage {
   0% {
     object-fit: contain;
-    width: 20vw;
+    width: 20svw;
     scale: 0.5;
-    height: 56vh;
+    height: 56svh;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -96,9 +96,9 @@
   }
   50% {
     object-fit: contain;
-    width: 20vw;
+    width: 20svw;
     scale: 1.4;
-    height: 56vh;
+    height: 56svh;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -106,8 +106,8 @@
   }
   100% {
     object-fit: contain;
-    width: 20vw;
-    height: 56vh;
+    width: 20svw;
+    height: 56svh;
     scale: 1.4;
     cursor: initial;
     position: absolute;

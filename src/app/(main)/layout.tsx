@@ -7,6 +7,14 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Daily Codes",
   description: "Talk about anything i want and sometimes my poems",
+  keywords: "blog, daily, codes, poems, programming, web development",
+  openGraph: {
+    type: "website",
+    url: "https://dailycodes.dev",
+    title: "Daily Codes",
+    description: "Talk about anything i want and sometimes my poems",
+    siteName: "Daily Codes",
+  },
 };
 
 export default function MainLayout({

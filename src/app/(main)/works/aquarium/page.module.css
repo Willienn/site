@@ -47,7 +47,8 @@
   border-radius: 100%;
   bottom: -30px;
   height: 20vw;
-
+  max-height: 300px;
+  min-height: 230px;
   animation: waves1 10s ease-in-out infinite;
 }
 
@@ -56,6 +57,8 @@
   border-radius: 50%;
   bottom: -20px;
   height: 21vw;
+  max-height: 320px;
+  min-height: 250px;
   animation: waves2 8s ease-in-out infinite;
 }
 
