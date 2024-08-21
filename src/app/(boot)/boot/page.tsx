@@ -10,20 +10,17 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Typed from "react-typed";
-import styles from "./page.module.css";
 import { IoMdArrowDropright } from "react-icons/io";
 import Head from "next/head";
+import styles from "./page.module.css";
 
-export default function Boot() {
-  const [boot, setBoot] = useState(false);
-  const [button, setButton] = useState(true);
-  const [bootAnimation, setBootAnimation] = useState([]);
-  const [loading, setloading] = useState(false);
-  const [sys, setSys] = useState(false);
-  const [menuOpen, setmenuOpen] = useState(false);
-  const [openWindow, setOpenWindow] = useState([]);
-  const [date, setDate] = useState(new Date());
+interface Icon {
+  name: string;
+  type: string;
+  window: JSX.Element;
+}
 
+const BootScreen: React.FC = () => {
   const bootText = [
     ["Initializing Boot......"],
     ["Checking for errors"],
@@ -32,109 +29,109 @@ export default function Boot() {
     ["Initializing OS"],
   ];
 
-  const icons: { name: string; type: string; window: any }[] = [
-    {
-      name: "Computer",
-      type: "computer",
-      window: (
-        <div
-          style={{
-            width: "200px",
-            height: "200px",
-            backgroundColor: "#C0C0C0",
-            borderTop: "2px solid #dfdfdf",
-            borderLeft: "2px solid #dfdfdf",
-            borderBottom: "2px solid #2e2e2e",
-            borderRight: "2px solid #2e2e2e",
-          }}
-        >
-          {" "}
-        </div>
-      ),
-    },
-    {
-      name: "text.txt",
-      type: "txt",
-      window: (
-        <div
-          style={{
-            width: "200px",
-            height: "200px",
-            backgroundColor: "#C0C0C0",
-            borderTop: "2px solid #dfdfdf",
-            borderLeft: "2px solid #dfdfdf",
-            borderBottom: "2px solid #2e2e2e",
-            borderRight: "2px solid #2e2e2e",
-          }}
-        >
-          {" "}
-        </div>
-      ),
-    },
-    {
-      name: "About.vfx",
-      type: "css",
-      window: (
-        <div
-          style={{
-            width: "200px",
-            height: "200px",
-            backgroundColor: "#C0C0C0",
-            borderTop: "2px solid #dfdfdf",
-            borderLeft: "2px solid #dfdfdf",
-            borderBottom: "2px solid #2e2e2e",
-            borderRight: "2px solid #2e2e2e",
-          }}
-        >
-          {" "}
-        </div>
-      ),
-    },
-    {
-      name: "Contact",
-      type: "mail",
-      window: (
-        <div
-          style={{
-            width: "200px",
-            height: "200px",
-            backgroundColor: "#C0C0C0",
-            borderTop: "2px solid #dfdfdf",
-            borderLeft: "2px solid #dfdfdf",
-            borderBottom: "2px solid #2e2e2e",
-            borderRight: "2px solid #2e2e2e",
-          }}
-        >
-          {" "}
-        </div>
-      ),
-    },
+  return (
+    <Box m="10px">
+      {bootText.map((text, idx) => (
+        <Box color="#11ff11" key={idx}>
+          <Typed
+            startDelay={idx * 1600}
+            strings={text}
+            showCursor={false}
+            typeSpeed={10}
+          />
+        </Box>
+      ))}
+    </Box>
+  );
+};
+
+const IconWindow: React.FC<{ icon: Icon; onClick: () => void }> = ({
+  icon,
+  onClick,
+}) => (
+  <Button
+    variant="unstyled"
+    cursor="pointer"
+    bgColor="transparent"
+    m="2px 4px"
+    onClick={onClick}
+  >
+    <VStack>
+      <Image
+        mb="-5px"
+        src={
+          icon.type === "computer"
+            ? "/computer.png"
+            : icon.type === "txt"
+              ? "/text.png"
+              : icon.type === "css"
+                ? "/question.png"
+                : icon.type === "mail"
+                  ? "/mail.png"
+                  : undefined
+        }
+      />
+      <Text
+        fontFamily="VT323"
+        fontSize="14px"
+        color="#F0F0F0"
+        textShadow="1px 1px #303030ee"
+      >
+        {icon.name}
+      </Text>
+    </VStack>
+  </Button>
+);
+
+export default function Boot() {
+  const [state, setState] = useState({
+    boot: false,
+    buttonVisible: true,
+    bootAnimation: [] as string[],
+    loading: false,
+    sysLoaded: false,
+    menuOpen: false,
+    openWindows: [] as JSX.Element[],
+  });
+  const [date, setDate] = useState(new Date());
+
+  const icons: Icon[] = [
+    { name: "Computer", type: "computer", window: <WindowContent /> },
+    { name: "text.txt", type: "txt", window: <WindowContent /> },
+    { name: "About.vfx", type: "css", window: <WindowContent /> },
+    { name: "Contact", type: "mail", window: <WindowContent /> },
   ];
 
   useEffect(() => {
     const timer = setInterval(() => setDate(new Date()), 1000);
-    return function cleanup() {
-      clearInterval(timer);
-    };
-  });
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
-    bootAnimation.length !== 0 &&
+    if (state.bootAnimation.length !== 0) {
       setTimeout(() => {
-        setButton(false);
-        setBoot(true);
+        setState((prevState) => ({
+          ...prevState,
+          buttonVisible: false,
+          boot: true,
+        }));
         setTimeout(() => {
-          setBoot(false);
+          setState((prevState) => ({
+            ...prevState,
+            boot: false,
+            loading: true,
+          }));
           setTimeout(() => {
-            setloading(true);
-            setTimeout(() => {
-              setSys(true);
-              setloading(false);
-            }, 5500);
-          }, 500);
+            setState((prevState) => ({
+              ...prevState,
+              sysLoaded: true,
+              loading: false,
+            }));
+          }, 5500);
         }, 7500);
       }, 4500);
-  }, [bootAnimation]);
+    }
+  }, [state.bootAnimation]);
 
   return (
     <>
@@ -146,8 +143,8 @@ export default function Boot() {
           rel="stylesheet"
         />
       </Head>
-      <Box className="cursor" h="100svh" w="100svw" overflow="hidden">
-        {button && (
+      <Box h="100svh" w="100svw" overflow="hidden">
+        {state.buttonVisible && (
           <Center h="97svh">
             <Button
               display="flex"
@@ -155,35 +152,33 @@ export default function Boot() {
               borderRadius="8px"
               border="none"
               bgColor="#0e4f03"
-              className={bootAnimation[0]}
+              className={state.bootAnimation[0]}
               w="120px"
               h="120px"
               onClick={() =>
-                setBootAnimation([
-                  //@ts-ignore
-                  styles.boot,
-                  //@ts-ignore
-
-                  styles.bootIcon1,
-                  //@ts-ignore
-
-                  styles.bootIcon2,
-                ])
+                setState((prevState) => ({
+                  ...prevState,
+                  bootAnimation: [
+                    styles.boot,
+                    styles.bootIcon1,
+                    styles.bootIcon2,
+                  ],
+                }))
               }
             >
               <Box
-                className={bootAnimation[2]}
                 border="3px solid #05070b"
                 borderBlockStart="3px solid transparent"
                 borderRadius="100%"
                 w="65px"
                 h="60px"
+                className={state.bootAnimation[2]}
               >
                 <Box
                   className={
-                    bootAnimation[1] !== styles.bootIcon1
+                    state.bootAnimation[1] !== styles.bootIcon1
                       ? styles.idle
-                      : bootAnimation[1]
+                      : state.bootAnimation[1]
                   }
                   margin="auto"
                   mt="-5px"
@@ -191,26 +186,14 @@ export default function Boot() {
                   w="2px"
                   borderRadius="2px"
                   border="2px solid #05070b"
-                ></Box>
+                />
               </Box>
             </Button>
           </Center>
         )}
-        {boot && (
-          <Box m="10px">
-            {bootText.map((e, idx) => (
-              <Box color="#11ff11" key={idx}>
-                <Typed
-                  startDelay={idx * 1600}
-                  strings={e}
-                  showCursor={false}
-                  typeSpeed={10}
-                />
-              </Box>
-            ))}
-          </Box>
-        )}
-        {loading && (
+
+        {state.boot && <BootScreen />}
+        {state.loading && (
           <VStack h="100svh">
             <Box m="auto">
               <Text textAlign="center" fontSize="1.4em" fontFamily="Fira Code">
@@ -234,55 +217,35 @@ export default function Boot() {
             </Box>
           </VStack>
         )}
-        {sys && (
+
+        {state.sysLoaded && (
           <Box h="100svh" w="100svw">
-            <Box className={styles.windows} h="94.5svh" w="100svw" p="10px">
-              {icons.map(({ name, type, window }, idx) => {
-                return (
-                  <Button
-                    variant="unstyled"
-                    cursor="pointer"
-                    bgColor="transparent"
-                    border="none"
-                    m="2px 4px"
-                    key={idx}
-                    onClick={() => {
-                      setOpenWindow(openWindow.concat(window));
-                    }}
-                  >
-                    <VStack>
-                      <Image
-                        mb="-5px"
-                        //@ts-ignore
-                        src={
-                          type === "computer"
-                            ? "/computer.png"
-                            : type === "txt"
-                              ? "/text.png"
-                              : type === "css"
-                                ? "/question.png"
-                                : type === "mail"
-                                  ? "/mail.png"
-                                  : null
-                        }
-                      />
-                      <Text
-                        fontFamily="VT323"
-                        fontSize="14px"
-                        color="#F0F0F0"
-                        textShadow="1px 1px #303030ee"
-                      >
-                        {name}
-                      </Text>
-                    </VStack>
-                  </Button>
-                );
-              })}
-            </Box>
-            <Flex
-              justify="space-between"
+            <Box
+              className={styles.windows}
+              h="calc(100vh - 40px)"
               w="100svw"
-              h="5.5svh"
+              p="10px"
+            >
+              {icons.map((icon, idx) => (
+                <IconWindow
+                  key={idx}
+                  icon={icon}
+                  onClick={() =>
+                    setState((prevState) => ({
+                      ...prevState,
+                      openWindows: prevState.openWindows.concat(icon.window),
+                    }))
+                  }
+                />
+              ))}
+            </Box>
+
+            <Flex
+              p="4px"
+              justify="space-between"
+              alignItems="center"
+              w="100svw"
+              h="40px"
               bgColor="#C0C0C0"
               borderTop="3px solid #cfcfcf"
               borderLeft="3px solid #cfcfcf"
@@ -292,126 +255,81 @@ export default function Boot() {
                 variant="unstyled"
                 borderRadius="none"
                 bgColor="#C6C6C6"
-                w="fit-content"
-                h="fit-content"
                 p="4px"
+                h="fit-content"
                 my="2px"
                 ml="5px"
                 borderTop="2px solid #dfdfdf"
                 borderLeft="2px solid #dfdfdf"
                 borderBottom="2px solid #2e2e2e"
                 borderRight="2px solid #2e2e2e"
-                onClick={() => {
-                  setmenuOpen(menuOpen ? false : true);
-                }}
+                onClick={() =>
+                  setState((prevState) => ({
+                    ...prevState,
+                    menuOpen: !prevState.menuOpen,
+                  }))
+                }
               >
                 <Image src="/start-button.png" />
+                {state.menuOpen && (
+                  <Box
+                    bgColor="#C6C6C6"
+                    w="100px"
+                    h="200px"
+                    bottom="105%"
+                    // left="5px"
+                    left="-2px"
+                    pos="absolute"
+                    borderTop="2px solid #dfdfdf"
+                    borderLeft="2px solid #dfdfdf"
+                    borderBottom="2px solid #2e2e2e"
+                    borderRight="2px solid #2e2e2e"
+                  >
+                    <Flex direction="column">
+                      {["Programs", "Documents", "Contact", "Willien"].map(
+                        (item, idx) => (
+                          <Text
+                            color="black"
+                            key={idx}
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="space-between"
+                            paddingX="4px"
+                            _hover={{ bgColor: "#0090E4" }}
+                            fontFamily="VT323"
+                            cursor="pointer"
+                          >
+                            {item}
+                            {item === "Programs" && (
+                              <IoMdArrowDropright
+                                style={{ fontSize: "12px" }}
+                              />
+                            )}
+                          </Text>
+                        ),
+                      )}
+                    </Flex>
+                  </Box>
+                )}
               </Button>
-              {menuOpen && (
-                <Box
-                  bgColor="#C6C6C6"
-                  w="100px"
-                  h="100px"
-                  top="-100px"
-                  left="5px"
-                  pos="absolute"
-                  borderTop="2px solid #dfdfdf"
-                  borderLeft="2px solid #dfdfdf"
-                  borderBottom="2px solid #2e2e2e"
-                  borderRight="2px solid #2e2e2e"
-                >
-                  <Flex fontSize="0px" direction="column" gap="none">
-                    <Text
-                      _hover={{ bgColor: "#0090E4" }}
-                      as="span"
-                      w="full"
-                      bgColor="transparent"
-                    >
-                      <Button
-                        variant="unstyled"
-                        fontFamily="VT323"
-                        border="none"
-                        fontSize="14px"
-                        bgColor="transparent"
-                      >
-                        Progams
-                        <Box pos="absolute" right="-42px" top="2px">
-                          <IoMdArrowDropright />
-                        </Box>
-                      </Button>
-                    </Text>
-                    <Text
-                      _hover={{ bgColor: "#0090E4" }}
-                      as="span"
-                      textAlign="left"
-                      w="full"
-                    >
-                      <Button
-                        variant="unstyled"
-                        fontFamily="VT323"
-                        border="none"
-                        fontSize="14px"
-                        bgColor="transparent"
-                      >
-                        Documents
-                        <Box pos="absolute" right="-29px" top="2px">
-                          <IoMdArrowDropright />
-                        </Box>
-                      </Button>
-                    </Text>
-                    <Text
-                      _hover={{ bgColor: "#0090E4" }}
-                      as="span"
-                      w="full"
-                      bgColor="transparent"
-                    >
-                      <Button
-                        variant="unstyled"
-                        fontFamily="VT323"
-                        border="none"
-                        fontSize="14px"
-                        bgColor="transparent"
-                      >
-                        Contact
-                      </Button>
-                    </Text>
-                    <Text
-                      _hover={{ bgColor: "#0090E4" }}
-                      as="span"
-                      w="full"
-                      bgColor="transparent"
-                    >
-                      <Button
-                        variant="unstyled"
-                        fontFamily="VT323"
-                        border="none"
-                        fontSize="14px"
-                        bgColor="transparent"
-                      >
-                        Willien
-                      </Button>
-                    </Text>
-                  </Flex>
-                </Box>
-              )}
-              <Button
-                borderRadius="none"
-                variant="unstyled"
-                w="50px"
-                color="#0d0d0d"
+
+              <Box
                 h="fit-content"
-                fontSize=".8em"
-                p="2px"
-                my="2px"
-                mr="5px"
-                border="none"
-                boxShadow="inset 0 0 2px 1px #4c4c4c"
+                px="4px"
+                borderTop="2px solid #dfdfdf"
+                borderLeft="2px solid #dfdfdf"
+                borderBottom="2px solid #2e2e2e"
+                borderRight="2px solid #2e2e2e"
               >
-                {date.toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </Button>
+                <Text
+                  userSelect="none"
+                  fontFamily="VT323"
+                  color="#3E3E3E"
+                  fontWeight="bold"
+                >
+                  {date.toLocaleTimeString()}
+                </Text>
+              </Box>
             </Flex>
           </Box>
         )}
@@ -419,3 +337,11 @@ export default function Boot() {
     </>
   );
 }
+
+const WindowContent: React.FC = () => {
+  return (
+    <Box>
+      <Text>This is a window content</Text>
+    </Box>
+  );
+};

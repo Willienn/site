@@ -20,7 +20,7 @@ export default function PostCard({ postLink, postImg, postTitle }) {
         <LazyLoad width="100%" height="100%" threshold={0.1}>
           <Image
             opacity="80%"
-            alt="logo"
+            alt={"logo do post: " + postTitle}
             w="100%"
             h="100%"
             objectFit="cover"
