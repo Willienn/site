@@ -10,10 +10,11 @@ const firaCode = Fira_Code({
   display: "swap",
 });
 
-export default async function Home() {
+export default async function Page() {
   const age = new Date().getFullYear() - 2002;
 
   const posts = await getPosts();
+  console.log(posts);
   return (
     <>
       <Center>
@@ -50,16 +51,14 @@ export default async function Home() {
             Posts
           </Heading>
           <SimpleGrid columns={2} spacing={5}>
-            {posts.map((post) => {
-              return (
-                <PostCard
-                  key={post.id}
-                  postLink={`/posts/${post.tags.Slug.url}`}
-                  postImg={post.cover?.external?.url || post.cover?.file?.url}
-                  postTitle={post.title}
-                />
-              );
-            })}
+            {posts?.map((post) => (
+              <PostCard
+                key={post.id}
+                postLink={`/posts/${post.tags.Slug.url}`}
+                postImg={post.cover?.external?.url || post.cover?.file?.url}
+                postTitle={post.title}
+              />
+            ))}
           </SimpleGrid>
         </Flex>
       </Center>
