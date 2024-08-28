@@ -14,7 +14,6 @@ export default async function Page() {
   const age = new Date().getFullYear() - 2002;
 
   const posts = await getPosts();
-  console.log(posts, "posts");
   return (
     <>
       <Center>
