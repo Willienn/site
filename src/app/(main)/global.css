@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto+Slab:wght@400;500;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html body {
   height: 100svh;
@@ -10,14 +13,18 @@ html body {
 .link {
   position: relative;
 }
-
-.link:hover::before {
-  animation: link 0.8s ease forwards;
+.link::before {
   border-bottom: 1px solid white;
   position: absolute;
   content: "";
   bottom: 0;
   width: 0;
+  transition: all .8s ease;
+}
+
+.link:hover::before {
+  width: 3.3em;
+
 }
 
 * {
@@ -39,13 +46,4 @@ li {
 
 .is-visible {
   opacity: 1;
-}
-
-@keyframes link {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 3.3em;
-  }
 }

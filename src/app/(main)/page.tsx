@@ -1,66 +1,50 @@
-import { Center, Code, Flex, Heading, SimpleGrid } from "@CS-chakra";
 import React from "react";
 import Link from "next/link";
-import { getPosts } from "@/lib/notion";
+import {getPosts} from "@/lib/notion";
 import PostCard from "@/components/postCard";
-import { Fira_Code } from "next/font/google";
-
-const firaCode = Fira_Code({
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export default async function Page() {
   const age = new Date().getFullYear() - 2002;
 
   const posts = await getPosts();
   return (
-    <>
-      <Center>
-        <Flex mx="10px" direction="column" mb="10svh" mt="5svh">
-          <Heading mb="5px" ml="-2.5svw" fontSize={["2em", "3em"]}>
-            <Link className={firaCode.className + " link"} href="/about">
+    <main className="flex gap-12 lg:gap-24 flex-col max-h-screen min-h-screen">
+      <div className="flex items-center justify-center">
+        <div className="px-2.5 gap-2 flex flex-col pt-[5svh]" >
+            <Link className="font-fira_code link ml-[-2.5svw] text-2xl lg:text-5xl font-bold" href="/about">
               Willien
             </Link>
-          </Heading>
-          <Code
-            bgColor="transparent"
-            color="#d0d0d0"
-            whiteSpace="pre-wrap"
-            fontSize={["1em", "1.4em"]}
-            w="auto"
+          <div
+            className="font-fira_code text-[1rem] text-[#d0d0d0] lg:text-2xl whitespace-pre-wrap"
           >
             {`{
- age: ${age},
- occupation: "Front-End Programmer"
- siteDescription: "Blog to post
- whatever i want (Mostly mine)."
+  age: ${age},
+  occupation: "Web Developer",
+  site_description: "Blog to post
+  whatever i want (Mostly mine)."
 }`}
-          </Code>
-        </Flex>
-      </Center>
-      <Center>
-        <Flex
-          h={["35svh", "50svh", "50svh"]}
-          mb="10svh"
-          direction="column"
-          gap="30px"
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-center">
+        <div className=" mb-[10svh] flex flex-col gap-8 h-[35svh] lg:h-[50svh]"
         >
-          <Heading textAlign="center" fontSize={["2em", "3em"]}>
+          <h2 className="mb-1.5 ml-[-2.5svw] text-3xl lg:text-5xl font-bold text-center"
+          >
             Posts
-          </Heading>
-          <SimpleGrid columns={2} spacing={5}>
+          </h2>
+          <div className="grid-cols-2 grid gap-5 ">
             {posts?.map((post) => (
-              <PostCard
-                key={post.id}
+                <PostCard
+                    key={post.id}
                 postLink={`/posts/${post.tags.Slug.url}`}
                 postImg={post.cover?.external?.url || post.cover?.file?.url}
                 postTitle={post.title}
               />
             ))}
-          </SimpleGrid>
-        </Flex>
-      </Center>
-    </>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }

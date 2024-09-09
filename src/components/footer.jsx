@@ -1,46 +1,30 @@
-import { Box, Flex, Image, Link, SimpleGrid, Text } from "@CS-chakra";
+import {Link} from "@CS-chakra";
 import React from "react";
 
 export default function Footer() {
   const date = new Date().getFullYear();
   return (
-    <SimpleGrid
-      position={"absolute"}
-      bottom={0}
-      columns={[2, 3]}
-      as="footer"
-      w="100svw"
-      h={["80px", "80px", "100px"]}
-      bgColor="#0d0d0daa"
-      borderTop="2px solid #090909"
-      p="10px 20px"
-    >
-      <Text marginY="auto" fontSize={[".8em", ".9em", ".9em"]}>
+    <footer className="flex justify-between absolute bottom-0 w-full h-20 lg:h-24 bg-[#0d0d0daa] border-t-2 border-t-[#090909] py-5 px-10">
+      <p className="my-auto text-[.8rem] lg:text-[.9rem]">
         © Willien Muniz {date}
-      </Text>
-      <Box gridColumn={4} pos="relative" px={["0px", "0px", "30px"]}>
-        <Flex
-          h="100%"
-          marginLeft={["10px", "20px", "0px"]}
-          gap={["10px", "10px", "20px"]}
-          align="center"
+      </p>
+      <div className="px-0 lg:px-7" >
+        <div
+            className="flex h-full flex-row items-center gap-2.5 lg:gap-5 ml2.5 lg:ml-0"
         >
-          <Text
-            pos="absolute"
-            left={["-46px", "-46px", "-49px"]}
-            fontSize={[".9em", ".95em", "1em"]}
-            top={["19px", "19px", "26px"]}
+          <p
+              className="text-[.9rem] lg:text-[1rem]"
           >
             Contact
-          </Text>
+          </p>
           <Link href="https://www.linkedin.com/in/willien-muniz-973960255/">
-            <Image src="/linkedin.svg" alt="Link for my Linkedin" />
+            <img src="/linkedin.svg" alt="Link for my Linkedin" />
           </Link>
           <Link href="https://www.instagram.com/whatsisyourdoubt/">
-            <Image src="/instagram.svg" alt="Link for my Instagram" />
+            <img src="/instagram.svg" alt="Link for my Instagram" />
           </Link>
-        </Flex>
-      </Box>
-    </SimpleGrid>
+        </div>
+      </div>
+    </footer>
   );
 }
