@@ -11,7 +11,7 @@ export default async function Page() {
       <div className="flex items-center justify-center">
         <div className="flex flex-col gap-2 px-2.5 pt-[5svh]">
           <Link
-            className="link ml-[-2.5svw] font-fira_code text-2xl font-bold lg:text-5xl"
+            className="link ml-[-2.5svw] font-roboto_slab text-2xl font-bold lg:text-5xl"
             href="/about"
           >
             Willien
@@ -28,7 +28,7 @@ export default async function Page() {
       </div>
       <div className="flex items-center justify-center">
         <div className="mb-[10svh] flex h-[35svh] flex-col gap-8 lg:h-[50svh]">
-          <h2 className="mb-1.5 ml-[-2.5svw] text-center text-3xl font-bold lg:text-5xl">
+          <h2 className="mb-1.5 ml-[-2.5svw] text-center font-roboto_slab text-3xl font-bold lg:text-5xl">
             Posts
           </h2>
           <div className="grid grid-cols-2 gap-5">

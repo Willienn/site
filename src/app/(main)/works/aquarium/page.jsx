@@ -1,73 +1,84 @@
-"use client";
-import { Box, Flex } from "@chakra-ui/react";
-import { useState } from "react";
-import styles from "./page.module.css";
-import useIsMobile from "../../../../hooks/isMobile";
+"use client"
+import { useEffect, useState } from "react"
+import useIsMobile from "../../../../hooks/isMobile"
+import styles from "./page.module.css"
 
 export default function Aquarium() {
-  const [a, setA] = useState(undefined);
-  const [b, setB] = useState(undefined);
-  setInterval(function () {
-    setA(Math.floor(Math.random() * (300 - 200) + 200));
-    setB(Math.floor(Math.random() * (300 - 100) + 0));
-  }, 2000);
-  const isMobile = useIsMobile();
+  const [y, setY] = useState(Math.floor(Math.random() * (300 - 200) + 200))
+  const [x, setX] = useState(Math.floor(Math.random() * (300 - 100) + 100))
+  const [scale, setScale] = useState(1) // Scaling for z-axis illusion
+  const [previousX, setPreviousX] = useState(x) // Track previous 'x' position
+  const [isFlipped, setIsFlipped] = useState(false) // Track whether fish is flipped
+
+  useEffect(() => {
+    const moveFish = () => {
+      const newY = Math.floor(Math.random() * (300 - 200) + 200)
+      const newX = Math.floor(Math.random() * (300 - 100) + 100)
+      const newScale = Math.random() * (1.5 - 0.8) + 0.8 // Random scale between 0.8 and 1.5
+
+      setY(newY)
+      setPreviousX(x) // Save the current 'x' as previous before updating
+      setX(newX)
+      setScale(newScale)
+
+      // Flip fish if it moves to the left
+      if (newX < previousX) {
+        setIsFlipped(true)
+      } else {
+        setIsFlipped(false)
+      }
+    }
+
+    const interval = setInterval(() => {
+      moveFish()
+    }, 2000) // Move fish every 2 seconds
+
+    return () => clearInterval(interval) // Cleanup interval on unmount
+  }, [x, previousX])
+
+  // Calculate brightness based on scale (smaller scale = darker fish)
+  const brightness = 0.5 + (scale - 0.8) * 0.55 // Mapping scale 0.8-1.5 to brightness 0.5-1
+
+  const isMobile = useIsMobile()
   return (
     <>
       {isMobile ? (
-        <>Sorry this page isnt for mobile</>
+        <>Sorry, this page isn't for mobile</>
       ) : (
-        <Box
-          overflow="hidden"
-          display="flex"
-          justifyContent="center"
-          minW="100vw"
-          minH="100vh"
-          bgColor="#000812"
-          zIndex={-1}
-        >
-          <Flex
-            zIndex={1}
-            justifyContent="center"
-            alignItems="center"
-            pos="relative"
-          >
-            <Box
-              w="1500px"
-              borderBottom="400px solid #16161c"
-              borderLeft="400px solid #000812"
-              borderRight="400px solid #000812"
-              top="40%"
-              zIndex="-1"
-              pos="absolute"
-              className={styles.table}
+        <div className="z-[-1] flex min-h-[100vh] min-w-[100vw] justify-center overflow-hidden bg-[#000812]">
+          <div className="relative z-[1] flex items-center justify-center">
+            <div
+              className={styles.table + " absolute top-[40%] z-[-1] w-[1500px]"}
+              style={{
+                borderBottom: "400px solid #16161c",
+                borderLeft: "400px solid transparent",
+                borderRight: "400px solid transparent",
+              }}
             />
-            <Box
-              className={styles.bowl}
-              pos="relative"
-              border="2px solid white"
-              borderRadius="50%"
-              h="400px"
-              w="400px"
+            <div
+              className={
+                styles.bowl +
+                " relative h-[400px] w-[400px] rounded-full border-[2px_solid_#fff]"
+              }
             >
-              <Box className={styles.waves}>
-                <Box
-                  transition="all 1s"
-                  borderRadius="50%"
-                  w="50px"
-                  h="40px"
-                  pos="absolute"
-                  bgColor="#e07f4e"
-                  top={a}
-                  left={b}
-                  className={styles.fish}
-                  zIndex="2"
+              <div className={styles.waves}>
+                <div
+                  className={
+                    styles.fish +
+                    " absolute z-[2] h-[40px] w-[50px] rounded-[50%] bg-[#e07f4e] transition-all duration-1000 ease-in-out"
+                  }
+                  style={{
+                    top: y,
+                    left: x,
+                    transform: `${isFlipped ? "scaleX(-1)" : "scaleX(1)"} scale(${scale})`,
+                    filter: `brightness(${brightness})`, // Adjust brightness based on scale
+                  }}
                 />
-              </Box>
-            </Box>
-          </Flex>
-        </Box>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </>
-  );
+  )
 }

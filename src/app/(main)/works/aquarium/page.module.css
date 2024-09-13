@@ -78,17 +78,18 @@
   animation: light 10s infinite;
   content: "";
   position: absolute;
-  top: -330px;
-  left: -20%;
-  width: 480px;
+  top: -500px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 880px;
   border-left: 250px solid transparent;
   border-right: 250px solid transparent;
-  border-bottom: 620px solid #ebdc8f88;
+  border-bottom: 820px solid #ebdc8f88;
   border-bottom-left-radius: 100%;
   border-bottom-right-radius: 100%;
 }
 
-/**/
+/*shadow*/
 .table::after {
   content: "";
   position: absolute;
@@ -135,15 +136,17 @@
 
 @keyframes light {
   0% {
-    border-bottom: 620px solid #ebdc8f88;
+    border-bottom-color: #ebdc8f88;
   }
   99% {
-    border-bottom: 620px solid #ebdc8f88;
+    border-bottom-color: #ebdc8f88;
+
   }
   99.9% {
-    border-bottom: 620px solid #ebdc8f44;
+    border-bottom-color: #ebdc8f44;
+
   }
   100% {
-    border-bottom: 620px solid #ebdc8f00;
+    border-bottom-color: #ebdc8f88;
   }
 }
