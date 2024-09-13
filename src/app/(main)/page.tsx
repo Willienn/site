@@ -1,42 +1,40 @@
-import React from "react";
-import Link from "next/link";
-import {getPosts} from "@/lib/notion";
-import PostCard from "@/components/postCard";
+import PostCard from "@/components/postCard"
+import { getPosts } from "@/lib/notion"
+import Link from "next/link"
 
 export default async function Page() {
-  const age = new Date().getFullYear() - 2002;
+  const age = new Date().getFullYear() - 2002
 
-  const posts = await getPosts();
+  const posts = await getPosts()
   return (
-    <main className="flex gap-12 lg:gap-24 flex-col max-h-screen min-h-screen">
+    <main className="flex max-h-screen min-h-screen flex-col gap-12 lg:gap-24">
       <div className="flex items-center justify-center">
-        <div className="px-2.5 gap-2 flex flex-col pt-[5svh]" >
-            <Link className="font-fira_code link ml-[-2.5svw] text-2xl lg:text-5xl font-bold" href="/about">
-              Willien
-            </Link>
-          <div
-            className="font-fira_code text-[1rem] text-[#d0d0d0] lg:text-2xl whitespace-pre-wrap"
+        <div className="flex flex-col gap-2 px-2.5 pt-[5svh]">
+          <Link
+            className="link ml-[-2.5svw] font-fira_code text-2xl font-bold lg:text-5xl"
+            href="/about"
           >
+            Willien
+          </Link>
+          <div className="whitespace-pre-wrap font-fira_code text-[1rem] text-[#d0d0d0] lg:text-2xl">
             {`{
   age: ${age},
   occupation: "Web Developer",
   site_description: "Blog to post
-  whatever i want (Mostly mine)."
+  whatever i want."
 }`}
           </div>
         </div>
       </div>
       <div className="flex items-center justify-center">
-        <div className=" mb-[10svh] flex flex-col gap-8 h-[35svh] lg:h-[50svh]"
-        >
-          <h2 className="mb-1.5 ml-[-2.5svw] text-3xl lg:text-5xl font-bold text-center"
-          >
+        <div className="mb-[10svh] flex h-[35svh] flex-col gap-8 lg:h-[50svh]">
+          <h2 className="mb-1.5 ml-[-2.5svw] text-center text-3xl font-bold lg:text-5xl">
             Posts
           </h2>
-          <div className="grid-cols-2 grid gap-5 ">
+          <div className="grid grid-cols-2 gap-5">
             {posts?.map((post) => (
-                <PostCard
-                    key={post.id}
+              <PostCard
+                key={post.id}
                 postLink={`/posts/${post.tags.Slug.url}`}
                 postImg={post.cover?.external?.url || post.cover?.file?.url}
                 postTitle={post.title}
@@ -46,5 +44,5 @@ export default async function Page() {
         </div>
       </div>
     </main>
-  );
+  )
 }
