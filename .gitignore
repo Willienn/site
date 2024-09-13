@@ -42,3 +42,5 @@ next-env.d.ts
 /.idea/prettier.xml
 /.idea/site.iml
 /.idea/vcs.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml

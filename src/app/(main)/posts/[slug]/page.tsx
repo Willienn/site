@@ -4,7 +4,6 @@ import { Input, OrderedList } from "@CS-chakra"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Fragment } from "react"
-import styles from "./page.module.css"
 import Text from "./text"
 
 export const dynamic = "force-static"
@@ -48,21 +47,21 @@ function renderBlock(block: Block, idx: number) {
     }
     case "heading_1": {
       return (
-        <h1 className="py-7 text-2xl no-underline md:text-4xl">
+        <h1 className="py-7 font-roboto_slab text-2xl no-underline md:text-4xl">
           <Text text={value.rich_text} />
         </h1>
       )
     }
     case "heading_2": {
       return (
-        <h2 className="py-5 text-lg md:text-2xl lg:text-3xl">
+        <h2 className="py-5 font-roboto_slab text-lg md:text-2xl lg:text-3xl">
           <Text text={value.rich_text} />
         </h2>
       )
     }
     case "heading_3": {
       return (
-        <h3 className="my-2.5 text-lg md:text-xl lg:text-2xl">
+        <h3 className="my-2.5 font-roboto_slab text-lg md:text-xl lg:text-2xl">
           <Text text={value.rich_text} />
         </h3>
       )
@@ -118,10 +117,10 @@ function renderBlock(block: Block, idx: number) {
     case "quote": {
       return (
         <p
-          className="mb-2.5 border-l-2 border-red-500 bg-stone-950 py-2 pl-3 italic"
+          className="font-poppins font-xs mb-2.5 border-l-2 border-red-500 bg-stone-950 py-2 pl-3 italic"
           key={id}
         >
-          {value.rich_text[0].plain_text}
+          <Text text={value.rich_text} />
         </p>
       )
     }
@@ -196,18 +195,18 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
   return (
     <main className="flex flex-col gap-8">
-      <div className="md:t-6 w-full border-x-[30px] border-y-[25px] border-x-slate-900 border-y-stone-950 lg:border-x-[60px] lg:border-y-[50px]">
+      <div className="md:t-6 aspect-[2/1] h-[45rem] w-full border-x-[30px] border-y-[25px] border-x-slate-900 border-y-stone-950 lg:aspect-[3/1] lg:border-x-[60px] lg:border-y-[50px]">
         <img
-          className="aspect-[4/2] object-cover lg:aspect-[6/2]"
+          className="h-full w-full object-cover"
           alt="Banner do Post"
           src={post?.cover?.external?.url || post?.cover?.file?.url}
         />
       </div>
-      <article className={`${styles.container} mb-80px flex w-fit flex-col`}>
-        <h1 className={`${styles.name} mx-auto`}>
-          <Text text={post?.properties?.Name?.title} />
+      <article className="flex w-fit max-w-[700px] flex-col gap-8 self-center px-4">
+        <h1 className="self-center font-roboto_slab text-4xl font-bold">
+          {post.title}
         </h1>
-        <section className="flex w-full flex-col items-center justify-center">
+        <section className="mb-4 flex w-full flex-col items-center justify-center">
           {blocks?.map((block: Block, idx) => (
             <div className="w-[80svw] md:w-[70svw] lg:w-[50svw]" key={block.id}>
               {renderBlock(block, idx)}

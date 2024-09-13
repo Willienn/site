@@ -16,7 +16,7 @@ export default function Text({ text }) {
   if (!text) {
     return null
   }
-  return text.map((value) => {
+  return text?.map((value) => {
     const {
       annotations: { bold, code, color, italic, strikethrough, underline },
       text,
@@ -24,7 +24,7 @@ export default function Text({ text }) {
     const id = uuid()
     return (
       <span
-        className={classNames(colorMapper[color], "break-words", {
+        className={classNames(colorMapper[color], "font-poppins break-words", {
           "font-bold": bold,
           italic: italic,
           "line-through": strikethrough,
@@ -35,7 +35,7 @@ export default function Text({ text }) {
       >
         {text.link ? (
           <a
-            className="text-sky-100 hover:text-sky-400 hover:underline"
+            className="font-roboto_slab text-sky-100 hover:text-sky-400 hover:underline"
             href={text.link.url}
           >
             {text.content}

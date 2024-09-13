@@ -16,6 +16,7 @@ const config = withTV({
       fontFamily: {
         fira_code: ["var(--font-fira-code)"],
         roboto_slab: ["var(--font-roboto-slab)"],
+        poppins: ["var(--font-poppins)"],
       },
     },
   },
