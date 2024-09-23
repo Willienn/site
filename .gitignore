@@ -36,11 +36,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .turbo
-/.idea/git_toolbox_blame.xml
-/.idea/git_toolbox_prj.xml
-/.idea/modules.xml
-/.idea/prettier.xml
-/.idea/site.iml
-/.idea/vcs.xml
-/.idea/codeStyles/codeStyleConfig.xml
-/.idea/codeStyles/Project.xml
+/.idea*
+/.idea/*
