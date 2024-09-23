@@ -1,6 +1,5 @@
 import { getPost } from "@/lib/notion"
 import { Block } from "@/types/blocks"
-import { Input, OrderedList } from "@CS-chakra"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Fragment } from "react"
@@ -17,11 +16,11 @@ function renderNestedList(block: Block) {
 
   if (isNumberedList) {
     return (
-      <OrderedList>
+      <ol>
         {value.children.map((block: Block, idx: number) =>
           renderBlock(block, idx)
         )}
-      </OrderedList>
+      </ol>
     )
   }
 
@@ -78,7 +77,7 @@ function renderBlock(block: Block, idx: number) {
       return (
         <div>
           <label htmlFor={id}>
-            <Input type="checkbox" id={id} defaultChecked={value.checked} />{" "}
+            <input type="checkbox" id={id} defaultChecked={value.checked} />{" "}
             <Text text={value.rich_text} />
           </label>
         </div>
@@ -117,7 +116,7 @@ function renderBlock(block: Block, idx: number) {
     case "quote": {
       return (
         <p
-          className="font-poppins font-xs mb-2.5 border-l-2 border-red-500 bg-stone-950 py-2 pl-3 italic"
+          className="font-xs mb-2.5 border-l-2 border-red-500 bg-stone-950 py-2 pl-3 font-poppins italic"
           key={id}
         >
           <Text text={value.rich_text} />

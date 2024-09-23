@@ -1,17 +1,3 @@
-.box {
-  height: 80svh;
-  width: 100svw;
-  justify-content: center;
-  align-items: center;
-  gap: 4vmin;
-}
-
-.clickedBox {
-  height: 79svh;
-  width: 100svw;
-  justify-content: center;
-  gap: 4vmin;
-}
 
 .closedText,
 .defaultText {
@@ -36,14 +22,6 @@
   object-fit: cover;
   object-position: center;
   width: 40svw;
-  height: 56svh;
-}
-
-.default {
-  opacity: 1;
-  object-fit: cover;
-  object-position: 85%;
-  width: 20svw;
   height: 56svh;
 }
 

@@ -1,7 +1,6 @@
 import { Fira_Code, Poppins, Roboto_Slab } from "next/font/google"
 import { ReactNode } from "react"
 import { WebSite, WithContext } from "schema-dts"
-import { Providers } from "./providers"
 
 const firaCode = Fira_Code({
   subsets: ["latin"],
@@ -40,13 +39,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       "nextjs",
       "nextjs13",
       "nextjs14",
+      "willien muniz",
+      "willien",
+      "progamador web",
+      "progamador",
     ],
   }
 
   return (
     <html
       lang="en"
-      className={`${firaCode.variable} ${robotoSlab.variable} ${poppins.variable}`}
+      className={`${firaCode.variable} ${robotoSlab.variable} ${poppins.variable} bg-[#141414] text-slate-200`}
     >
       <body>
         <section>
@@ -55,7 +58,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
         </section>
-        <Providers>{children}</Providers>
+        {children}
       </body>
     </html>
   )

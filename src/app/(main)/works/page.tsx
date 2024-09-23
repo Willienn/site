@@ -1,17 +1,7 @@
-"use client";
-import { Fragment, useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Image,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import styles from "./page.module.css";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+"use client"
+import Link from "next/link"
+import { Fragment, useState } from "react"
+import styles from "./page.module.css"
 
 const myProjects = [
   {
@@ -26,72 +16,70 @@ const myProjects = [
     image: "/oldwin.jpg",
     text: "Making old windows on web",
   },
-  {
-    name: "Notes",
-    link: "/works/notes",
-    image: "",
-    text: "Just some notes",
-  },
-];
+]
 
 export default function Works() {
-  const { refresh } = useRouter();
-
-  const [clicked, setClicked] = useState<number>();
+  const [clicked, setClicked] = useState<number>()
   return (
-    <Flex
-      pt="40px"
-      className={clicked !== undefined ? styles.clickedBox : styles.box}
+    <div
+      className={`flex pt-10 ${
+        clicked !== undefined
+          ? "h-[79svh] w-screen justify-center gap-[4vmin]"
+          : "h-[79svh] w-screen items-center justify-center gap-[4vmin]"
+      }`}
     >
       {myProjects.map((project, idx) => (
         <Fragment key={idx}>
-          <Image
-            cursor="pointer"
+          <img
+            alt="imagem ilustrativa do projeto"
             src={project.image ? project.image : "/noImage.webp"}
-            borderRadius="8px"
-            zIndex={2}
-            className={
-              (clicked === idx
+            className={`${
+              clicked === idx
                 ? styles.opened
                 : clicked !== undefined
                   ? styles.closed
-                  : styles.default) +
-              (project.image ? "" : ` ${styles.noImage}`)
-            }
+                  : "h-[56svh] w-[20svw] object-cover object-center opacity-100"
+            } z-10 cursor-pointer rounded-lg`}
             onClick={() => setClicked(idx)}
           />
 
-          <Box
-            display={clicked === idx ? "block" : "none"}
-            minW="25svw"
-            minH="100%"
-            transform="scale(1.5)"
+          <div
+            className={`min-h-full min-w-[25svw] scale-150 ${clicked !== idx && "hidden"}`}
           />
-          <VStack
-            justifyContent="space-between"
-            className={
+          <div
+            className={`${
               clicked === idx
                 ? styles.openedText
                 : clicked !== undefined
                   ? styles.closedText
                   : styles.defaultText
-            }
+            } flex flex-col items-center justify-between`}
           >
-            <VStack gap="20px">
-              <Heading>{project.name}</Heading>
-              <Text maxW="55svw">{project.text}</Text>
-            </VStack>
-            <VStack gap="10px">
-              <Button fontSize="1.1rem" as={Link} href={project.link}>
+            <div className="flex flex-col items-center justify-center gap-5">
+              <h1 className="font-poppins text-2xl font-bold">
+                {project.name}
+              </h1>
+              <p className="max-w-[55svw] font-poppins text-lg">
+                {project.text}
+              </p>
+            </div>
+            <div className="flex gap-2.5">
+              <Link
+                className="rounded-md bg-white px-2.5 py-1 font-poppins text-lg font-semibold text-black"
+                href={project.link}
+              >
                 Let me see it
-              </Button>
-              <Button onClick={() => location.reload()} fontSize="0.9rem">
+              </Link>
+              <button
+                className="rounded-md bg-white px-2.5 py-1 font-poppins text-lg font-semibold text-black"
+                onClick={() => location.reload()}
+              >
                 Go Back
-              </Button>
-            </VStack>
-          </VStack>
+              </button>
+            </div>
+          </div>
         </Fragment>
       ))}
-    </Flex>
-  );
+    </div>
+  )
 }

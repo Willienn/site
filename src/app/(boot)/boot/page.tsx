@@ -1,87 +1,71 @@
-"use client";
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Image,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import Typed from "react-typed";
-import { IoMdArrowDropright } from "react-icons/io";
-import Head from "next/head";
-import styles from "./page.module.css";
+"use client"
+import React, { FC, ReactElement, ReactNode, useEffect, useState } from "react"
+import { IoMdArrowDropright } from "react-icons/io"
+import Typed from "react-typed"
+import styles from "./page.module.css"
 
 interface Icon {
-  name: string;
-  type: string;
-  window: JSX.Element;
+  name: string
+  type: string
+  window: ReactElement
 }
 
-const BootScreen: React.FC = () => {
+const BootScreen: FC = () => {
   const bootText = [
     ["Initializing Boot......"],
     ["Checking for errors"],
     ["Bios ................... OK"],
     ["Kernel ................... OK"],
     ["Initializing OS"],
-  ];
+  ]
 
   return (
-    <Box m="10px">
+    <div className="m-2.5">
       {bootText.map((text, idx) => (
-        <Box color="#11ff11" key={idx}>
+        <div className="text-[#11ff11]" key={idx}>
           <Typed
             startDelay={idx * 1600}
             strings={text}
             showCursor={false}
             typeSpeed={10}
           />
-        </Box>
+        </div>
       ))}
-    </Box>
-  );
-};
+    </div>
+  )
+}
 
 const IconWindow: React.FC<{ icon: Icon; onClick: () => void }> = ({
   icon,
   onClick,
 }) => (
-  <Button
-    variant="unstyled"
-    cursor="pointer"
-    bgColor="transparent"
-    m="2px 4px"
+  <button
+    className="mx-1 my-0.5 flex cursor-pointer flex-col items-center justify-center"
     onClick={onClick}
   >
-    <VStack>
-      <Image
-        mb="-5px"
-        src={
-          icon.type === "computer"
-            ? "/computer.png"
-            : icon.type === "txt"
-              ? "/text.png"
-              : icon.type === "css"
-                ? "/question.png"
-                : icon.type === "mail"
-                  ? "/mail.png"
-                  : undefined
-        }
-      />
-      <Text
-        fontFamily="VT323"
-        fontSize="14px"
-        color="#F0F0F0"
-        textShadow="1px 1px #303030ee"
-      >
-        {icon.name}
-      </Text>
-    </VStack>
-  </Button>
-);
+    <img
+      alt="icon"
+      className="mb-[-5px]"
+      src={
+        icon.type === "computer"
+          ? "/computer.png"
+          : icon.type === "txt"
+            ? "/text.png"
+            : icon.type === "css"
+              ? "/question.png"
+              : icon.type === "mail"
+                ? "/mail.png"
+                : undefined
+      }
+    />
+    <p
+      className="font-fira_code text-lg text-[#F0F0F0]"
+      style={{ textShadow: "1px 1px #303030ee" }}
+    >
+      {icon.name}
+    </p>
+  </button>
+)
 
 export default function Boot() {
   const [state, setState] = useState({
@@ -91,21 +75,21 @@ export default function Boot() {
     loading: false,
     sysLoaded: false,
     menuOpen: false,
-    openWindows: [] as JSX.Element[],
-  });
-  const [date, setDate] = useState(new Date());
+    openWindows: [] as ReactNode[],
+  })
+  const [date, setDate] = useState(new Date())
 
   const icons: Icon[] = [
     { name: "Computer", type: "computer", window: <WindowContent /> },
     { name: "text.txt", type: "txt", window: <WindowContent /> },
     { name: "About.vfx", type: "css", window: <WindowContent /> },
     { name: "Contact", type: "mail", window: <WindowContent /> },
-  ];
+  ]
 
   useEffect(() => {
-    const timer = setInterval(() => setDate(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
+    const timer = setInterval(() => setDate(new Date()), 1000)
+    return () => clearInterval(timer)
+  }, [])
 
   useEffect(() => {
     if (state.bootAnimation.length !== 0) {
@@ -114,47 +98,32 @@ export default function Boot() {
           ...prevState,
           buttonVisible: false,
           boot: true,
-        }));
+        }))
         setTimeout(() => {
           setState((prevState) => ({
             ...prevState,
             boot: false,
             loading: true,
-          }));
+          }))
           setTimeout(() => {
             setState((prevState) => ({
               ...prevState,
               sysLoaded: true,
               loading: false,
-            }));
-          }, 5500);
-        }, 7500);
-      }, 4500);
+            }))
+          }, 5500)
+        }, 7500)
+      }, 4500)
     }
-  }, [state.bootAnimation]);
+  }, [state.bootAnimation])
 
   return (
     <>
-      <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-      <Box h="100svh" w="100svw" overflow="hidden">
+      <div className="h-screen w-screen overflow-hidden">
         {state.buttonVisible && (
-          <Center h="97svh">
-            <Button
-              display="flex"
-              variant="unstyled"
-              borderRadius="8px"
-              border="none"
-              bgColor="#0e4f03"
-              className={state.bootAnimation[0]}
-              w="120px"
-              h="120px"
+          <div className="flex min-h-screen w-screen items-center justify-center">
+            <button
+              className={`${state.bootAnimation[0]} flex size-[120px] items-center justify-center rounded-lg bg-[#0e4f03]`}
               onClick={() =>
                 setState((prevState) => ({
                   ...prevState,
@@ -166,65 +135,42 @@ export default function Boot() {
                 }))
               }
             >
-              <Box
-                border="3px solid #05070b"
-                borderBlockStart="3px solid transparent"
-                borderRadius="100%"
-                w="65px"
-                h="60px"
-                className={state.bootAnimation[2]}
+              <div
+                className={`${state.bootAnimation[2]} h-[60px] w-16 rounded-full border-[3px] border-[#05070b]`}
+                style={{
+                  borderBlockStart: "3px solid transparent",
+                }}
               >
-                <Box
-                  className={
+                <div
+                  className={`${
                     state.bootAnimation[1] !== styles.bootIcon1
                       ? styles.idle
                       : state.bootAnimation[1]
-                  }
-                  margin="auto"
-                  mt="-5px"
-                  h="20px"
-                  w="2px"
-                  borderRadius="2px"
-                  border="2px solid #05070b"
+                  } m-auto -mt-1 h-5 w-0.5 rounded-sm border-2 border-[#05070b]`}
                 />
-              </Box>
-            </Button>
-          </Center>
+              </div>
+            </button>
+          </div>
         )}
 
         {state.boot && <BootScreen />}
         {state.loading && (
-          <VStack h="100svh">
-            <Box m="auto">
-              <Text textAlign="center" fontSize="1.4em" fontFamily="Fira Code">
-                Windows 91
-              </Text>
-              <Box
-                w="200px"
-                h="20px"
-                border="1px solid white"
-                overflow="hidden"
-              >
-                <Box
-                  className={styles.bootLoad}
-                  ml="2px"
-                  my="2px"
-                  w="15px"
-                  h="80%"
-                  bgColor="white"
+          <div className="flex h-screen w-screen items-center justify-center">
+            <div className="w-fit">
+              <p className="text-center font-fira_code text-2xl">Windows 91</p>
+              <div className="h-5 w-52 overflow-hidden border border-white">
+                <div
+                  className={`${styles.bootLoad} my-0.5 h-[80%] w-4 bg-white`}
                 />
-              </Box>
-            </Box>
-          </VStack>
+              </div>
+            </div>
+          </div>
         )}
 
         {state.sysLoaded && (
-          <Box h="100svh" w="100svw">
-            <Box
-              className={styles.windows}
-              h="calc(100vh - 40px)"
-              w="100svw"
-              p="10px"
+          <div className="h-screen w-screen">
+            <div
+              className={`${styles.windows} h-[calc(100vh-40px)] w-screen p-2.5`}
             >
               {icons.map((icon, idx) => (
                 <IconWindow
@@ -238,31 +184,11 @@ export default function Boot() {
                   }
                 />
               ))}
-            </Box>
+            </div>
 
-            <Flex
-              p="4px"
-              justify="space-between"
-              alignItems="center"
-              w="100svw"
-              h="40px"
-              bgColor="#C0C0C0"
-              borderTop="3px solid #cfcfcf"
-              borderLeft="3px solid #cfcfcf"
-              pos="relative"
-            >
-              <Button
-                variant="unstyled"
-                borderRadius="none"
-                bgColor="#C6C6C6"
-                p="4px"
-                h="fit-content"
-                my="2px"
-                ml="5px"
-                borderTop="2px solid #dfdfdf"
-                borderLeft="2px solid #dfdfdf"
-                borderBottom="2px solid #2e2e2e"
-                borderRight="2px solid #2e2e2e"
+            <div className="flex h-10 w-screen items-center justify-between border-l-[3px] border-t-[3px] border-l-[#cfcfcf] border-t-[#cfcfcf] bg-[#C0C0C0] p-1">
+              <button
+                className="relative my-0.5 ml-1 h-fit border-2 border-b-[#2e2e2e] border-l-[#dfdfdf] border-r-[#2e2e2e] border-t-[#dfdfdf] bg-[#c6c6c6] p-1"
                 onClick={() =>
                   setState((prevState) => ({
                     ...prevState,
@@ -270,78 +196,45 @@ export default function Boot() {
                   }))
                 }
               >
-                <Image src="/start-button.png" />
+                <img alt="start menu logo" src="/start-button.png" />
                 {state.menuOpen && (
-                  <Box
-                    bgColor="#C6C6C6"
-                    w="100px"
-                    h="200px"
-                    bottom="105%"
-                    // left="5px"
-                    left="-2px"
-                    pos="absolute"
-                    borderTop="2px solid #dfdfdf"
-                    borderLeft="2px solid #dfdfdf"
-                    borderBottom="2px solid #2e2e2e"
-                    borderRight="2px solid #2e2e2e"
-                  >
-                    <Flex direction="column">
+                  <div className="absolute -left-0.5 bottom-[112%] h-[200px] w-[120px] border-2 border-b-[#2e2e2e] border-l-[#dfdfdf] border-r-[#2e2e2e] border-t-[#dfdfdf] bg-[#c6c6c6]">
+                    <div className="flex flex-col">
                       {["Programs", "Documents", "Contact", "Willien"].map(
                         (item, idx) => (
-                          <Text
-                            color="black"
+                          <p
+                            className="flex cursor-pointer items-center justify-between px-1 font-fira_code text-black hover:bg-[#0090e4]"
                             key={idx}
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="space-between"
-                            paddingX="4px"
-                            _hover={{ bgColor: "#0090E4" }}
-                            fontFamily="VT323"
-                            cursor="pointer"
                           >
                             {item}
                             {item === "Programs" && (
-                              <IoMdArrowDropright
-                                style={{ fontSize: "12px" }}
-                              />
+                              <IoMdArrowDropright className="text-lg" />
                             )}
-                          </Text>
-                        ),
+                          </p>
+                        )
                       )}
-                    </Flex>
-                  </Box>
+                    </div>
+                  </div>
                 )}
-              </Button>
+              </button>
 
-              <Box
-                h="fit-content"
-                px="4px"
-                borderTop="2px solid #dfdfdf"
-                borderLeft="2px solid #dfdfdf"
-                borderBottom="2px solid #2e2e2e"
-                borderRight="2px solid #2e2e2e"
-              >
-                <Text
-                  userSelect="none"
-                  fontFamily="VT323"
-                  color="#3E3E3E"
-                  fontWeight="bold"
-                >
+              <div className="h-fit border-2 border-b-[#2e2e2e] border-l-[#dfdfdf] border-r-[#2e2e2e] border-t-[#dfdfdf] px-1">
+                <p className="bold select-none font-fira_code text-[#3e3e3e]">
                   {date.toLocaleTimeString()}
-                </Text>
-              </Box>
-            </Flex>
-          </Box>
+                </p>
+              </div>
+            </div>
+          </div>
         )}
-      </Box>
+      </div>
     </>
-  );
+  )
 }
 
-const WindowContent: React.FC = () => {
+function WindowContent(): ReactNode {
   return (
-    <Box>
-      <Text>This is a window content</Text>
-    </Box>
-  );
-};
+    <div>
+      <p>This is a window content</p>
+    </div>
+  )
+}
