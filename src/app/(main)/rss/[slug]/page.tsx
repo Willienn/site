@@ -23,7 +23,7 @@ export default function Feed({ params }: { params: { [key: string]: any } }) {
   if (!feedItem) return <p>Feed not found</p>
 
   // Construct the fetch URL
-  const url = `http://localhost:3000/rss/api/feed?url=${encodeURIComponent(feedItem.url)}&slug=${slug}&page=${page}&limit=${itemsPerPage}`
+  const url = `/rss/api/feed?url=${encodeURIComponent(feedItem.url)}&slug=${slug}&page=${page}&limit=${itemsPerPage}`
 
   // Use SWR to fetch the data
   const { data, error, isValidating } = useSWR(url, fetcher)
