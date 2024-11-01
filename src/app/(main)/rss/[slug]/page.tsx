@@ -1,6 +1,6 @@
 "use client"
 import { FEEDS } from "@/lib/rss"
-import { rssResponse } from "@/lib/rss/types"
+import { Item, rssResponse } from "@/lib/rss/types"
 import { useState } from "react"
 import useSWR from "swr"
 
@@ -26,13 +26,13 @@ export default function Feed({ params }: { params: { [key: string]: any } }) {
   const url = `http://localhost:3000/rss/api/feed?url=${encodeURIComponent(feedItem.url)}&slug=${slug}&page=${page}&limit=${itemsPerPage}`
 
   // Use SWR to fetch the data
-  const { data, error, isValidating } = useSWR<rssResponse>(url, fetcher{fallbackData: true})
+  const { data, error, isValidating } = useSWR(url, fetcher)
 
   // Conditional rendering for loading state
   if (error) return <p>Error loading feed data.</p>
 
-  const items = data?.items || []; // Fallback to an empty array if data is not yet available
-  const totalPages = data?.pagination.totalPages || 0 // Fallback to 0 if data is not available
+  const items = (data as rssResponse)?.items || [] // Fallback to an empty array if data is not yet available
+  const totalPages = (data as rssResponse)?.pagination.totalPages || 0 // Fallback to 0 if data is not available
 
   return (
     <div className="mx-auto max-w-xl px-6 py-12">
@@ -60,7 +60,7 @@ export default function Feed({ params }: { params: { [key: string]: any } }) {
 
       {/* Render items */}
       <div className="flex flex-col gap-20">
-        {items.map((item) => (
+        {(items as Array<Item>).map((item) => (
           <div key={item.link} className="flex flex-col font-fira_code">
             {item.image && (
               <img

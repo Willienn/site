@@ -3,6 +3,7 @@ export interface rssResponse {
   feedUrl: string
   image: Image
   paginationLinks: PaginationLinks
+  pagination: { [key: string]: any }
   title: string
   description: string
   managingEditor: string
