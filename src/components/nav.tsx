@@ -9,6 +9,7 @@ export default function Nav() {
   })
 
   const navItems = [
+    { name: "Podcasts", link: "/rss" },
     { name: "Works", link: "/works" },
     { name: "About", link: "/" },
   ] as const
