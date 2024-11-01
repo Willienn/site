@@ -6,7 +6,7 @@ export default function Home() {
     <main className="w-full h-full py-10">
       <div className="container w-fit h-full mx-auto flex flex-col gap-10 max-w-[30%]">
         <h1 className="text-xl md:text-3xl lg:text-5xl font-bold font-roboto_slab">Recomended Posdcasts (RSS)</h1>
-        <ul className="">
+        <ul className="flex flex-col gap-8">
           {FEEDS.map((feed) => (
             <li key={feed.slug} className="list-none"
             >
