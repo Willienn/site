@@ -88,4 +88,4 @@ export const FEEDS = [
 // http://feed.ipspace.net/podcast/software.gone.wild?rss=1 software gone wild
 // https://feeds.blubrry.com/feeds/ping_podcast.xml PING
 // https://feeds.packetpushers.net/heavystrategy heavystrategy
-https://feeds.packetpushers.net/PacketPushersWeeklyPodcast  Heavy Networking
+// https://feeds.packetpushers.net/PacketPushersWeeklyPodcast  Heavy Networking
