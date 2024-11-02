@@ -4,7 +4,7 @@ import path from "path"
 import Parser from "rss-parser"
 
 const parser = new Parser()
-const CACHE_DIR = path.join(process.cwd(), "cache") // Directory to store cached feeds
+const CACHE_DIR = path.join("/temp/", "cache") // Directory to store cached feeds
 const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes in milliseconds
 
 // Helper function to save the feed to cache
@@ -29,23 +29,23 @@ function readFeedFromCache(slug) {
 }
 
 // Helper function to download the main feed image and save to public/rss-images/
-async function downloadFeedImage(imageUrl, slug) {
-  const response = await fetch(imageUrl)
-  if (!response.ok)
-    throw new Error(`Failed to fetch image: ${response.statusText}`)
+// async function downloadFeedImage(imageUrl, slug) {
+//   const response = await fetch(imageUrl)
+//   if (!response.ok)
+//     throw new Error(`Failed to fetch image: ${response.statusText}`)
 
-  const buffer = await response.buffer()
-  const imagePath = path.join(
-    process.cwd(),
-    "public/rss-images",
-    `${slug}-logo.jpg`
-  )
+//   const buffer = await response.buffer()
+//   const imagePath = path.join(
+//     process.cwd(),
+//     "public/rss-images",
+//     `${slug}-logo.jpg`
+//   )
 
-  fs.mkdirSync(path.dirname(imagePath), { recursive: true })
-  fs.writeFileSync(imagePath, buffer)
+//   fs.mkdirSync(path.dirname(imagePath), { recursive: true })
+//   fs.writeFileSync(imagePath, buffer)
 
-  return `/rss-images/${slug}.jpg`
-}
+//   return `/rss-images/${slug}.jpg`
+// }
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
