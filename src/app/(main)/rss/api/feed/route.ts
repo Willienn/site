@@ -105,8 +105,11 @@ export async function GET(request) {
       }
     )
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Failed to fetch feed" }), {
-      status: 500,
-    })
+    return new Response(
+      JSON.stringify({ error: `Failed to fetch feed, reason: ${error}` }),
+      {
+        status: 500,
+      }
+    )
   }
 }
