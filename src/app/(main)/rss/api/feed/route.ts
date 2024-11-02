@@ -4,7 +4,7 @@ import path from "path"
 import Parser from "rss-parser"
 
 const parser = new Parser()
-const CACHE_DIR = path.join("/tmp/", "cache") // Directory to store cached feeds
+const CACHE_DIR = path.join("/tmp", "cache") // Directory to store cached feeds
 const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes in milliseconds
 
 // Helper function to save the feed to cache
