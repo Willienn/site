@@ -23,7 +23,7 @@ export default function Feed({ params }: { params: { [key: string]: any } }) {
   if (!feedItem) return <p>Feed not found</p>
 
   // Construct the fetch URL
-  const url = `/rss/api/feed?url=${encodeURIComponent(feedItem.url)}&slug=${slug}&page=${page}&limit=${itemsPerPage}`
+  const url = `http://localhost:3000/rss/api/feed?url=${encodeURIComponent(feedItem.url)}&slug=${slug}&page=${page}&limit=${itemsPerPage}`
 
   // Use SWR to fetch the data
   const { data, error, isValidating } = useSWR(url, fetcher)
@@ -38,7 +38,7 @@ export default function Feed({ params }: { params: { [key: string]: any } }) {
     <div className="mx-auto max-w-xl px-6 py-12">
       <h1 className="mb-12 text-5xl font-bold">{feedItem.title}</h1>
       {/* Pagination Controls */}
-      {/* <div className="mt-6 flex justify-between text-black">
+      <div className="mt-6 flex justify-between text-black">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
@@ -56,7 +56,8 @@ export default function Feed({ params }: { params: { [key: string]: any } }) {
         >
           Next
         </button>
-      </div> */}
+      </div>
+
       {/* Render items */}
       <div className="flex flex-col gap-20">
         {(items as Array<Item>).map((item) => (
@@ -93,7 +94,8 @@ export default function Feed({ params }: { params: { [key: string]: any } }) {
           </div>
         ))}
       </div>
-      {/* Pagination Controls (Again)
+
+      {/* Pagination Controls (Again) */}
       <div className="mt-6 flex justify-between">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
@@ -112,7 +114,7 @@ export default function Feed({ params }: { params: { [key: string]: any } }) {
         >
           Next
         </button>
-      </div> */}
+      </div>
     </div>
   )
 }

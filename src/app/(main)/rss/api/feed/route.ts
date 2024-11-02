@@ -1,10 +1,10 @@
 import fs from "fs"
-import fetch from "node-fetch"
+import fetch from "node-fetch" // Ensure node-fetch is available for server environments
 import path from "path"
 import Parser from "rss-parser"
 
 const parser = new Parser()
-const CACHE_DIR = path.join(process.cwd(), "cache")
+const CACHE_DIR = path.join(process.cwd(), "cache") // Directory to store cached feeds
 const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes in milliseconds
 
 // Helper function to save the feed to cache
@@ -51,6 +51,8 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url)
   const url = searchParams.get("url")
   const slug = searchParams.get("slug")
+  const page = parseInt(searchParams.get("page") || "1", 10) // Current page number
+  const limit = parseInt(searchParams.get("limit") || "10", 10) // Episodes per page
 
   if (!url) {
     return new Response(JSON.stringify({ error: "Feed URL is required" }), {
@@ -77,10 +79,22 @@ export async function GET(request) {
       saveFeedToCache(feed, slug)
     }
 
-    // Return all items without pagination
+    // Calculate pagination details
+    const totalItems = feed.items.length
+    const totalPages = Math.ceil(totalItems / limit)
+    const offset = (page - 1) * limit
+    const paginatedItems = feed.items.slice(offset, offset + limit)
+
+    // Return paginated items along with pagination metadata
     return new Response(
       JSON.stringify({
-        items: feed.items,
+        items: paginatedItems,
+        pagination: {
+          totalItems,
+          totalPages,
+          currentPage: page,
+          itemsPerPage: limit,
+        },
       }),
       {
         status: 200,
