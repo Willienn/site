@@ -18,7 +18,7 @@ export default function Nav() {
     <nav ref={ref}>
       <div className="min-h-[65px]" />
       <div
-        className={`fixed top-0 z-40 min-w-full bg-[#0d0d0daa] px-2.5 py-2.5 lg:px-0`}
+        className={`fixed top-0 z-40 min-w-full bg-zinc-950/60 px-2.5 py-2.5 lg:px-0`}
       >
         <div className="mx-[2svw] flex items-center justify-between text-[1.2em] text-white lg:text-[1.4em]">
           <Link href="/">

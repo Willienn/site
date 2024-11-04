@@ -167,11 +167,12 @@ function renderBlock(block: Block, idx: number) {
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string }
-}) {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ slug: string }>
+  }
+) {
+  const params = await props.params;
   const { slug } = params
 
   const { post } = await getPost(slug)
@@ -184,7 +185,8 @@ export async function generateMetadata({
   }
 }
 
-export default async function Post({ params }: { params: { slug: string } }) {
+export default async function Post(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const { slug } = params
   const { blocks, post, pageError } = await getPost(slug)
 

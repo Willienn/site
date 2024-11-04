@@ -2,49 +2,129 @@
 
 import { feeds, tags } from "@/lib/rss"
 import Link from "next/link"
-import { useState } from "react"
+import { useRef, useState } from "react"
+
+const FeedItem = ({ feed }) => (
+  <li key={feed.slug} className="list-none">
+    <Link
+      href={`/rss/${feed.slug}`}
+      className="flex justify-between rounded-lg bg-zinc-950 p-2"
+    >
+      <p className="flex flex-col">
+        <span>{feed.title}</span>
+        <span className="text-slate-400">{feed.description}</span>
+      </p>
+      <img
+        src={`/rss-images/${feed.image}`}
+        className="aspect-square w-20 rounded-lg"
+      />
+    </Link>
+  </li>
+)
 
 export default function Home() {
   const [filter, setFilter] = useState(false)
-  const [algo, setAlgo] = useState([])
   const [search, setSearch] = useState<string | false>(false)
   const [subfilter, setSubFilter] = useState<
     Array<(typeof tags.podcast_tags)[number]>
   >(["Programming"])
 
+  const divRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Filter feeds based on the current filter and search
+  function getFilteredFeeds(tag: (typeof tags.podcast_tags)[number]) {
+    return feeds.filter((feed) =>
+      search
+        ? feed.title.toLowerCase().includes(search.toLowerCase()) &&
+          feed.tags.includes(tag)
+        : feed.tags.includes(tag)
+    )
+  }
+
   return (
     <main className="h-full w-full py-10">
       <div className="container mx-auto h-full max-w-[30%]">
         <div className="flex w-full flex-col gap-10">
-          {/* Search and Filter Section */}
-          <div className="flex flex-col gap-2">
+          {/* Feeds Section */}
+          <ul className="flex flex-col gap-8">
+            {!filter
+              ? tags.my_tags.map(({ tag, text }, idx) => (
+                  <div key={idx} className="flex flex-col gap-4">
+                    <h1 className="font-roboto_slab text-xl font-bold md:text-3xl lg:text-4xl">
+                      {text}
+                    </h1>
+                    {feeds
+                      .filter((feed) => feed.tags.includes(tag))
+                      .map((feed) => (
+                        <FeedItem key={feed.slug} feed={feed} />
+                      ))}
+                  </div>
+                ))
+              : tags.podcast_tags
+                  .filter((tag) => subfilter.includes(tag))
+                  .map((tag, idx) => {
+                    const filteredFeeds = getFilteredFeeds(tag)
+                    return (
+                      filteredFeeds.length > 0 && (
+                        <div key={idx} className="flex flex-col gap-4">
+                          <h1 className="font-roboto_slab text-xl font-bold md:text-3xl lg:text-4xl">
+                            {tag}
+                          </h1>
+                          {filteredFeeds.map((feed) => (
+                            <FeedItem key={feed.slug} feed={feed} />
+                          ))}
+                        </div>
+                      )
+                    )
+                  })}
+          </ul>
+        </div>
+      </div>
+    </main>
+  )
+}
+/**<div className="flex flex-col gap-2">
             <h2 className="text-2xl">Search and Filter</h2>
-            <input
-              onChange={({ target }) =>
-                target.value === "" ? setSearch(false) : setSearch(target.value)
-              }
-              className="rounded text-slate-800"
-              placeholder="Search..."
-            />
-
-            {/* Toggle between Classification and Category filters */}
-            <div className="flex items-center gap-5">
-              <span>Filter By </span>
+            <div
+              className="group flex h-fit items-center rounded-lg bg-white focus:bg-red-500"
+              ref={divRef}
+              tabIndex={-1} // Makes the div focusable but not in the tab order
+              onClick={() => divRef.current?.focus()} // Focuses div on click
+              onFocus={() => inputRef.current?.focus()} // Focuses input when div is focused
+            >
+              <IoMdSearch className="text-4xl text-gray-400 group-focus:text-8xl" />
+              <input
+                type="text"
+                ref={inputRef}
+                className="peer h-14 w-full px-12 text-3xl text-slate-400 hover:cursor-pointer focus:outline-none"
+                onChange={({ target }) =>
+                  target.value === ""
+                    ? setSearch(false)
+                    : setSearch(target.value)
+                }
+              />
               <button
-                className={`rounded-md bg-slate-800 px-2 py-1 text-white ${!filter && "!bg-slate-100 !text-black"}`}
+                className={`rounded-md bg-slate-800 px-2 py-1 text-white ${
+                  !filter && "!bg-slate-100 !text-black"
+                }`}
                 onClick={() => setFilter(false)}
               >
                 Classification
               </button>
               <button
-                className={`rounded-md bg-slate-800 px-2 py-1 text-white ${filter && "!bg-slate-100 !text-black"}`}
+                className={`bg-slate-800 px-2 py-1 text-white ${
+                  filter && "!bg-slate-100 !text-black"
+                }`}
                 onClick={() => setFilter(true)}
               >
                 Category
               </button>
             </div>
+            <div className="flex items-center gap-5">
+              <span>Filter By </span>
+            </div>
 
-            {/* Category and Subfilter Section */}
             {filter && (
               <div className="flex items-center gap-5 text-sm">
                 <span>Categories</span>
@@ -66,87 +146,4 @@ export default function Home() {
                 ))}
               </div>
             )}
-          </div>
-
-          {/* Feeds Section */}
-          <ul className="flex flex-col gap-8">
-            {/* Display based on selected filter */}
-            {!filter &&
-              tags.my_tags.map(({ tag, text, subText }, idx) => (
-                <div key={idx}>
-                  <h1 className="font-roboto_slab text-xl font-bold md:text-3xl lg:text-4xl">
-                    {text} <span className="text-slate-500">{subText}</span>
-                  </h1>
-                  {feeds
-                    .filter((item) => item.tags.includes(tag))
-                    .map((feed) => (
-                      <li key={feed.slug} className="list-none">
-                        <Link
-                          href={`/rss/${feed.slug}`}
-                          className="flex justify-between rounded-lg"
-                        >
-                          <p className="flex flex-col">
-                            <span>{feed.title}</span>
-                            <span className="text-slate-400">
-                              {feed.description}
-                            </span>
-                          </p>
-                          <img
-                            src={`/rss-images/${feed.image}`}
-                            className="aspect-square w-20"
-                          />
-                        </Link>
-                      </li>
-                    ))}
-                </div>
-              ))}
-            {/* Display filtered feeds based on Category and Subfilter */}
-            {filter &&
-              tags.podcast_tags
-                .filter((tag) => subfilter.includes(tag))
-                .map((tag, idx) => {
-                  const filteredFeeds = feeds.filter((item) =>
-                    search
-                      ? item.title
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) &&
-                        item.tags.includes(tag)
-                      : item.tags.includes(tag)
-                  )
-                  return (
-                    filteredFeeds.length > 0 && (
-                      <div key={idx}>
-                        <h1 className="font-roboto_slab text-xl font-bold md:text-3xl lg:text-4xl">
-                          {tag}
-                        </h1>
-                        {filteredFeeds.map((feed) => {
-                          return (
-                            <li key={feed.slug} className="list-none">
-                              <Link
-                                href={`/rss/${feed.slug}`}
-                                className="flex justify-between rounded-lg"
-                              >
-                                <p className="flex flex-col">
-                                  <span>{feed.title}</span>
-                                  <span className="text-slate-400">
-                                    {feed.description}
-                                  </span>
-                                </p>
-                                <img
-                                  src={`/rss-images/${feed.image}`}
-                                  className="aspect-square w-20"
-                                />
-                              </Link>
-                            </li>
-                          )
-                        })}
-                      </div>
-                    )
-                  )
-                })}
-          </ul>
-        </div>
-      </div>
-    </main>
-  )
-}
+          </div> */

@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${firaCode.variable} ${robotoSlab.variable} ${poppins.variable} bg-[#141414] text-slate-200`}
+      className={`${firaCode.variable} ${robotoSlab.variable} ${poppins.variable} bg-zinc-900 text-slate-200`}
     >
       <body>
         <section>

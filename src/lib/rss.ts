@@ -4,12 +4,11 @@
 export const tags = {
   podcast_tags: ["Programming", "Cybersecurity", "Networking", "RPG"],
   my_tags: [
-    { tag: "Favorite", text: "My Favorite Podcast", subText: "(RSS)" },
-    { tag: "Recommended", text: "Recommended Podcast", subText: null },
+    { tag: "Favorite", text: "My Favorite Podcast" },
+    { tag: "Recommended", text: "Recommended Podcast" },
     {
       tag: "Reviewing",
       text: "Reviewing Podcast",
-      subText: "(Opinion still not formed)",
     },
   ],
 } as const
