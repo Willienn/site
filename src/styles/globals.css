@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto+Slab:wght@400;500;700;800&display=swap");
 
 body {
-  height: 100vh;
   position: relative;
+  height: 100vh;
   overflow-x: hidden;
 }
 
@@ -11,17 +11,17 @@ body {
 }
 
 .link:hover::before {
+  position: absolute;
+  bottom: 0;
   animation: link 0.8s ease forwards;
   border-bottom: 1px solid white;
-  position: absolute;
-  content: "";
-  bottom: 0;
   width: 0;
+  content: "";
 }
 
 * {
-  box-sizing: border-box;
   transition: all 0.3s;
+  box-sizing: border-box;
 }
 
 li {
@@ -33,8 +33,8 @@ li {
 }
 
 .LazyLoad {
-  transition: all 0.3s ease-in-out;
   opacity: 0;
+  transition: all 0.3s ease-in-out;
 }
 
 .is-visible {

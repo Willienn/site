@@ -24,7 +24,7 @@ export default function Text({ text }) {
     const id = uuid()
     return (
       <span
-        className={classNames(colorMapper[color], "font-poppins break-words", {
+        className={classNames(colorMapper[color], "break-words font-poppins", {
           "font-bold": bold,
           italic: italic,
           "line-through": strikethrough,

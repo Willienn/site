@@ -1,5 +1,5 @@
 "use client"
-import { FEEDS } from "@/lib/rss"
+import { feeds } from "@/lib/rss"
 import { Item, rssResponse } from "@/lib/rss/types"
 import { useState } from "react"
 import useSWR from "swr"
@@ -16,10 +16,9 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Feed({ params }: { params: { [key: string]: any } }) {
   const { slug } = params
-  const feedItem = FEEDS.find((feed) => feed.slug === slug) as FeedItem
+  const feedItem = feeds.find((feed) => feed.slug === slug) as FeedItem
   const itemsPerPage = 10 // Set a limit for items per page
   const [page, setPage] = useState(1) // Current page state
-
   if (!feedItem) return <p>Feed not found</p>
 
   // Construct the fetch URL
@@ -30,10 +29,9 @@ export default function Feed({ params }: { params: { [key: string]: any } }) {
 
   // Conditional rendering for loading state
   if (error) return <p>Error loading feed data.</p>
-
   const items = (data as rssResponse)?.items || [] // Fallback to an empty array if data is not yet available
   const totalPages = (data as rssResponse)?.pagination.totalPages || 0 // Fallback to 0 if data is not available
-
+  console.log(data)
   return (
     <div className="mx-auto max-w-xl px-6 py-12">
       <h1 className="mb-12 text-5xl font-bold">{feedItem.title}</h1>

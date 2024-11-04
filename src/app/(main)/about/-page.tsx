@@ -16,5 +16,5 @@ export default function Page() {
       freelance web development projects and welcomes exciting new work
       opportunities.
     </>
-  );
+  )
 }

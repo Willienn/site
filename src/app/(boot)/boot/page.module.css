@@ -30,9 +30,9 @@
     height: 60px;
   }
   100% {
+    border-color: transparent;
     width: 3svw;
     height: 2svh;
-    border-color: transparent;
   }
 }
 

@@ -29,23 +29,23 @@ function readFeedFromCache(slug) {
 }
 
 // Helper function to download the main feed image and save to public/rss-images/
-// async function downloadFeedImage(imageUrl, slug) {
-//   const response = await fetch(imageUrl)
-//   if (!response.ok)
-//     throw new Error(`Failed to fetch image: ${response.statusText}`)
+async function downloadFeedImage(imageUrl, slug) {
+  const response = await fetch(imageUrl)
+  if (!response.ok)
+    throw new Error(`Failed to fetch image: ${response.statusText}`)
 
-//   const buffer = await response.buffer()
-//   const imagePath = path.join(
-//     process.cwd(),
-//     "public/rss-images",
-//     `${slug}-logo.jpg`
-//   )
+  const buffer = await response.buffer()
+  const imagePath = path.join(
+    process.cwd(),
+    "public/rss-images",
+    `${slug}-logo.jpg`
+  )
 
-//   fs.mkdirSync(path.dirname(imagePath), { recursive: true })
-//   fs.writeFileSync(imagePath, buffer)
+  fs.mkdirSync(path.dirname(imagePath), { recursive: true })
+  fs.writeFileSync(imagePath, buffer)
 
-//   return `/rss-images/${slug}.jpg`
-// }
+  return `/rss-images/${slug}.jpg`
+}
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
@@ -76,8 +76,21 @@ export async function GET(request) {
           item["media:thumbnail"]?.url ||
           null,
       }))
+      // downloadFeedImage()
       saveFeedToCache(feed, slug)
     }
+
+    // Download and save the main feed image if available
+    if ((feed.image?.url || feed?.itunes?.image) && slug) {
+      try {
+        await downloadFeedImage(feed?.image?.url || feed?.itunes?.image, slug)
+      } catch (err) {
+        console.error(`Failed to download feed image:`, err)
+      }
+    } else if (!slug)
+      console.warn(
+        "slug not found skipping image download. Podcast cover maybe outdated"
+      )
 
     // Calculate pagination details
     const totalItems = feed.items.length

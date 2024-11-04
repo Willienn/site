@@ -1,4 +1,3 @@
-
 .closedText,
 .defaultText {
   display: none !important;
@@ -19,94 +18,94 @@
 
 .closed {
   display: none;
-  object-fit: cover;
-  object-position: center;
   width: 40svw;
   height: 56svh;
+  object-fit: cover;
+  object-position: center;
 }
 
 @keyframes expandImage {
   0% {
-    object-fit: cover;
-    object-position: 85%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -53%;
+    scale: 0.5;
     width: 20svw;
     height: 56svh;
-    position: absolute;
-    left: 50%;
-    scale: 0.5;
-    top: 50%;
-    translate: -50% -53%;
+    object-fit: cover;
+    object-position: 85%;
   }
   50% {
+    top: 50%;
+    left: 50%;
+    translate: -50% -53%;
+    scale: 1.4;
+    width: 20svw;
+    height: 56svh;
     object-fit: cover;
     object-position: 85%;
-    width: 20svw;
-    height: 56svh;
-    scale: 1.4;
-    left: 50%;
-    top: 50%;
-    translate: -50% -53%;
   }
   100% {
-    object-fit: cover;
-    object-position: 0;
-    width: 20svw;
-    height: 56svh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -215% -53%;
     scale: 1.4;
     cursor: initial;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    translate: -215% -53%;
+    width: 20svw;
+    height: 56svh;
+    object-fit: cover;
+    object-position: 0;
   }
 }
 
 @keyframes expandNoImage {
   0% {
-    object-fit: contain;
-    width: 20svw;
-    scale: 0.5;
-    height: 56svh;
     position: absolute;
-    left: 50%;
     top: 50%;
+    left: 50%;
     translate: -50% -53%;
+    scale: 0.5;
+    width: 20svw;
+    height: 56svh;
+    object-fit: contain;
   }
   50% {
-    object-fit: contain;
-    width: 20svw;
-    scale: 1.4;
-    height: 56svh;
     position: absolute;
-    left: 50%;
     top: 50%;
+    left: 50%;
     translate: -50% -53%;
+    scale: 1.4;
+    width: 20svw;
+    height: 56svh;
+    object-fit: contain;
   }
   100% {
-    object-fit: contain;
-    width: 20svw;
-    height: 56svh;
-    scale: 1.4;
-    cursor: initial;
     position: absolute;
+    top: 50%;
 
     left: 50%;
-    top: 50%;
     translate: -215% -53%;
+    scale: 1.4;
+    cursor: initial;
+    width: 20svw;
+    height: 56svh;
+    object-fit: contain;
   }
 }
 
 @keyframes showText {
   0% {
-    opacity: 0;
     display: none;
+    opacity: 0;
   }
   55% {
-    opacity: 0;
     display: block;
+    opacity: 0;
   }
   100% {
-    opacity: 1;
     display: block;
+    opacity: 1;
   }
 }
