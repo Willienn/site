@@ -2,10 +2,21 @@
  * Favorite > Recomended > Reviewing
  */
 export const tags = {
-  podcast_tags: ["Programming", "Cybersecurity", "Networking", "RPG"],
+  podcast_tags: [
+    "Programming",
+    "Cybersecurity",
+    "Networking",
+    "RPG",
+  ],
   my_tags: [
-    { tag: "Favorite", text: "My Favorite Podcast" },
-    { tag: "Recommended", text: "Recommended Podcast" },
+    {
+      tag: "Favorite",
+      text: "My Favorites Podcast",
+    },
+    {
+      tag: "Recommended",
+      text: "Recommended Podcast",
+    },
     {
       tag: "Reviewing",
       text: "Reviewing Podcast",
@@ -20,7 +31,11 @@ export const feeds = [
     image: "smashing-security-logo.jpg",
     description: "Text to describe what is and why i like it",
     url: "https://feeds.captivate.fm/smashing-security/",
-    tags: ["Cybersecurity", "Favorite", "Recommended"],
+    tags: [
+      "Cybersecurity",
+      "Favorite",
+      "Recommended",
+    ],
   },
   {
     title: "Darknet Diaries",
@@ -28,7 +43,11 @@ export const feeds = [
     image: "darknet-diaries-logo.jpg",
     description: "Text to describe what is and why i like it",
     url: "https://podcast.darknetdiaries.com",
-    tags: ["Cybersecurity", "Favorite", "Recommended"],
+    tags: [
+      "Cybersecurity",
+      "Favorite",
+      "Recommended",
+    ],
   },
   {
     title: "The Adventure Zone",
@@ -36,77 +55,111 @@ export const feeds = [
     image: "the-adventure-zone-logo.jpg",
     description: "Text to describe what is and why i like it",
     url: "https://feeds.simplecast.com/cYQVc__c",
-    tags: ["RPG", "Favorite", "Recommended"],
+    tags: [
+      "RPG",
+      "Favorite",
+      "Recommended",
+    ],
   },
   {
     title: "Javascript Jabber",
     slug: "javascript-jabber",
     image: "javascript-jabber-logo.jpg",
     url: "https://www.spreaker.com/show/6102064/episodes/feed",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "Programming Throwdown",
     slug: "programming-throwdown",
     image: "programming-throwdown-logo.jpg",
     url: "https://feeds.transistor.fm/programming-throwdown",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "Shop Talk",
     slug: "shop-talk",
     image: "shop-talk-logo.jpg",
     url: "https://shoptalkshow.com/feed/podcast/default-podcast/",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "Algorithms + Data Structures = Programs",
     slug: "adsp",
     image: "adsp-logo.jpg",
     url: "https://feeds.buzzsprout.com/1501960.rss",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "SE Radio",
     slug: "se-radio",
     image: "se-radio-logo.jpg",
     url: "https://seradio.libsyn.com/rss",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "Syntax",
     slug: "syntax",
     image: "syntax-logo.jpg",
     url: "https://feed.syntax.fm/",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "JSParty",
     slug: "jsparty",
     image: "jsparty-logo.jpg",
     url: "https://changelog.com/jsparty/feed",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "Daily Tech News Show",
     slug: "daily-tech-news-show",
     image: "daily-tech-news-show-logo.jpg",
     url: "https://access.acast.com/rss/61954547cb03c875f7617118/default",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "Cortex",
     slug: "cortex",
     image: "cortex-logo.jpg",
     url: "https://www.relay.fm/cortex/feed",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "Soft Skills",
     slug: "soft-skills",
     image: "soft-skills-logo.jpg",
     url: "https://softskills.audio/feed.xml",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   // Todo Check if is really broken
   // {
@@ -121,42 +174,60 @@ export const feeds = [
     slug: "base-cs",
     image: "base-cs-logo.jpg",
     url: "http://feeds.codenewbie.org/basecs_podcast.xml",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "Coder Radio",
     slug: "coder-radio",
     image: "coder-radio-logo.jpg",
     url: "https://feeds.jupiterbroadcasting.com/coder",
-    tags: ["Programming", "Reviewing"],
+    tags: [
+      "Programming",
+      "Reviewing",
+    ],
   },
   {
     title: "Software Gone Wild",
     slug: "software-gone-wild",
     image: "software-gone-wild-logo.jpg",
     url: "http://feed.ipspace.net/podcast/software.gone.wild?rss=1",
-    tags: ["Networking", "Reviewing"],
+    tags: [
+      "Networking",
+      "Reviewing",
+    ],
   },
   {
     title: "PING",
     slug: "ping",
     image: "ping-logo.jpg",
     url: "https://feeds.blubrry.com/feeds/ping_podcast.xml",
-    tags: ["Networking", "Reviewing"],
+    tags: [
+      "Networking",
+      "Reviewing",
+    ],
   },
   {
     title: "Heavy Strategy",
     slug: "heavy-strategy",
     image: "heavy-strategy-logo.jpg",
     url: "https://feeds.packetpushers.net/heavystrategy",
-    tags: ["Networking", "Reviewing"],
+    tags: [
+      "Networking",
+      "Reviewing",
+    ],
   },
   {
     title: "Heavy Networking",
     slug: "heavy-networking",
     image: "heavy-networking-logo.jpg",
     url: "https://feeds.packetpushers.net/PacketPushersWeeklyPodcast",
-    tags: ["Networking", "Reviewing"],
+    tags: [
+      "Networking",
+      "Reviewing",
+    ],
   },
 ].sort((a, b) => {
   const aIsFavorite = a.tags.includes("Favorite")

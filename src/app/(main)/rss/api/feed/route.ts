@@ -10,10 +10,15 @@ const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes in milliseconds
 // Helper function to save the feed to cache
 function saveFeedToCache(feedData, slug) {
   const cacheFilePath = path.join(CACHE_DIR, `${slug}.json`)
-  fs.mkdirSync(CACHE_DIR, { recursive: true })
+  fs.mkdirSync(CACHE_DIR, {
+    recursive: true,
+  })
   fs.writeFileSync(
     cacheFilePath,
-    JSON.stringify({ data: feedData, timestamp: Date.now() })
+    JSON.stringify({
+      data: feedData,
+      timestamp: Date.now(),
+    })
   )
 }
 
@@ -41,7 +46,9 @@ async function downloadFeedImage(imageUrl, slug) {
     `${slug}-logo.jpg`
   )
 
-  fs.mkdirSync(path.dirname(imagePath), { recursive: true })
+  fs.mkdirSync(path.dirname(imagePath), {
+    recursive: true,
+  })
   fs.writeFileSync(imagePath, buffer)
 
   return `/rss-images/${slug}.jpg`
@@ -55,9 +62,14 @@ export async function GET(request) {
   const limit = parseInt(searchParams.get("limit") || "10", 10) // Episodes per page
 
   if (!url) {
-    return new Response(JSON.stringify({ error: "Feed URL is required" }), {
-      status: 400,
-    })
+    return new Response(
+      JSON.stringify({
+        error: "Feed URL is required",
+      }),
+      {
+        status: 400,
+      }
+    )
   }
 
   try {
@@ -119,7 +131,9 @@ export async function GET(request) {
     )
   } catch (error) {
     return new Response(
-      JSON.stringify({ error: `Failed to fetch feed, reason: ${error}` }),
+      JSON.stringify({
+        error: `Failed to fetch feed, reason: ${error}`,
+      }),
       {
         status: 500,
       }

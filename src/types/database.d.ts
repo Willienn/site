@@ -2,7 +2,9 @@ import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints"
 
 export type PostResult = Extract<
   QueryDatabaseResponse["results"][number],
-  { properties: Record<string, unknown> }
+  {
+    properties: Record<string, unknown>
+  }
 >
 
 type DatabaseItem = {

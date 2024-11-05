@@ -3,9 +3,13 @@ import { PostResult } from "@/types/database"
 export interface IPost {
   id: string
   url: string
-  tags: { [key: string]: key }
+  tags: {
+    [key: string]: key
+  }
   modifiedDate: string
-  cover: { [key: string]: key }
+  cover: {
+    [key: string]: key
+  }
   publishDate: string
   title: string
 }

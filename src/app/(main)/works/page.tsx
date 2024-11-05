@@ -19,7 +19,10 @@ const myProjects = [
 ]
 
 export default function Works() {
-  const [clicked, setClicked] = useState<number>()
+  const [
+    clicked,
+    setClicked,
+  ] = useState<number>()
   return (
     <div
       className={`flex pt-10 ${

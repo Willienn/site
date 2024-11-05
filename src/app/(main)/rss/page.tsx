@@ -3,6 +3,7 @@
 import { feeds, tags } from "@/lib/rss"
 import Link from "next/link"
 import { useRef, useState } from "react"
+import { IoMdSearch } from "react-icons/io"
 
 const FeedItem = ({ feed }) => (
   <li key={feed.slug} className="list-none">
@@ -23,11 +24,20 @@ const FeedItem = ({ feed }) => (
 )
 
 export default function Home() {
-  const [filter, setFilter] = useState(false)
-  const [search, setSearch] = useState<string | false>(false)
-  const [subfilter, setSubFilter] = useState<
-    Array<(typeof tags.podcast_tags)[number]>
-  >(["Programming"])
+  const [
+    filter,
+    setFilter,
+  ] = useState(false)
+  const [
+    search,
+    setSearch,
+  ] = useState<string | false>(false)
+  const [
+    subfilter,
+    setSubFilter,
+  ] = useState<Array<(typeof tags.podcast_tags)[number]>>([
+    "Programming",
+  ])
 
   const divRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -46,6 +56,78 @@ export default function Home() {
     <main className="h-full w-full py-10">
       <div className="container mx-auto h-full max-w-[30%]">
         <div className="flex w-full flex-col gap-10">
+          {/* Search and Filter Section */}
+          <div className="flex flex-col gap-2">
+            <h2 className="text-2xl">Search and Filter</h2>
+            {/* ITS REVERSED (FLEX-ROW-REVERSE) */}
+            <div
+              className="!has-[:focus]:cursor-text flex h-full flex-row-reverse items-center rounded-lg bg-stone-100 px-2 py-0.5 shadow-inner shadow-zinc-400 hover:cursor-pointer has-[:focus]:max-h-16"
+              ref={divRef}
+              tabIndex={-1}
+              onFocus={() => inputRef.current?.focus()}
+            >
+              <div className="flex gap-5 px-1">
+                <button
+                  className={`rounded-lg bg-orange-500 px-2 py-1 text-slate-100 shadow-md shadow-zinc-500 ${
+                    !filter &&
+                    "!bg-orange-700/80 !text-slate-100 !shadow-inner !shadow-zinc-600/80 hover:cursor-default"
+                  }`}
+                  onClick={() => setFilter(false)}
+                >
+                  <span className={`${!filter && "drop-shadow"}`}>
+                    Classification
+                  </span>
+                </button>
+                <button
+                  className={`rounded-lg bg-orange-500 px-2 py-1 text-slate-100 shadow-md shadow-zinc-500 ${
+                    filter &&
+                    "!bg-orange-700/80 !text-slate-100 !shadow-inner !shadow-zinc-600/80 hover:cursor-default"
+                  }`}
+                  onClick={() => setFilter(true)}
+                >
+                  <span className={`${filter && "drop-shadow"}`}>Category</span>
+                </button>
+              </div>
+              <input
+                type="text"
+                ref={inputRef}
+                className="peer h-full max-h-6 w-full bg-stone-100 px-2 text-2xl text-zinc-400 outline-none transition-none hover:cursor-pointer focus:max-h-8 focus:cursor-text focus:text-3xl focus:text-zinc-600 focus:outline-none focus:transition-all"
+                onChange={({ target }) =>
+                  target.value === ""
+                    ? setSearch(false)
+                    : setSearch(target.value)
+                }
+              />
+              <IoMdSearch className="rounded-lg text-4xl text-gray-400 peer-focus:text-5xl" />
+            </div>
+            {/* ^^ ITS REVERSED (FLEX-ROW-REVERSE) ^^ */}
+
+            {/* Category and Subfilter Section */}
+            {filter && (
+              <div className="flex w-full items-center gap-4 text-sm">
+                {tags.podcast_tags.map((tag) => (
+                  <button
+                    key={tag}
+                    className={`rounded-lg bg-orange-600/50 px-2 py-1 text-slate-100 ${subfilter.includes(tag) && "!bg-orange-500 !text-slate-100"} `}
+                    onClick={() => {
+                      setSubFilter((old) => {
+                        if (old.length === 1 && old.includes(tag)) return old // Prevents unselecting the last item
+                        if (old.includes(tag))
+                          return old.filter((item) => item !== tag)
+                        return [
+                          ...old,
+                          tag,
+                        ]
+                      })
+                    }}
+                  >
+                    <span className={`${!filter && "drop-shadow"}`}>{tag}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Feeds Section */}
           <ul className="flex flex-col gap-8">
             {!filter
@@ -84,66 +166,3 @@ export default function Home() {
     </main>
   )
 }
-/**<div className="flex flex-col gap-2">
-            <h2 className="text-2xl">Search and Filter</h2>
-            <div
-              className="group flex h-fit items-center rounded-lg bg-white focus:bg-red-500"
-              ref={divRef}
-              tabIndex={-1} // Makes the div focusable but not in the tab order
-              onClick={() => divRef.current?.focus()} // Focuses div on click
-              onFocus={() => inputRef.current?.focus()} // Focuses input when div is focused
-            >
-              <IoMdSearch className="text-4xl text-gray-400 group-focus:text-8xl" />
-              <input
-                type="text"
-                ref={inputRef}
-                className="peer h-14 w-full px-12 text-3xl text-slate-400 hover:cursor-pointer focus:outline-none"
-                onChange={({ target }) =>
-                  target.value === ""
-                    ? setSearch(false)
-                    : setSearch(target.value)
-                }
-              />
-              <button
-                className={`rounded-md bg-slate-800 px-2 py-1 text-white ${
-                  !filter && "!bg-slate-100 !text-black"
-                }`}
-                onClick={() => setFilter(false)}
-              >
-                Classification
-              </button>
-              <button
-                className={`bg-slate-800 px-2 py-1 text-white ${
-                  filter && "!bg-slate-100 !text-black"
-                }`}
-                onClick={() => setFilter(true)}
-              >
-                Category
-              </button>
-            </div>
-            <div className="flex items-center gap-5">
-              <span>Filter By </span>
-            </div>
-
-            {filter && (
-              <div className="flex items-center gap-5 text-sm">
-                <span>Categories</span>
-                {tags.podcast_tags.map((tag) => (
-                  <button
-                    key={tag}
-                    className={`rounded-md bg-slate-800 px-2 py-1 text-sm text-white ${subfilter.includes(tag) && "!bg-slate-100 !text-black"}`}
-                    onClick={() => {
-                      setSubFilter((old) => {
-                        if (old.length === 1 && old.includes(tag)) return old // Prevents unselecting the last item
-                        if (old.includes(tag))
-                          return old.filter((item) => item !== tag)
-                        return [...old, tag]
-                      })
-                    }}
-                  >
-                    {tag}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div> */

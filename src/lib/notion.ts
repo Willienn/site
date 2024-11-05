@@ -53,7 +53,10 @@ export async function getBlocks(blockId: string): Promise<Block[]> {
 // Recursively fetch children blocks
 async function getChildren(block: Block): Promise<BlockWithChildren> {
   if (!block.has_children) {
-    return { ...block, childblocks: [] }
+    return {
+      ...block,
+      childblocks: [],
+    }
   }
 
   try {
@@ -68,7 +71,10 @@ async function getChildren(block: Block): Promise<BlockWithChildren> {
     }
   } catch (error) {
     console.error(`Error fetching children for block ID ${block.id}:`, error)
-    return { ...block, childblocks: [] }
+    return {
+      ...block,
+      childblocks: [],
+    }
   }
 }
 
@@ -136,9 +142,17 @@ export async function getPost(slug: string) {
 
     const blocks = await getPostBlocks(post.id)
 
-    return { blocks, post, pageError: null }
+    return {
+      blocks,
+      post,
+      pageError: null,
+    }
   } catch (error) {
     console.error(`Error fetching post with slug ${slug}:`, error)
-    return { blocks: null, post: null, pageError: (error as Error).message }
+    return {
+      blocks: null,
+      post: null,
+      pageError: (error as Error).message,
+    }
   }
 }

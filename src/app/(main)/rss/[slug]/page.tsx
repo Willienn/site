@@ -13,11 +13,22 @@ type FeedItem = {
 }
 
 const fetcher = (url: string) =>
-  fetch(url, { cache: "force-cache" }).then((res) => res.json())
+  fetch(url, {
+    cache: "force-cache",
+  }).then((res) => res.json())
 
-export default function Feed({ params }: { params: { [key: string]: any } }) {
+export default function Feed({
+  params,
+}: {
+  params: {
+    [key: string]: any
+  }
+}) {
   const { slug } = use(params)
-  const [page, setPage] = useState(1)
+  const [
+    page,
+    setPage,
+  ] = useState(1)
 
   const feedItem = feeds.find((feed) => feed.slug === slug) as FeedItem
 
@@ -31,8 +42,19 @@ export default function Feed({ params }: { params: { [key: string]: any } }) {
   if (error) return <p>Error loading feed data.</p>
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-20 h-full w-full items-center justify-center">
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+      <div className="flex h-full w-full flex-col items-center justify-center gap-20">
+        {[
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+        ].map((item) => (
           <div
             key={item}
             className="mx-auto w-[36rem] max-w-[36rem] animate-pulse px-6 py-12"

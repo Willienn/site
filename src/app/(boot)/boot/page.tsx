@@ -12,11 +12,21 @@ interface Icon {
 
 const BootScreen: FC = () => {
   const bootText = [
-    ["Initializing Boot......"],
-    ["Checking for errors"],
-    ["Bios ................... OK"],
-    ["Kernel ................... OK"],
-    ["Initializing OS"],
+    [
+      "Initializing Boot......",
+    ],
+    [
+      "Checking for errors",
+    ],
+    [
+      "Bios ................... OK",
+    ],
+    [
+      "Kernel ................... OK",
+    ],
+    [
+      "Initializing OS",
+    ],
   ]
 
   return (
@@ -35,10 +45,10 @@ const BootScreen: FC = () => {
   )
 }
 
-const IconWindow: React.FC<{ icon: Icon; onClick: () => void }> = ({
-  icon,
-  onClick,
-}) => (
+const IconWindow: React.FC<{
+  icon: Icon
+  onClick: () => void
+}> = ({ icon, onClick }) => (
   <button
     className="mx-1 my-0.5 flex cursor-pointer flex-col items-center justify-center"
     onClick={onClick}
@@ -60,7 +70,9 @@ const IconWindow: React.FC<{ icon: Icon; onClick: () => void }> = ({
     />
     <p
       className="font-fira_code text-lg text-[#F0F0F0]"
-      style={{ textShadow: "1px 1px #303030ee" }}
+      style={{
+        textShadow: "1px 1px #303030ee",
+      }}
     >
       {icon.name}
     </p>
@@ -68,7 +80,10 @@ const IconWindow: React.FC<{ icon: Icon; onClick: () => void }> = ({
 )
 
 export default function Boot() {
-  const [state, setState] = useState({
+  const [
+    state,
+    setState,
+  ] = useState({
     boot: false,
     buttonVisible: true,
     bootAnimation: [] as string[],
@@ -77,13 +92,32 @@ export default function Boot() {
     menuOpen: false,
     openWindows: [] as ReactNode[],
   })
-  const [date, setDate] = useState(new Date())
+  const [
+    date,
+    setDate,
+  ] = useState(new Date())
 
   const icons: Icon[] = [
-    { name: "Computer", type: "computer", window: <WindowContent /> },
-    { name: "text.txt", type: "txt", window: <WindowContent /> },
-    { name: "About.vfx", type: "css", window: <WindowContent /> },
-    { name: "Contact", type: "mail", window: <WindowContent /> },
+    {
+      name: "Computer",
+      type: "computer",
+      window: <WindowContent />,
+    },
+    {
+      name: "text.txt",
+      type: "txt",
+      window: <WindowContent />,
+    },
+    {
+      name: "About.vfx",
+      type: "css",
+      window: <WindowContent />,
+    },
+    {
+      name: "Contact",
+      type: "mail",
+      window: <WindowContent />,
+    },
   ]
 
   useEffect(() => {
@@ -115,7 +149,9 @@ export default function Boot() {
         }, 7500)
       }, 4500)
     }
-  }, [state.bootAnimation])
+  }, [
+    state.bootAnimation,
+  ])
 
   return (
     <>
@@ -200,19 +236,22 @@ export default function Boot() {
                 {state.menuOpen && (
                   <div className="absolute -left-0.5 bottom-[112%] h-[200px] w-[120px] border-2 border-b-[#2e2e2e] border-l-[#dfdfdf] border-r-[#2e2e2e] border-t-[#dfdfdf] bg-[#c6c6c6]">
                     <div className="flex flex-col">
-                      {["Programs", "Documents", "Contact", "Willien"].map(
-                        (item, idx) => (
-                          <p
-                            className="flex cursor-pointer items-center justify-between px-1 font-fira_code text-black hover:bg-[#0090e4]"
-                            key={idx}
-                          >
-                            {item}
-                            {item === "Programs" && (
-                              <IoMdArrowDropright className="text-lg" />
-                            )}
-                          </p>
-                        )
-                      )}
+                      {[
+                        "Programs",
+                        "Documents",
+                        "Contact",
+                        "Willien",
+                      ].map((item, idx) => (
+                        <p
+                          className="flex cursor-pointer items-center justify-between px-1 font-fira_code text-black hover:bg-[#0090e4]"
+                          key={idx}
+                        >
+                          {item}
+                          {item === "Programs" && (
+                            <IoMdArrowDropright className="text-lg" />
+                          )}
+                        </p>
+                      ))}
                     </div>
                   </div>
                 )}

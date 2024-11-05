@@ -5,9 +5,18 @@ import styles from "./page.module.css"
 export default function Aquarium() {
   const [y, setY] = useState(Math.floor(Math.random() * (300 - 200) + 200))
   const [x, setX] = useState(Math.floor(Math.random() * (300 - 100) + 100))
-  const [scale, setScale] = useState(1) // Scaling for z-axis illusion
-  const [previousX, setPreviousX] = useState(x)
-  const [isFlipped, setIsFlipped] = useState(false)
+  const [
+    scale,
+    setScale,
+  ] = useState(1) // Scaling for z-axis illusion
+  const [
+    previousX,
+    setPreviousX,
+  ] = useState(x)
+  const [
+    isFlipped,
+    setIsFlipped,
+  ] = useState(false)
 
   useEffect(() => {
     const moveFish = () => {
