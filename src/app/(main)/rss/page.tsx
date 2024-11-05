@@ -53,8 +53,8 @@ export default function Home() {
   }
 
   return (
-    <main className="h-full w-full py-10">
-      <div className="container mx-auto h-full max-w-[30%]">
+    <main className="h-full max-w-[100svw] py-10">
+      <div className="container mx-auto h-full w-full max-w-[80%] lg:max-w-[30%]">
         <div className="flex w-full flex-col gap-10">
           {/* Search and Filter Section */}
           <div className="flex flex-col gap-2">
@@ -66,7 +66,7 @@ export default function Home() {
               tabIndex={-1}
               onFocus={() => inputRef.current?.focus()}
             >
-              <div className="flex gap-5 px-1">
+              <div className="flex gap-2 text-sm lg:text-lg lg:gap-5 px-1">
                 <button
                   className={`rounded-lg bg-orange-500 px-2 py-1 text-slate-100 shadow-md shadow-zinc-500 ${
                     !filter &&
@@ -98,13 +98,13 @@ export default function Home() {
                     : setSearch(target.value)
                 }
               />
-              <IoMdSearch className="rounded-lg text-4xl text-gray-400 peer-focus:text-5xl" />
+              <IoMdSearch className="rounded-lg lg:text-4xl text-gray-400 lg:peer-focus:text-5xl" />
             </div>
             {/* ^^ ITS REVERSED (FLEX-ROW-REVERSE) ^^ */}
 
             {/* Category and Subfilter Section */}
             {filter && (
-              <div className="flex w-full items-center gap-4 text-sm">
+              <div className="flex h-fit flex-wrap items-center gap-4 text-sm">
                 {tags.podcast_tags.map((tag) => (
                   <button
                     key={tag}
