@@ -58,19 +58,18 @@ export default function Home() {
         <div className="flex w-full flex-col gap-10">
           {/* Search and Filter Section */}
           <div className="flex flex-col gap-2">
-            <h2 className="text-2xl">Search and Filter</h2>
             {/* ITS REVERSED (FLEX-ROW-REVERSE) */}
             <div
-              className="!has-[:focus]:cursor-text flex h-full flex-row-reverse items-center rounded-lg bg-stone-100 px-2 py-0.5 shadow-inner shadow-zinc-400 hover:cursor-pointer has-[:focus]:max-h-16"
+              className="!has-[:focus]:cursor-text flex h-full flex-row-reverse items-center rounded-lg bg-stone-100 px-2 py-1 shadow-inner shadow-zinc-400 hover:cursor-pointer has-[:focus]:max-h-16"
               ref={divRef}
               tabIndex={-1}
               onFocus={() => inputRef.current?.focus()}
             >
-              <div className="flex gap-2 text-sm lg:text-lg lg:gap-5 px-1">
+              <div className="flex gap-2 px-1 font-roboto_slab text-sm font-bold lg:gap-5 lg:text-lg">
                 <button
-                  className={`rounded-lg bg-orange-500 px-2 py-1 text-slate-100 shadow-md shadow-zinc-500 ${
+                  className={`rounded-lg bg-orange-700/80 px-2 py-1 text-slate-100 shadow-md shadow-zinc-500 ${
                     !filter &&
-                    "!bg-orange-700/80 !text-slate-100 !shadow-inner !shadow-zinc-600/80 hover:cursor-default"
+                    "!bg-orange-100 !text-orange-900 !shadow-inner !shadow-zinc-600/80 hover:cursor-default"
                   }`}
                   onClick={() => setFilter(false)}
                 >
@@ -79,9 +78,9 @@ export default function Home() {
                   </span>
                 </button>
                 <button
-                  className={`rounded-lg bg-orange-500 px-2 py-1 text-slate-100 shadow-md shadow-zinc-500 ${
+                  className={`rounded-lg bg-orange-700/80 px-2 py-1 text-slate-100 shadow-md shadow-zinc-500 ${
                     filter &&
-                    "!bg-orange-700/80 !text-slate-100 !shadow-inner !shadow-zinc-600/80 hover:cursor-default"
+                    "!bg-orange-100 !text-orange-900 !shadow-inner !shadow-zinc-600/80 hover:cursor-default"
                   }`}
                   onClick={() => setFilter(true)}
                 >
@@ -91,14 +90,15 @@ export default function Home() {
               <input
                 type="text"
                 ref={inputRef}
-                className="peer h-full max-h-6 w-full bg-stone-100 px-2 text-2xl text-zinc-400 outline-none transition-none hover:cursor-pointer focus:max-h-8 focus:cursor-text focus:text-3xl focus:text-zinc-600 focus:outline-none focus:transition-all"
+                placeholder="Search and Filter"
+                className="peer h-full max-h-6 w-full bg-stone-100 px-2 text-2xl text-zinc-400 outline-none transition-none placeholder:text-2xl hover:cursor-pointer focus:max-h-8 focus:cursor-text focus:text-3xl focus:text-zinc-600 focus:outline-none focus:transition-all"
                 onChange={({ target }) =>
                   target.value === ""
                     ? setSearch(false)
                     : setSearch(target.value)
                 }
               />
-              <IoMdSearch className="rounded-lg lg:text-4xl text-gray-400 lg:peer-focus:text-5xl" />
+              <IoMdSearch className="rounded-lg text-gray-400 lg:text-4xl lg:peer-focus:text-5xl" />
             </div>
             {/* ^^ ITS REVERSED (FLEX-ROW-REVERSE) ^^ */}
 
@@ -108,7 +108,7 @@ export default function Home() {
                 {tags.podcast_tags.map((tag) => (
                   <button
                     key={tag}
-                    className={`rounded-lg bg-orange-600/50 px-2 py-1 text-slate-100 ${subfilter.includes(tag) && "!bg-orange-500 !text-slate-100"} `}
+                    className={`rounded bg-orange-100 px-2 py-1 font-bold tracking-wider text-orange-900 opacity-40 transition-none ${subfilter.includes(tag) && "!bg-gray-700 !text-orange-400 !opacity-100"} `}
                     onClick={() => {
                       setSubFilter((old) => {
                         if (old.length === 1 && old.includes(tag)) return old // Prevents unselecting the last item
@@ -133,7 +133,7 @@ export default function Home() {
             {!filter
               ? tags.my_tags.map(({ tag, text }, idx) => (
                   <div key={idx} className="flex flex-col gap-4">
-                    <h1 className="font-roboto_slab text-xl font-bold md:text-3xl lg:text-4xl">
+                    <h1 className="font-roboto_slab text-xl font-bold text-zinc-100 md:text-3xl lg:text-4xl">
                       {text}
                     </h1>
                     {feeds
@@ -150,7 +150,7 @@ export default function Home() {
                     return (
                       filteredFeeds.length > 0 && (
                         <div key={idx} className="flex flex-col gap-4">
-                          <h1 className="font-roboto_slab text-xl font-bold md:text-3xl lg:text-4xl">
+                          <h1 className="font-roboto_slab text-xl font-bold text-zinc-100 md:text-3xl lg:text-4xl">
                             {tag}
                           </h1>
                           {filteredFeeds.map((feed) => (

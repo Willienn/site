@@ -6,6 +6,7 @@ export const tags = {
     "Programming",
     "Cybersecurity",
     "Networking",
+    "Tech",
     "RPG",
   ],
   my_tags: [
@@ -226,6 +227,27 @@ export const feeds = [
     url: "https://feeds.packetpushers.net/PacketPushersWeeklyPodcast",
     tags: [
       "Networking",
+      "Reviewing",
+    ],
+  },
+  {
+    title: "Linux Dev Time",
+    slug: "linux-dev-time",
+    image: "linux-dev-time-logo.jpg",
+    url: "https://latenightlinux.com/feed/extra",
+    tags: [
+      "Progamming",
+      "Reviewing",
+      "Tech",
+    ],
+  },
+  {
+    title: "Linux After Dark",
+    slug: "linux-after-dark",
+    image: "linux-after-dark-logo.jpg",
+    url: "https://linuxafterdark.net/feed/podcast",
+    tags: [
+      "Tech",
       "Reviewing",
     ],
   },
