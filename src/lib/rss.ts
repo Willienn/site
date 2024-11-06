@@ -12,18 +12,22 @@ export const tags = {
   my_tags: [
     {
       tag: "Favorite",
-      text: "My Favorites Podcast",
+      text: "My Favorites Podcasts",
     },
     {
       tag: "Recommended",
-      text: "Recommended Podcast",
+      text: "Recommended Podcasts",
     },
     {
       tag: "Reviewing",
-      text: "Reviewing Podcast",
+      text: "Reviewing Podcasts",
     },
   ],
 } as const
+// {
+//   podcast_tags: Array<string>
+//   my_tags: Array<{ tag: string; text: string }>
+// }
 
 export const feeds = [
   {

@@ -2183,6 +2183,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-icons/all-files@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "@react-icons/all-files@npm:4.1.0"
+  peerDependencies:
+    react: "*"
+  checksum: 10c0/6327623b857ba2a9fdf835f2e7029feec7acdd53dc14163085789518d7e1323deb7db649b660d3bad3991285e8408238ad4d09c37b9a0ba7d2601dd74ac0ae56
+  languageName: node
+  linkType: hard
+
 "@rollup/pluginutils@npm:^4.0.0":
   version: 4.2.1
   resolution: "@rollup/pluginutils@npm:4.2.1"
@@ -6463,15 +6472,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons-all@npm:^4.5.1":
-  version: 4.5.1
-  resolution: "react-icons-all@npm:4.5.1"
-  peerDependencies:
-    react: "*"
-  checksum: 10c0/064dbff0d85bd78690a696b1b9c97cba9841cd86592275a76bfe04d185df1e7977cdd7a9b2f3b60e2c2f6066479d8d0928972c1e80e00955575c98505e7d02f0
-  languageName: node
-  linkType: hard
-
 "react-icons@npm:^5.3.0":
   version: 5.3.0
   resolution: "react-icons@npm:5.3.0"
@@ -7235,6 +7235,7 @@ __metadata:
     "@manypkg/cli": "npm:^0.22.0"
     "@next/eslint-plugin-next": "npm:^15.0.2"
     "@notionhq/client": "npm:^2.2.15"
+    "@react-icons/all-files": "npm:^4.1.0"
     "@tailwindcss/typography": "npm:^0.5.15"
     "@total-typescript/ts-reset": "npm:^0.6.1"
     "@types/node": "npm:^22.8.7"
@@ -7266,7 +7267,6 @@ __metadata:
     react-draggable: "npm:^4.4.6"
     react-hook-form: "npm:^7.53.1"
     react-icons: "npm:^5.3.0"
-    react-icons-all: "npm:^4.5.1"
     react-intersection-observer: "npm:^9.13.1"
     react-lazy-load: "npm:^4.0.1"
     react-notion-x: "npm:^6.16.0"
