@@ -3,7 +3,7 @@ import { feeds } from "@/lib/rss"
 import { Item, rssResponse } from "@/lib/rss/types"
 import * as Slider from "@radix-ui/react-slider"
 import Image from "next/image"
-import { use, useState } from "react"
+import { Usable, use, useState } from "react"
 import { FaVolumeHigh, FaVolumeLow, FaVolumeOff } from "react-icons/fa6"
 import useSWR from "swr"
 
@@ -23,11 +23,11 @@ const fetcher = (url: string) =>
 export default function Feed({
   params,
 }: {
-  params: {
+  params: Usable<{
     [key: string]: any
-  }
+  }>
 }) {
-  const { slug } = use(params)
+  const { slug } = use<{ [key: string]: any }>(params)
   const [
     page,
     setPage,
@@ -163,8 +163,12 @@ export default function Feed({
 // TODO do something with this?
 import { useRef } from "react"
 
-export function CustomAudioPlayer({ src }) {
-  const audioRef = useRef(null)
+type CustomAudioPlayerProps = {
+  src: string
+}
+
+export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
+  const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -172,39 +176,49 @@ export function CustomAudioPlayer({ src }) {
 
   // Play or pause the audio
   const togglePlayPause = () => {
-    if (audioRef.current.paused) {
-      audioRef.current.play()
-      setIsPlaying(true)
-    } else {
-      audioRef.current.pause()
-      setIsPlaying(false)
+    if (audioRef.current) {
+      if (audioRef.current.paused) {
+        audioRef.current.play()
+        setIsPlaying(true)
+      } else {
+        audioRef.current.pause()
+        setIsPlaying(false)
+      }
     }
   }
 
   // Update time and duration
   const handleTimeUpdate = () => {
-    setCurrentTime(audioRef.current.currentTime)
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime)
+    }
   }
 
   const handleLoadedMetadata = () => {
-    setDuration(audioRef.current.duration)
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration)
+    }
   }
 
   // Seek to a specific time
-  const handleSeek = (e) => {
-    const seekTime = (e / 100) * duration
-    audioRef.current.currentTime = seekTime
-    setCurrentTime(seekTime)
+  const handleSeek = (value: number[]) => {
+    const seekTime = (value[0] / 100) * duration
+    if (audioRef.current) {
+      audioRef.current.currentTime = seekTime
+      setCurrentTime(seekTime)
+    }
   }
 
   // Adjust volume
-  const handleVolumeChange = (e) => {
-    const newVolume = e / 100
-    audioRef.current.volume = newVolume
-    setVolume(newVolume)
+  const handleVolumeChange = (value: number[]) => {
+    const newVolume = value[0] / 100
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume
+      setVolume(newVolume)
+    }
   }
 
-  const formatTime = (time) => {
+  const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60)
     const seconds = Math.floor(time % 60)
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
@@ -221,9 +235,9 @@ export function CustomAudioPlayer({ src }) {
       />
 
       <button
-        className={`h-fit w-14 rounded-lg bg-orange-700/80 px-2 py-0.5 font-roboto_slab text-sm font-medium text-slate-100 shadow-md shadow-stone-800 md:py-1 md:text-lg md:font-bold ${
+        className={`h-fit w-14 rounded-lg border-b-4 border-l-2 border-orange-950 bg-orange-700/80 px-2 py-0.5 font-roboto_slab text-sm font-medium text-slate-100 shadow-md shadow-stone-800 transition-all duration-75 md:py-1 md:text-lg md:font-bold ${
           isPlaying &&
-          "!bg-orange-100 !text-orange-900 !shadow-inner !shadow-zinc-600/80"
+          "border-b-0 border-l-0 !bg-orange-100 !text-orange-900 !shadow-inner !shadow-zinc-600/80"
         }`}
         onClick={togglePlayPause}
       >
@@ -247,7 +261,7 @@ export function CustomAudioPlayer({ src }) {
             </Slider.Track>
             <Slider.Thumb
               className="group block size-5 rounded bg-orange-500 focus:outline-none"
-              aria-label="Player Time Controll"
+              aria-label="Player Time Control"
             >
               <div className="absolute bottom-[calc(-100%-5px)] left-1/2 hidden -translate-x-1/2 group-hover:flex">
                 {formatTime(currentTime)}

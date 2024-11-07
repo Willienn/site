@@ -11,7 +11,7 @@ const FeedItem = ({ feed }) => (
     <Link
       prefetch={true}
       href={`/rss/${feed.slug}`}
-      className="flex w-full flex-col items-center justify-between gap-2 rounded-lg bg-slate-800/80 px-4 py-2 shadow-lg shadow-stone-950 md:h-40 md:flex-row-reverse md:gap-6"
+      className="flex w-full flex-col items-center justify-between gap-2 rounded-lg bg-slate-900/80 px-4 py-2 shadow-lg shadow-stone-950 md:h-40 md:flex-row-reverse md:gap-6"
     >
       <span className="flex w-full items-center gap-3 md:w-fit">
         <Image
