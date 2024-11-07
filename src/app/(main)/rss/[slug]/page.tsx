@@ -1,7 +1,10 @@
 "use client"
 import { feeds } from "@/lib/rss"
 import { Item, rssResponse } from "@/lib/rss/types"
+import * as Slider from "@radix-ui/react-slider"
+import Image from "next/image"
 import { use, useState } from "react"
+import { FaVolumeHigh, FaVolumeLow, FaVolumeOff } from "react-icons/fa6"
 import useSWR from "swr"
 
 type FeedItem = {
@@ -80,66 +83,74 @@ export default function Feed({
 
   return (
     <main className="h-full max-w-[100svw] py-10">
-      <div className="container mx-auto h-full w-full max-w-[80%] sm:max-w-[60%] xl:max-w-[40%]">
+      <div className="container mx-auto h-full w-full max-w-[90%] sm:max-w-[60%] xl:max-w-[40%]">
         <div className="flex w-full flex-col gap-4">
-          <h1 className="mb-12 text-5xl font-bold">{feedItem.title}</h1>
+          <h1 className="mb-6 items-center text-4xl font-bold sm:mb-12 sm:text-5xl">
+            {feedItem.title}
+          </h1>
           {/* Pagination Controls */}
-          <div className="mt-6 flex justify-between text-black">
+          <div className="flex h-fit justify-between text-black">
             <button
               onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
               disabled={page === 1}
-              className={`transition-none" opacity-100" rounded bg-gray-700 px-2 py-1 font-bold tracking-wider text-orange-400 disabled:bg-orange-100 disabled:text-orange-900 disabled:opacity-40`}
+              className={`transition-none" opacity-100" h-fit rounded bg-gray-700 px-2 py-1.5 text-sm font-bold tracking-wider text-orange-400 disabled:bg-orange-100 disabled:text-orange-900 disabled:opacity-40 sm:text-lg`}
             >
               Previous
             </button>
-            <span className="px-4 py-2 text-stone-600">
+            <span className="px-4 py-1 text-stone-600 sm:py-2">
               Page {page} of {totalPages}
             </span>
             <button
               onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
               disabled={page === totalPages}
-              className={`transition-none" opacity-100" rounded bg-gray-700 px-2 py-1 font-bold tracking-wider text-orange-400 disabled:bg-orange-100 disabled:text-orange-900 disabled:opacity-40`}
+              className={`transition-none" opacity-100" h-fit rounded bg-gray-700 px-2 py-1.5 text-sm font-bold tracking-wider text-orange-400 disabled:bg-orange-100 disabled:text-orange-900 disabled:opacity-40 sm:text-lg`}
             >
               Next
             </button>
           </div>
 
           {/* Render items */}
-          <div className="flex flex-col gap-20">
+          <div className="flex flex-col gap-14">
             {(items as Array<Item>).map((item) => (
               <div
                 key={item.link}
-                className="flex max-h-96 w-full gap-4 rounded-lg bg-stone-950 p-4 font-fira_code"
+                className="flex max-h-96 flex-col gap-4 rounded-lg bg-stone-950 p-3 font-fira_code sm:flex-col sm:p-4"
               >
-                {!item.image.includes(".mp3") && (
-                  <img
-                    src={item.image}
-                    alt={"Ep Image"}
-                    className="aspec size-64 rounded-md"
-                  />
-                )}
-                <div className="flex max-h-64 flex-col justify-between gap-2 overflow-hidden py-4">
-                  <div className="flex flex-col gap-2">
+                <div className="flex h-full max-h-28 items-center gap-4 sm:max-h-64 sm:items-start">
+                  {!item.image.includes(".mp3") && (
+                    <Image
+                      loading="eager"
+                      src={item.image}
+                      alt={"Ep Image"}
+                      width={256}
+                      height={256}
+                      quality={80}
+                      className="size-28 self-center rounded-md sm:size-64"
+                    />
+                  )}
+                  <div className="line-clamp-5 flex w-full flex-col gap-1">
                     <a
                       href={item.link}
                       target="_blank"
-                      className="max-h-[50%] overflow-hidden text-3xl font-bold"
+                      className="scrollbar-hide line-clamp-2 text-lg font-semibold sm:line-clamp-3 sm:text-3xl sm:font-bold"
                     >
                       <h1>{item.title}</h1>
                     </a>
-                    <div className="w-fit rounded-r border-l-2 border-stone-500 bg-orange-500/20 px-1 text-stone-500">
+                    <div className="rounded-r border-l-2 border-stone-500 bg-orange-500/20 px-1 text-sm text-stone-500">
                       {new Date(item.isoDate).toLocaleDateString("en-US", {
                         dateStyle: "long",
                       })}
                     </div>
+                    <p className="no-scrollbar line-clamp-2 text-sm text-gray-700 sm:line-clamp-5 sm:text-lg sm:leading-6">
+                      {item?.contentSnippet || item?.content}
+                    </p>
                   </div>
+                </div>
+                <div className="flex max-h-64 flex-col justify-between gap-2 overflow-hidden sm:py-4">
                   {item.enclosure?.url && (
                     <CustomAudioPlayer src={item.enclosure.url} />
                   )}
                 </div>
-                {/* <p className="no-scrollbar overflow-auto text-gray-700">
-                    {item?.contentSnippet || item?.content}
-                  </p> */}
               </div>
             ))}
           </div>
@@ -181,14 +192,14 @@ export function CustomAudioPlayer({ src }) {
 
   // Seek to a specific time
   const handleSeek = (e) => {
-    const seekTime = (e.target.value / 100) * duration
+    const seekTime = (e / 100) * duration
     audioRef.current.currentTime = seekTime
     setCurrentTime(seekTime)
   }
 
   // Adjust volume
   const handleVolumeChange = (e) => {
-    const newVolume = e.target.value / 100
+    const newVolume = e / 100
     audioRef.current.volume = newVolume
     setVolume(newVolume)
   }
@@ -200,7 +211,7 @@ export function CustomAudioPlayer({ src }) {
   }
 
   return (
-    <div className="flex w-full items-end gap-4 p-4 text-white">
+    <div className="flex w-full items-end gap-4 text-white">
       <audio
         ref={audioRef}
         src={src}
@@ -209,38 +220,67 @@ export function CustomAudioPlayer({ src }) {
         className="hidden"
       />
 
-      {/* Play/Pause Button */}
       <button
-        className={`rounded-lg bg-orange-700/80 px-2 py-0.5 font-roboto_slab text-sm font-medium text-slate-100 shadow-md shadow-stone-800 md:py-1 md:text-lg md:font-bold ${
+        className={`h-fit w-14 rounded-lg bg-orange-700/80 px-2 py-0.5 font-roboto_slab text-sm font-medium text-slate-100 shadow-md shadow-stone-800 md:py-1 md:text-lg md:font-bold ${
           isPlaying &&
           "!bg-orange-100 !text-orange-900 !shadow-inner !shadow-zinc-600/80"
         }`}
         onClick={togglePlayPause}
       >
-        <span className={`${isPlaying && "drop-shadow"}`}>
-          {isPlaying ? "Stop" : "Play"}
-        </span>
+        {isPlaying ? "Stop" : "Play"}
       </button>
 
-      <div className="flex flex-col">
-        <div className="text-sm">
-          {formatTime(currentTime)} / {formatTime(duration)}
+      <div className="flex w-full items-end gap-4">
+        <div className="flex w-full flex-col items-center">
+          <div className="text-xs sm:text-sm">
+            {formatTime(currentTime)} / {formatTime(duration)}
+          </div>
+          <Slider.Root
+            className="relative flex h-5 w-full touch-none select-none items-center duration-0"
+            onValueChange={handleSeek}
+            value={[(currentTime / duration) * 100 || 0]}
+            max={100}
+            step={1}
+          >
+            <Slider.Track className="relative h-2 grow rounded-sm bg-slate-600">
+              <Slider.Range className="absolute h-full rounded-sm bg-sky-500" />
+            </Slider.Track>
+            <Slider.Thumb
+              className="group block size-5 rounded bg-orange-500 focus:outline-none"
+              aria-label="Player Time Controll"
+            >
+              <div className="absolute bottom-[calc(-100%-5px)] left-1/2 hidden -translate-x-1/2 group-hover:flex">
+                {formatTime(currentTime)}
+              </div>
+            </Slider.Thumb>
+          </Slider.Root>
         </div>
-        <input
-          type="range"
-          value={(currentTime / duration) * 100 || 0}
-          onChange={handleSeek}
-          className="appearance-none"
-        />
+        <div className="flex items-center gap-2">
+          {volume * 100 >= 50 ? (
+            <FaVolumeHigh />
+          ) : volume * 100 <= 49 && volume * 100 >= 1 ? (
+            <FaVolumeLow />
+          ) : (
+            <FaVolumeOff />
+          )}
+          {/* Volume Control */}
+          <Slider.Root
+            className="relative flex h-5 w-16 touch-none select-none items-center duration-0 sm:w-24"
+            onValueChange={handleVolumeChange}
+            value={[volume * 100]}
+            max={100}
+            step={1}
+          >
+            <Slider.Track className="relative h-2 grow rounded-sm bg-slate-600">
+              <Slider.Range className="absolute h-full rounded-sm bg-sky-500" />
+            </Slider.Track>
+            <Slider.Thumb
+              className="block size-5 rounded bg-orange-500 focus:outline-none"
+              aria-label="Volume"
+            />
+          </Slider.Root>
+        </div>
       </div>
-
-      {/* Volume Control */}
-      <input
-        type="range"
-        value={volume * 100}
-        onChange={handleVolumeChange}
-        className="w-20 appearance-none"
-      />
     </div>
   )
 }

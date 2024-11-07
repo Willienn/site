@@ -1,6 +1,7 @@
 "use client"
 
 import { feeds, tags } from "@/lib/rss"
+import Image from "next/image"
 import Link from "next/link"
 import { useRef, useState } from "react"
 import { IoMdSearch } from "react-icons/io"
@@ -8,11 +9,15 @@ import { IoMdSearch } from "react-icons/io"
 const FeedItem = ({ feed }) => (
   <li key={feed.slug} className="list-none rounded-lg bg-slate-500">
     <Link
+      prefetch={true}
       href={`/rss/${feed.slug}`}
       className="flex w-full flex-col items-center justify-between gap-2 rounded-lg bg-slate-800/80 px-4 py-2 shadow-lg shadow-stone-950 md:h-40 md:flex-row-reverse md:gap-6"
     >
       <span className="flex w-full items-center gap-3 md:w-fit">
-        <img
+        <Image
+          width={300}
+          height={300}
+          quality={80}
           src={`/rss-images/${feed.image}`}
           alt="Podcast Logo"
           className="size-20 rounded-lg shadow-lg shadow-stone-950/50 md:min-h-32 md:min-w-32"
