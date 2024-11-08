@@ -27,6 +27,7 @@
     "@typescript-eslint/parser": "^8.13.0",
     "@vercel/analytics": "^1.3.2",
     "@vercel/node": "^3.2.24",
+    "@vercel/speed-insights": "^1.1.0",
     "autoprefixer": "^10.4.20",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
