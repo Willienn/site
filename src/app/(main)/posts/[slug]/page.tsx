@@ -1,4 +1,4 @@
-import { getPost } from "@/lib/notion"
+import { getPost, getPosts } from "@/lib/notion"
 import { Block } from "@/types/blocks"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -184,6 +184,15 @@ export async function generateMetadata(props: {
     },
   }
 }
+
+export async function generateStaticParams() {
+  const posts = await getPosts()
+
+  return posts.map((post) => ({
+    slug: post.tags.Slug.url,
+  }))
+}
+export const revalidate = 2628000
 
 export default async function Post(props: {
   params: Promise<{

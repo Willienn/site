@@ -3,9 +3,10 @@ import { feeds } from "@/lib/rss"
 import { Item, rssResponse } from "@/lib/rss/types"
 import * as Slider from "@radix-ui/react-slider"
 import Image from "next/image"
-import { useCallback, useMemo, useRef, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 import { FaVolumeHigh, FaVolumeLow, FaVolumeOff } from "react-icons/fa6"
 import useSWR from "swr"
+
 type FeedItem = {
   title: string
   slug: string
@@ -15,9 +16,7 @@ type FeedItem = {
 }
 
 const fetcher = (url: string) =>
-  fetch(url, {
-    cache: "force-cache",
-  }).then((res) => res.json())
+  fetch(url, { cache: "force-cache" }).then((res) => res.json())
 
 export default function Feed({ slug }: { slug: string }) {
   const [page, setPage] = useState(1)
@@ -26,13 +25,21 @@ export default function Feed({ slug }: { slug: string }) {
   const feedItem = feeds.find((feed) => feed.slug === slug) as FeedItem
   const url = `/rss/api/feed?url=${encodeURIComponent(feedItem?.url)}&slug=${slug}&page=${page}&limit=${itemsPerPage}`
 
-  const { data, error, isLoading } = useSWR(url, fetcher)
+  const { data, error, isLoading } = useSWR(url, fetcher, {
+    fallbackData: {
+      items: [
+        null,
+      ],
+      pagination: {
+        currentPage: page,
+        itemsPerPage: itemsPerPage,
+      },
+      imagePath: "null",
+    },
+  })
 
-  const items = useMemo(() => (data as rssResponse)?.items || [], [data])
-  const totalPages = useMemo(
-    () => (data as rssResponse)?.pagination.totalPages || 0,
-    [data]
-  )
+  const items = (data as rssResponse)?.items || []
+  const totalPages = (data as rssResponse)?.pagination.totalPages
 
   const handlePageChange = useCallback(
     (newPage: number) => {
@@ -42,8 +49,66 @@ export default function Feed({ slug }: { slug: string }) {
   )
 
   if (error) return <p>Error loading feed data.</p>
-  if (isLoading) {
-    return <>!TODO MAKE LOADING SKELETON!</>
+  function Skeleton() {
+    return (
+      <div className="flex flex-col gap-14">
+        {Array.from({ length: 10 }, (_, index) => index).map((id: number) => (
+          <div
+            key={id}
+            id="episodes-skeleton"
+            className="flex max-h-96 flex-col gap-4 rounded-lg bg-stone-950 p-3 font-fira_code sm:flex-col sm:p-4"
+          >
+            <div
+              id="informations-skeleton"
+              className="flex h-full max-h-28 animate-pulse items-center gap-6 sm:max-h-64 sm:items-start"
+            >
+              <div
+                id="image-skeleton"
+                className="aspect-square size-28 max-h-28 w-full max-w-28 self-center rounded-md bg-zinc-800 sm:size-64 sm:max-h-64 sm:max-w-64"
+              />
+
+              <div
+                id="text-skeleton"
+                className="flex max-h-28 w-full flex-col gap-2 sm:max-h-64"
+              >
+                <div
+                  id="title-skeleton"
+                  className="h-8 w-[80%] rounded bg-zinc-600"
+                />
+                <div
+                  id="date-skeleton"
+                  className="h-5 w-32 rounded bg-orange-500/20 pl-1.5 pr-3"
+                />
+                <div
+                  id="description-skeleton"
+                  className="h-28 w-full rounded bg-zinc-600 sm:h-52"
+                />
+              </div>
+            </div>
+            <div
+              id="player-skeleton"
+              className="flex w-full animate-pulse items-center gap-12 px-4"
+            >
+              <div
+                id="play-button-skeleton"
+                className="md:py-1/5 h-8 w-16 rounded-lg bg-orange-700/80 px-2 py-0.5"
+              />
+              <div id="time-control-skeleton" className="flex w-full gap-4">
+                <div
+                  id="time-slider-skeleton"
+                  className="h-4 w-full rounded bg-orange-900"
+                />
+                <div
+                  id="current-duration-skeleton"
+                  className="h-4 w-14 rounded bg-zinc-600 sm:h-4"
+                />
+              </div>
+              <div id="volume-skeleton" className="rounded bg-zinc-500 p-3" />
+            </div>
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -72,53 +137,54 @@ export default function Feed({ slug }: { slug: string }) {
               Next
             </button>
           </div>
-
-          <div className="flex flex-col gap-14">
-            {(items as Array<Item>).map((item, idx) => (
-              <div
-                key={`${item.title}`}
-                className="flex max-h-96 flex-col gap-4 rounded-lg bg-stone-950 p-3 font-fira_code sm:flex-col sm:p-4"
-              >
-                <div className="flex h-full max-h-28 items-center gap-6 sm:max-h-64 sm:items-start">
-                  {!item.image?.includes(".mp3") && (
-                    <Image
-                      src={item.image}
-                      alt={"Ep Image"}
-                      width={256}
-                      height={256}
-                      quality={80}
-                      className="size-28 self-center rounded-md sm:size-64"
-                      onError={
-                        (e) =>
-                          ((e.target as HTMLImageElement).src =
-                            `rss-images/${slug}-logo.jpg`) // Fallback
-                      }
-                    />
-                  )}
-                  <div className="line-clamp-5 flex w-full flex-col gap-1">
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      className="line-clamp-2 text-lg font-semibold sm:line-clamp-3 sm:text-3xl sm:font-bold"
-                    >
-                      <h1>{item.title}</h1>
-                    </a>
-                    <div className="rounded-r border-l-2 border-stone-500 bg-orange-500/20 px-1 text-sm text-stone-500">
-                      {new Date(item.isoDate).toLocaleDateString("en-US", {
-                        dateStyle: "long",
-                      })}
+          {isLoading ? (
+            <Skeleton />
+          ) : (
+            <div className="flex flex-col gap-14">
+              {items.map((item: Item, idx: number) => (
+                <div
+                  key={item.title}
+                  className="flex max-h-96 flex-col gap-4 rounded-lg bg-stone-950 p-3 font-fira_code sm:flex-col sm:p-6"
+                >
+                  <div className="flex h-full max-h-28 items-center gap-6 sm:max-h-64 sm:items-start">
+                    {item.image && !item.image.includes(".mp3") && (
+                      <Image
+                        src={item.image}
+                        alt="Ep Image"
+                        width={256}
+                        height={256}
+                        quality={80}
+                        className="size-28 self-center rounded-md sm:size-64"
+                        onError={(e) =>
+                          (e.currentTarget.src = `/rss-images/${slug}-logo.jpg`)
+                        }
+                      />
+                    )}
+                    <div className="line-clamp-5 flex w-full flex-col gap-1">
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        className="line-clamp-2 text-lg font-semibold sm:line-clamp-3 sm:text-3xl sm:font-bold"
+                      >
+                        <h1>{item.title}</h1>
+                      </a>
+                      <div className="w-fit rounded-r border-l-2 border-stone-500 bg-orange-500/20 pl-1.5 pr-3 text-sm text-stone-500">
+                        {new Date(item.isoDate).toLocaleDateString("en-US", {
+                          dateStyle: "medium",
+                        })}
+                      </div>
+                      <p className="line-clamp-2 text-sm text-gray-700 sm:line-clamp-5 sm:text-lg sm:leading-6">
+                        {item.contentSnippet || item.content}
+                      </p>
                     </div>
-                    <p className="line-clamp-2 text-sm text-gray-700 sm:line-clamp-5 sm:text-lg sm:leading-6">
-                      {item?.contentSnippet || item?.content}
-                    </p>
                   </div>
+                  {item.enclosure?.url && (
+                    <CustomAudioPlayer src={item.enclosure.url} />
+                  )}
                 </div>
-                {item.enclosure?.url && (
-                  <CustomAudioPlayer src={item.enclosure.url} />
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </main>
@@ -218,7 +284,7 @@ export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
           {formatTime(currentTime)} / {formatTime(duration)}
         </div>
       </div>
-      <div className="group relative flex w-fit items-center justify-center p-4 gap-2">
+      <div className="group relative flex w-fit items-center justify-center gap-2 p-4">
         <button onClick={() => handleVolumeChange([0])} className="w-fit">
           {volume > 0.6 ? (
             <FaVolumeHigh />
@@ -228,7 +294,7 @@ export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
             <FaVolumeOff />
           )}
         </button>
-        <div className="hover:flex absolute -right-[calc(6rem)] rounded hidden w-20 h-6 px-2 box-content bg-stone-950 group-hover:flex">
+        <div className="absolute -right-[calc(6rem)] box-content hidden h-6 w-20 rounded bg-stone-950 px-2 hover:flex group-hover:flex">
           <Slider.Root
             className="relative flex h-5 w-full touch-none select-none items-center"
             value={[Math.floor(volume * 100)]}

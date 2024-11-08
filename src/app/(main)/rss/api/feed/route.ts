@@ -1,11 +1,12 @@
-import fs from "fs/promises" // Use async fs methods
+import fs from "fs/promises"
 import fetch from "node-fetch"
 import path from "path"
 import Parser from "rss-parser"
 
 const parser = new Parser()
 const CACHE_DIR = path.join("/tmp", "cache")
-const CACHE_DURATION = 5 * 60 * 1000
+const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
+const IMAGE_DIR = path.join(process.cwd(), "public", "rss-images")
 
 async function saveFeedToCache(feedData, slug) {
   const cacheFilePath = path.join(CACHE_DIR, `${slug}.json`)
@@ -29,24 +30,25 @@ async function readFeedFromCache(slug) {
 }
 
 async function downloadFeedImage(imageUrl, slug) {
-  const imagePath = path.join(
-    process.cwd(),
-    "public/rss-images",
-    `${slug}-logo.jpg`
-  )
+  const imagePath = path.join(IMAGE_DIR, `${slug}-logo.jpg`)
   try {
-    await fs.access(imagePath) // Check if image already exists
-    return `/rss-images/${slug}.jpg`
+    await fs.access(imagePath)
+    return `/rss-images/${slug}-logo.jpg`
   } catch {
-    const response = await fetch(imageUrl)
-    if (!response.ok)
-      throw new Error(`Failed to fetch image: ${response.statusText}`)
+    try {
+      const response = await fetch(imageUrl, { method: "HEAD" })
+      if (!response.ok)
+        throw new Error(`Failed to fetch image: ${response.statusText}`)
 
-    const buffer = await response.arrayBuffer()
-    await fs.mkdir(path.dirname(imagePath), { recursive: true })
-    await fs.writeFile(imagePath, Buffer.from(buffer))
+      const imageBuffer = await response.buffer()
+      await fs.mkdir(IMAGE_DIR, { recursive: true })
+      await fs.writeFile(imagePath, imageBuffer)
 
-    return `/rss-images/${slug}.jpg`
+      return `/rss-images/${slug}-logo.jpg`
+    } catch (err) {
+      console.error("Error downloading image:", err)
+      return null
+    }
   }
 }
 
@@ -76,14 +78,17 @@ export async function GET(request) {
           item["media:thumbnail"]?.url ||
           null,
       }))
-      saveFeedToCache(feed, slug)
+      await saveFeedToCache(feed, slug)
     }
 
-    if ((feed.image?.url || feed?.itunes?.image) && slug) {
-      downloadFeedImage(feed.image.url || feed.itunes.image, slug).catch(
-        console.error
-      )
-    }
+    const imagePromise =
+      (feed.image?.url || feed?.itunes?.image) && slug
+        ? downloadFeedImage(feed.image.url || feed.itunes.image, slug).catch(
+            console.error
+          )
+        : Promise.resolve(null)
+
+    const [imagePath] = await Promise.all([imagePromise])
 
     const totalItems = feed.items.length
     const totalPages = Math.ceil(totalItems / limit)
@@ -99,18 +104,23 @@ export async function GET(request) {
           currentPage: page,
           itemsPerPage: limit,
         },
+        imagePath,
       }),
       {
         status: 200,
         headers: {
+          "Content-Type": "application/json",
           "Cache-Control":
             "public, max-age=0, s-maxage=432000, stale-while-revalidate=432000",
         },
       }
     )
   } catch (error) {
+    console.error("Feed fetch error:", error)
     return new Response(
-      JSON.stringify({ error: `Failed to fetch feed, reason: ${error}` }),
+      JSON.stringify({
+        error: `Failed to fetch feed, reason: ${error.message}`,
+      }),
       { status: 500 }
     )
   }
