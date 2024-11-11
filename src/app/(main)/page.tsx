@@ -1,11 +1,10 @@
 import PostCard from "@/components/postCard"
-import { getPosts } from "@/lib/notion"
+import { posts } from "@/lib/posts/metadata"
 import Link from "next/link"
 
 export default async function Page() {
   const age = new Date().getFullYear() - 2002
 
-  const posts = await getPosts()
   return (
     <main className="flex max-h-screen min-h-screen flex-col gap-12 lg:gap-24">
       <div className="flex items-center justify-center">
@@ -32,12 +31,12 @@ export default async function Page() {
             Posts
           </h2>
           <div className="grid grid-cols-2 gap-5">
-            {posts?.map((post) => (
+            {posts?.map(({ title, slug, image }) => (
               <PostCard
-                key={post.id}
-                postLink={`/posts/${post.tags.Slug.url}`}
-                postImg={post.cover?.external?.url || post.cover?.file?.url}
-                postTitle={post.title}
+                key={title + slug}
+                postLink={`/posts/${slug}`}
+                postImg={image}
+                postTitle={title}
               />
             ))}
           </div>

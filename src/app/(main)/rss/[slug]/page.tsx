@@ -1,4 +1,4 @@
-import { feeds } from "@/lib/rss"
+import { feeds } from "@/lib/rss/metadata"
 import Feed from "./page.client"
 
 export async function generateStaticParams() {

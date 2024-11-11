@@ -1,5 +1,5 @@
 "use client"
-import { feeds } from "@/lib/rss"
+import { feeds } from "@/lib/rss/metadata"
 import { Item, rssResponse } from "@/lib/rss/types"
 import * as Slider from "@radix-ui/react-slider"
 import Image from "next/image"
@@ -56,7 +56,7 @@ export default function Feed({ slug }: { slug: string }) {
           <div
             key={id}
             id="episodes-skeleton"
-            className="flex max-h-96 flex-col gap-4 rounded-lg bg-stone-950 p-3 font-fira_code sm:flex-col sm:p-4"
+            className="flex max-h-96 flex-col gap-6 rounded-lg bg-stone-950 p-3 font-fira_code sm:flex-col sm:p-5"
           >
             <div
               id="informations-skeleton"
@@ -87,11 +87,11 @@ export default function Feed({ slug }: { slug: string }) {
             </div>
             <div
               id="player-skeleton"
-              className="flex w-full animate-pulse items-center gap-12 px-4"
+              className="flex w-full animate-pulse items-center gap-2 px-4 sm:gap-12"
             >
               <div
                 id="play-button-skeleton"
-                className="md:py-1/5 h-8 w-16 rounded-lg bg-orange-700/80 px-2 py-0.5"
+                className="h-8 w-16 rounded-lg bg-orange-700/80 px-2 py-0.5 sm:py-5"
               />
               <div id="time-control-skeleton" className="flex w-full gap-4">
                 <div
@@ -201,6 +201,7 @@ export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [volume, setVolume] = useState(1)
+  const [volumeOpen, setVolumeOpen] = useState(false)
 
   const togglePlayPause = () => {
     if (audioRef.current) {
@@ -249,7 +250,7 @@ export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
   }
 
   return (
-    <div className="flex w-full items-center gap-12 px-4 text-white">
+    <div className="flex w-full items-end gap-2 px-4 text-white sm:items-center sm:gap-12">
       <audio
         ref={audioRef}
         src={src}
@@ -266,7 +267,7 @@ export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
       >
         {isPlaying ? "Pause" : "Play"}
       </button>
-      <div className="flex w-full gap-4">
+      <div className="flex w-full flex-col-reverse items-center sm:flex-row sm:gap-4">
         <Slider.Root
           className="relative flex h-5 w-full touch-none select-none items-center"
           value={[Math.floor((currentTime / duration) * 100)]}
@@ -284,8 +285,11 @@ export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
           {formatTime(currentTime)} / {formatTime(duration)}
         </div>
       </div>
-      <div className="group relative flex w-fit items-center justify-center gap-2 p-4">
-        <button onClick={() => handleVolumeChange([0])} className="w-fit">
+      <div className="group relative flex w-fit items-end justify-center gap-2 p-1">
+        <button
+          onClick={() => setVolumeOpen((prev) => !prev)}
+          className="w-fit"
+        >
           {volume > 0.6 ? (
             <FaVolumeHigh />
           ) : volume > 0.2 ? (
@@ -294,17 +298,20 @@ export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
             <FaVolumeOff />
           )}
         </button>
-        <div className="absolute -right-[calc(6rem)] box-content hidden h-6 w-20 rounded bg-stone-950 px-2 hover:flex group-hover:flex">
+        <div
+          className={`absolute bottom-[102%] box-content hidden cursor-pointer rounded bg-blue-950 py-1 hover:flex group-hover:flex ${volumeOpen && "!flex"}`}
+        >
           <Slider.Root
-            className="relative flex h-5 w-full touch-none select-none items-center"
+            orientation="vertical"
+            className="relative flex h-28 w-5 touch-none select-none flex-col items-center"
             value={[Math.floor(volume * 100)]}
             onValueChange={handleVolumeChange}
           >
-            <Slider.Track className="relative h-1 w-full grow rounded-full bg-orange-900">
-              <Slider.Range className="absolute h-full rounded-full bg-orange-400" />
+            <Slider.Track className="relative min-h-10 w-1 grow rounded-full bg-orange-900">
+              <Slider.Range className="absolute w-full rounded-full bg-orange-400" />
             </Slider.Track>
             <Slider.Thumb
-              className="block size-3 rounded bg-orange-500 shadow-md shadow-stone-900 focus:outline-none"
+              className="block size-3 cursor-pointer rounded bg-orange-500 shadow-md shadow-stone-900 focus:outline-none"
               aria-label="Volume"
             />
           </Slider.Root>
