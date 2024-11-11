@@ -4,7 +4,7 @@ import Image from "next/image"
 export default function PostCard({ postLink, postImg, postTitle }) {
   return (
     <Link href={postLink}>
-      <div className="group relative h-24 w-36 rounded-lg bg-[#2f2f2f] hover:scale-105 hover:shadow-[0_0_40px_#4c4c4c88] md:h-52 md:w-96">
+      <div className="group relative h-24 w-36 rounded-lg bg-[#2f2f2f] hover:scale-105 transition-all hover:shadow-[0_0_40px_#4c4c4c88] md:h-52 md:w-96">
         <Image
         width={350}
         height={350}
