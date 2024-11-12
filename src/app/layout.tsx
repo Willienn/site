@@ -1,6 +1,6 @@
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Fira_Code, Poppins, Roboto_Slab } from "next/font/google"
-import { ReactNode } from "react"
+import { ReactNode, StrictMode } from "react"
 import { WebSite, WithContext } from "schema-dts"
 
 const firaCode = Fira_Code({
@@ -59,22 +59,24 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <html
-      lang="en"
-      className={`${firaCode.variable} ${robotoSlab.variable} ${poppins.variable} bg-zinc-900 text-slate-200`}
-    >
-      <SpeedInsights />
-      <body>
-        <section>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(jsonLd),
-            }}
-          />
-        </section>
-        {children}
-      </body>
-    </html>
+    <StrictMode>
+      <html
+        lang="en"
+        className={`${firaCode.variable} ${robotoSlab.variable} ${poppins.variable} bg-zinc-900 text-slate-200`}
+      >
+        <SpeedInsights />
+        <body>
+          <section>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify(jsonLd),
+              }}
+            />
+          </section>
+          {children}
+        </body>
+      </html>
+    </StrictMode>
   )
 }

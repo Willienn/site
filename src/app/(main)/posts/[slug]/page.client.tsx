@@ -4,6 +4,8 @@ import {
   Heading1,
   Heading2,
   Heading3,
+  HorizontalRule,
+  InlineCode,
   ListItem,
   OrderedList,
   Paragraph,
@@ -12,26 +14,39 @@ import {
 import matter from "gray-matter"
 import Image from "next/image"
 import ReactMarkdown from "react-markdown"
+import rehypeRaw from "rehype-raw"
 import remarkGfm from "remark-gfm"
-
-type Frontmatter = {
-  banner: string
-  title: string
-}
 
 const markdownConfig = {
   remarkPlugins: [remarkGfm],
+  rehypePlugins: [rehypeRaw],
   components: {
     h1: Heading1,
     h2: Heading2,
     h3: Heading3,
+    hr: HorizontalRule,
     p: Paragraph,
     ol: OrderedList,
     ul: UnorderedList,
     li: ListItem,
     blockquote: BlockQuote,
-    code: CodeBlock,
+    // Render block-level code with CodeBlock
+    pre({ node, ...props }) {
+      return <>{props.children}</>
+    },
+    // Render inline code with InlineCode, and use CodeBlock for triple-backtick blocks
+    code: ({ inline, children, ...props }) =>
+      inline ? (
+        <InlineCode {...props}>{children}</InlineCode> // For single backticks
+      ) : (
+        <CodeBlock {...props}>{children}</CodeBlock> // For triple backticks
+      ),
   },
+}
+
+type Frontmatter = {
+  banner: string
+  title: string
 }
 
 export default async function Post({ post }: { post: string }) {
@@ -68,11 +83,9 @@ export default async function Post({ post }: { post: string }) {
         {title}
       </h1>
       {/* Article Content */}
-      <article className="flex w-fit max-w-[700px] flex-col gap-8 self-center px-4">
-        <section className="mb-4 flex w-full flex-col items-center justify-center">
-          {/* @ts-ignore */}
-          <ReactMarkdown {...markdownConfig}>{content}</ReactMarkdown>
-        </section>
+      <article className="mb-4 flex w-full max-w-[700px] flex-col justify-center gap-2 self-center px-4">
+        {/* @ts-ignore */}
+        <ReactMarkdown {...markdownConfig}>{content}</ReactMarkdown>
       </article>
     </main>
   )

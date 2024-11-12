@@ -29,7 +29,7 @@ export default function Nav() {
       <div
         className={`fixed top-0 z-40 min-w-full bg-zinc-950/60 px-2.5 py-2.5 lg:px-0`}
       >
-        <div className="px-[2svw] flex items-center justify-between text-[1.2em] text-white lg:text-[1.4em]">
+        <div className="flex items-center justify-between px-[2svw] text-[1.2em] text-white lg:text-[1.4em]">
           <Link href="/">
             <img
               className="aspect-square w-[30px] lg:w-[45px]"
@@ -42,7 +42,7 @@ export default function Nav() {
               <Link
                 href={item.link}
                 key={idx}
-                className="font-roboto_slab  duration-100 hover:scale-110 active:scale-90"
+                className="font-roboto_slab text-stone-100 duration-100 hover:scale-105 hover:text-orange-600"
               >
                 {item.name}
               </Link>

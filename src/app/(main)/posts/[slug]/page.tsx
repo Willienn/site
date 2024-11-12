@@ -25,8 +25,9 @@ export async function generateMetadata({
 }: {
   params: { slug: string }
 }) {
-  const { slug } = params
+  const { slug } = await params
   const post = await fetchPost(slug)
+
   const { data } = matter(post)
   const { banner, title } = data
 
@@ -39,6 +40,7 @@ export async function generateMetadata({
 type PageProps = { params: { slug: string } }
 
 export default async function Page({ params }: PageProps) {
-  const post = await fetchPost(params.slug)
-  return <Post slug={params.slug} post={post} />
+  const { slug } = await params
+  const post = await fetchPost(slug)
+  return <Post post={post} />
 }
