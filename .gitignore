@@ -25,6 +25,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# yarn
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # env files
 .env*.local
 .env*.production
@@ -38,3 +47,5 @@ next-env.d.ts
 .turbo
 /.idea*
 /.idea/*
+.vscode/extensions.json
+.vscode/settings.json
