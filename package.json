@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "packageExtensions": "",
   "dependencies": {
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",

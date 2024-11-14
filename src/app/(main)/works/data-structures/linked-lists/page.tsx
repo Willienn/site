@@ -1,21 +1,21 @@
-"use client";
-import { useRef, useState } from "react";
+"use client"
+import { useRef, useState } from "react"
 
 type Node<T> = {
-  prev?: Node<T>;
-  next?: Node<T>;
-  node: T;
-};
+  prev?: Node<T>
+  next?: Node<T>
+  node: T
+}
 
 export class DoublyLinkedList<T> {
-  public length: number;
-  private head?: Node<T>;
-  private tail?: Node<T>;
+  public length: number
+  private head?: Node<T>
+  private tail?: Node<T>
 
   constructor() {
-    this.length = 0;
-    this.head = undefined;
-    this.tail = undefined;
+    this.length = 0
+    this.head = undefined
+    this.tail = undefined
   }
 
   prepend(item: T): void {
@@ -24,9 +24,9 @@ export class DoublyLinkedList<T> {
      * Head and tail become the same node
      */
     if (this.length === 0) {
-      this.head = this.tail = { node: item };
-      this.length++;
-      return;
+      this.head = this.tail = { node: item }
+      this.length++
+      return
     }
 
     /**
@@ -38,10 +38,10 @@ export class DoublyLinkedList<T> {
       this.head = {
         node: item,
         next: this.tail,
-      };
-      this.tail!.prev = this.head;
-      this.length++;
-      return;
+      }
+      this.tail!.prev = this.head
+      this.length++
+      return
     }
 
     /**
@@ -50,14 +50,40 @@ export class DoublyLinkedList<T> {
      * Head will become 'next' of the new node
      */
 
-    const oldHead: Node<T> = this.head;
+    const oldHead: Node<T> = this.head
     this.head = {
       node: item,
       next: oldHead,
-    };
-    oldHead.prev = this.head;
-    this.length++;
-    return;
+    }
+    oldHead.prev = this.head
+    this.length++
+    return
+  }
+
+  get(item: T): Node<T> | -1 {
+    if (this.length === 0)
+      throw new Error("This list doesnt have any elements dumbass.")
+    if (item === this.head?.node) return this.head
+    if (item === this.tail?.node) return this.tail
+    if (typeof item === "number") {
+      if (item < 0 || item >= this.length) return -1
+
+      let curr = this.head
+      for (let i = 0; i < item && curr; i++) {
+        curr = curr.next
+      }
+      return curr || -1
+    }
+
+    // Loop through the list for other positions
+    let curr = this.head
+    while (curr) {
+      if (curr.node === item) return curr
+      curr = curr.next
+    }
+    console.log(curr)
+
+    return -1
   }
 
   /**
@@ -68,9 +94,9 @@ export class DoublyLinkedList<T> {
      * Empty linked list
      */
     if (this.length === 0) {
-      this.head = this.tail = { node: item };
-      this.length++;
-      return;
+      this.head = this.tail = { node: item }
+      this.length++
+      return
     }
 
     /**
@@ -80,124 +106,241 @@ export class DoublyLinkedList<T> {
       this.tail = {
         node: item,
         prev: this.head,
-      };
-      this.head!.next = this.tail;
-      this.length++;
-      return;
+      }
+      this.head!.next = this.tail
+      this.length++
+      return
     }
 
     /**
      * Default case
      */
-    const oldTail: Node<T> = this.tail;
+    const oldTail: Node<T> = this.tail
     this.tail = {
       node: item,
       prev: oldTail,
-    };
-    oldTail.next = this.tail;
-    this.length++;
-    return;
+    }
+    oldTail.next = this.tail
+    this.length++
+    return
   }
 
   insertAt(item: T, idx: number): void {
-    if (idx === 0) this.prepend(item);
-    if (idx === this.length - 1) this.append(item);
-    for (let i = 0; i < this.length - 1; i++) {}
-    //what now?
+    if (idx < 0 || idx > this.length) throw new Error("Out of Bounds")
+    if (idx === 0) {
+      this.prepend(item)
+      return
+    }
+    if (idx === this.length) {
+      this.append(item)
+      return
+    }
+    const array = []
+    const result = this.get(item)
+    if (result !== -1) {
+      const newNode = { node: item, prev: result.prev, next: result }
+      result.prev!.next = newNode
+      result.prev = newNode
+
+      this.length++
+
+      return
+    }
   }
-  remove() {}
   removeAt() {}
-  get() {}
+  remove(item: T) {
+    if (item === this.head?.node) {
+      this.head = this.head.next
+      this.length--
+      return
+    }
+    if (item === this.tail?.node) {
+      this.tail = this.tail.prev
+      this.length--
+      return
+    }
+    const result = this.get(item)
+    if (result !== -1) {
+      result.prev!.next = result.next
+      result.next!.prev = result.prev
+
+      this.length--
+
+      return
+    }
+  }
 }
 
 function serializeLinkedList<T>(head: Node<T> | undefined) {
-  const result: Array<{ node: T; prev?: T; next?: T }> = [];
-  let currentNode = head;
+  const result: Array<{ node: T; prev?: T; next?: T }> = []
+  let currentNode = head
 
   while (currentNode) {
     result.push({
       node: currentNode.node,
       prev: currentNode.prev ? currentNode.prev.node : undefined,
       next: currentNode.next ? currentNode.next.node : undefined,
-    });
-    currentNode = currentNode.next;
+    })
+    currentNode = currentNode.next
   }
 
-  return result;
+  return result
 }
 
-// Helper function to add syntax highlighting
-function HighlightedJSON({ data }: { data: unknown }) {
-  const jsonString = JSON.stringify(data, null, 2);
+function HighlightedJSON({
+  data,
+  indentation,
+}: {
+  data: unknown
+  indentation: number
+}) {
+  const jsonString = JSON.stringify(data, null, indentation)
 
   const highlighted = jsonString
     .replace(/"(\w+)"(?=:)/g, '<span class="text-blue-400">"$1"</span>') // Keys in blue
     .replace(/:\s"([^"]*)"/g, ': <span class="text-green-400">"$1"</span>') // String values in green
     .replace(/:\s(\d+)/g, ': <span class="text-yellow-400">$1</span>') // Numbers in yellow
     .replace(/null/g, '<span class="text-red-400">null</span>') // Null in red
-    .replace(/true|false/g, '<span class="text-purple-400">$&</span>'); // Booleans in purple
+    .replace(/true|false/g, '<span class="text-purple-400">$&</span>') // Booleans in purple
 
   return (
     <pre
-      className="text-stone-400 font-mono text-sm whitespace-pre-wrap"
+      className="overflow-auto whitespace-pre-wrap font-mono text-sm text-stone-400"
       dangerouslySetInnerHTML={{ __html: highlighted }}
     />
-  );
+  )
 }
 
 export default function Page() {
-  const [inptValue, setInptValue] = useState<string | null>(null);
-  const [_, setRenderTrigger] = useState(false);
-  const listRef = useRef(new DoublyLinkedList<string>()); // Persistent list
+  const [inptValue, setInptValue] = useState<string | null>(null)
+  const [inptIndex, setInptIndex] = useState<string | null>(null)
+  const [_, setRenderTrigger] = useState(false)
+  const listRef = useRef(new DoublyLinkedList<string>()) // Persistent list
 
   const appendToList = () => {
     if (inptValue) {
-      listRef.current.append(inptValue); // Append to the persistent list
-      setRenderTrigger((prev) => !prev); // Trigger re-render
+      listRef.current.append(inptValue)
+      setRenderTrigger((prev) => !prev) // Trigger re-render
     }
-  };
+  }
 
-    const prependToList = () => {
-      if (inptValue) {
-        listRef.current.prepend(inptValue); // Prepend to the persistent list
-        setRenderTrigger((prev) => !prev); // Trigger re-render
-      }
-    };
+  const prependToList = () => {
+    if (inptValue) {
+      listRef.current.prepend(inptValue)
+      setRenderTrigger((prev) => !prev) // Trigger re-render
+    }
+  }
 
+  const removeOffList = () => {
+    if (inptValue) {
+      listRef.current.remove(inptValue)
+      setRenderTrigger((prev) => !prev) // Trigger re-render
+    }
+  }
 
+  const getFromList = () => {
+    if (inptValue) {
+      const result = listRef.current.get(inptValue)
+      alert(
+        result === -1
+          ? "Your item inst in the list"
+          : `Your value is: {
+        node: ${result.node},
+        prev: ${result.prev},
+        next: ${result.next}
+        }`
+      )
+    }
+  }
+
+  const insertAtToList = () => {
+    if (inptValue && inptIndex !== null) {
+      listRef.current.insertAt(inptValue, Number(inptIndex))
+      setRenderTrigger((prev) => !prev) // Trigger re-render
+    }
+  }
   return (
-    <div className="h-screen flex justify-center flex-col items-center w-full bg-stone-950">
-      <div className="flex justify-center flex-col items-center w-full p-2 text-stone-300 gap-6">
-        <input
-          className="rounded w-56 text-stone-600 p-2"
-          onChange={({ target }) => setInptValue(target.value || null)}
-        />
+    <div className="flex h-screen w-full flex-col items-center justify-center bg-stone-950">
+      <div className="flex w-full flex-col items-center justify-center gap-6 p-2 text-stone-300">
+        <div className="flex gap-6">
+          <div className="flex flex-col gap-1">
+            {/* <div className="flex gap-2">
+              <input type="radio" />
+              <input type="radio" />
+              <input type="radio" />
+              <input type="radio" />
+            </div> */}
+            <label className="text-orange-300">Value</label>
+            <input
+              className="w-56 rounded p-2 text-stone-600"
+              onChange={({ target }) => setInptValue(target.value || null)}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-orange-300">Index</label>
+            <input
+              type="number"
+              className="w-20 rounded p-2 text-stone-600"
+              onChange={({ target }) => setInptIndex(target.value || null)}
+            />
+          </div>
+        </div>
         <button
           disabled={!inptValue}
-          className="bg-sky-950 flex gap-2 items-center justify-center disabled:opacity-60  disabled:bg-sky-600/70 transition-all w-64 disabled:text-orange-300 text-orange-400 rounded p-2"
+          className="flex w-64 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
           onClick={appendToList}
         >
-          Append{" "}
-          <div className="text-ellipsis overflow-hidden max-w-20 whitespace-nowrap">{`"${inptValue}"`}</div>{" "}
+          Append
+          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptValue}"`}</div>
           to the list
         </button>
         <button
           disabled={!inptValue}
-          className="bg-sky-950 flex gap-2 items-center justify-center disabled:opacity-60  disabled:bg-sky-600/70 transition-all w-64 disabled:text-orange-300 text-orange-400 rounded p-2"
+          className="flex w-64 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
           onClick={prependToList}
         >
-          Prepend{" "}
-          <div className="text-ellipsis overflow-hidden max-w-20 whitespace-nowrap">{`"${inptValue}"`}</div>{" "}
+          Prepend
+          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptValue}"`}</div>
+          to the list
+        </button>{" "}
+        <button
+          disabled={!inptValue}
+          className="flex w-64 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
+          onClick={getFromList}
+        >
+          Get
+          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptValue}"`}</div>
+          from list
+        </button>
+        <button
+          disabled={!inptValue}
+          className="flex w-64 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
+          onClick={removeOffList}
+        >
+          Remove
+          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptValue}"`}</div>
+          off the list
+        </button>
+        <button
+          disabled={!inptValue}
+          className="flex w-64 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
+          onClick={insertAtToList}
+        >
+          Insert
+          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptValue}"`}</div>
+          At
+          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptIndex}"`}</div>
           to the list
         </button>
       </div>
 
-      <div className="size-[50%] border-zinc-700 border p-4">
-        <h2 className="text-xl text-stone-300 font-semibold mb-4">
-          JSON View:
-        </h2>
-        <HighlightedJSON data={serializeLinkedList(listRef.current["head"])} />
+      <div className="flex size-[50%] flex-col gap-4 rounded border border-zinc-700 p-4">
+        <h2 className="text-xl font-semibold text-stone-300">JSON View:</h2>
+        <HighlightedJSON
+          data={serializeLinkedList(listRef.current["head"])}
+          indentation={2}
+        />
       </div>
     </div>
-  );
+  )
 }
