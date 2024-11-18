@@ -1,4 +1,5 @@
 "use client"
+import DOMPurify from "isomorphic-dompurify"
 import { useRef, useState } from "react"
 
 type Node<T> = {
@@ -135,8 +136,7 @@ export class DoublyLinkedList<T> {
       this.append(item)
       return
     }
-    const array = []
-    const result = this.get(item)
+    const result = this.get(idx)
     if (result !== -1) {
       const newNode = { node: item, prev: result.prev, next: result }
       result.prev!.next = newNode
@@ -147,7 +147,29 @@ export class DoublyLinkedList<T> {
       return
     }
   }
-  removeAt() {}
+  removeAt(idx: number): void {
+    if (idx < 0 || idx > this.length) throw new Error("Out of Bounds")
+
+    if (idx === 0) {
+      this.head = this.head.next
+      this.length--
+      return
+    }
+    if (idx === this.length) {
+      this.tail = this.tail.prev
+      this.length--
+      return
+    }
+    const result = this.get(idx)
+    if (result !== -1) {
+      result?.prev?.next ? (result.prev.next = result.next) : null // not suposed to happend but seens to happend???????
+      result?.next?.prev ? (result.next.prev = result.prev) : null // not suposed to happend but seens to happend???????
+
+      this.length--
+
+      return
+    }
+  }
   remove(item: T) {
     if (item === this.head?.node) {
       this.head = this.head.next
@@ -171,6 +193,7 @@ export class DoublyLinkedList<T> {
   }
 }
 
+// Utility function to serialize a linked list
 function serializeLinkedList<T>(head: Node<T> | undefined) {
   const result: Array<{ node: T; prev?: T; next?: T }> = []
   let currentNode = head
@@ -187,6 +210,15 @@ function serializeLinkedList<T>(head: Node<T> | undefined) {
   return result
 }
 
+// Utility to convert a string to title case
+function toTitleCase(str: string): string {
+  return str.replace(
+    /\w\S*/g,
+    (text) => text[0].toUpperCase() + text.slice(1).toLowerCase()
+  )
+}
+
+// Highlighted JSON component with sanitization
 function HighlightedJSON({
   data,
   indentation,
@@ -203,10 +235,12 @@ function HighlightedJSON({
     .replace(/null/g, '<span class="text-red-400">null</span>') // Null in red
     .replace(/true|false/g, '<span class="text-purple-400">$&</span>') // Booleans in purple
 
+  const sanitizedHTML = DOMPurify?.sanitize(highlighted)
+
   return (
     <pre
-      className="overflow-auto whitespace-pre-wrap font-mono text-sm text-stone-400"
-      dangerouslySetInnerHTML={{ __html: highlighted }}
+      className="overflow-auto whitespace-pre-wrap font-fira_code text-sm text-stone-400"
+      dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
     />
   )
 }
@@ -214,130 +248,131 @@ function HighlightedJSON({
 export default function Page() {
   const [inptValue, setInptValue] = useState<string | null>(null)
   const [inptIndex, setInptIndex] = useState<string | null>(null)
-  const [_, setRenderTrigger] = useState(false)
+  const [error, setError] = useState<string | false>(false)
+  const [operation, setOperation] =
+    useState<(typeof operations)[number]>("append")
+  const [renderTrigger, setRenderTrigger] = useState(false) // Tracks updates for re-render
+
   const listRef = useRef(new DoublyLinkedList<string>()) // Persistent list
 
-  const appendToList = () => {
-    if (inptValue) {
-      listRef.current.append(inptValue)
-      setRenderTrigger((prev) => !prev) // Trigger re-render
+  function handleOperations() {
+    if (
+      !inptValue &&
+      ["append", "prepend", "get", "remove"].includes(operation)
+    ) {
+      setError("Value is required for this operation")
+      return
     }
+
+    const index = Number(inptIndex)
+    if (
+      ["remove at", "insert at"].includes(operation) &&
+      (isNaN(index) || index < 0)
+    ) {
+      setError("Valid index is required for this operation")
+      return
+    }
+
+    setError(false)
+
+    switch (operation) {
+      case "insert at":
+        listRef.current.insertAt(inptValue!, index)
+        break
+      case "remove at":
+        listRef.current.removeAt(index)
+        break
+      case "get":
+        const result = listRef.current.get(inptValue!)
+        alert(
+          result === -1
+            ? "Your item isn't in the list"
+            : `Your value is: {
+            node: ${result.node},
+            prev: ${result.prev},
+            next: ${result.next}
+          }`
+        )
+        break
+      case "remove":
+        listRef.current.remove(inptValue!)
+        break
+      case "prepend":
+        listRef.current.prepend(inptValue!)
+        break
+      case "append":
+        listRef.current.append(inptValue!)
+        break
+    }
+
+    // Trigger re-render
+    setRenderTrigger((prev) => !prev)
   }
 
-  const prependToList = () => {
-    if (inptValue) {
-      listRef.current.prepend(inptValue)
-      setRenderTrigger((prev) => !prev) // Trigger re-render
-    }
-  }
+  const operations = [
+    "remove at",
+    "insert at",
+    "prepend",
+    "append",
+    "remove",
+    "get",
+  ] as const
 
-  const removeOffList = () => {
-    if (inptValue) {
-      listRef.current.remove(inptValue)
-      setRenderTrigger((prev) => !prev) // Trigger re-render
-    }
-  }
-
-  const getFromList = () => {
-    if (inptValue) {
-      const result = listRef.current.get(inptValue)
-      alert(
-        result === -1
-          ? "Your item inst in the list"
-          : `Your value is: {
-        node: ${result.node},
-        prev: ${result.prev},
-        next: ${result.next}
-        }`
-      )
-    }
-  }
-
-  const insertAtToList = () => {
-    if (inptValue && inptIndex !== null) {
-      listRef.current.insertAt(inptValue, Number(inptIndex))
-      setRenderTrigger((prev) => !prev) // Trigger re-render
-    }
-  }
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center bg-stone-950">
-      <div className="flex w-full flex-col items-center justify-center gap-6 p-2 text-stone-300">
-        <div className="flex gap-6">
-          <div className="flex flex-col gap-1">
-            {/* <div className="flex gap-2">
-              <input type="radio" />
-              <input type="radio" />
-              <input type="radio" />
-              <input type="radio" />
-            </div> */}
+    <div className="flex h-screen w-full flex-col items-center justify-center bg-stone-950 font-poppins">
+      <div className="flex w-full flex-col max-w-[80%] items-center justify-center gap-6 p-2 text-stone-300">
+        <div className="flex flex-wrap gap-6 w-f">
+          {operations.map((item) => (
+            <div key={item} className="flex w-28 flex-col items-center gap-2">
+              <label htmlFor={item}>{toTitleCase(item)}</label>
+              <input
+                onClick={({ target }) => setOperation(target.value)}
+                defaultChecked={operation === item}
+                name="operation"
+                type="radio"
+                value={item}
+                id={item}
+                className="h-5 w-5 cursor-pointer appearance-none rounded-md border border-sky-500 p-2 transition-all checked:bg-orange-500"
+              />
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-wrap items-end gap-4">
+          <div className="flex flex-col gap-2">
             <label className="text-orange-300">Value</label>
             <input
+              disabled={operation === "remove at"}
               className="w-56 rounded p-2 text-stone-600"
               onChange={({ target }) => setInptValue(target.value || null)}
             />
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex w-20 flex-col gap-2">
             <label className="text-orange-300">Index</label>
             <input
+              disabled={!["remove at", "insert at"].includes(operation)}
               type="number"
               className="w-20 rounded p-2 text-stone-600"
               onChange={({ target }) => setInptIndex(target.value || null)}
             />
           </div>
+
+          <button
+            disabled={
+              !inptValue &&
+              ["append", "prepend", "remove", "get"].includes(operation)
+            }
+            className="flex h-10 w-32 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
+            onClick={handleOperations}
+          >
+            {toTitleCase(operation)}
+          </button>
         </div>
-        <button
-          disabled={!inptValue}
-          className="flex w-64 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
-          onClick={appendToList}
-        >
-          Append
-          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptValue}"`}</div>
-          to the list
-        </button>
-        <button
-          disabled={!inptValue}
-          className="flex w-64 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
-          onClick={prependToList}
-        >
-          Prepend
-          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptValue}"`}</div>
-          to the list
-        </button>{" "}
-        <button
-          disabled={!inptValue}
-          className="flex w-64 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
-          onClick={getFromList}
-        >
-          Get
-          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptValue}"`}</div>
-          from list
-        </button>
-        <button
-          disabled={!inptValue}
-          className="flex w-64 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
-          onClick={removeOffList}
-        >
-          Remove
-          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptValue}"`}</div>
-          off the list
-        </button>
-        <button
-          disabled={!inptValue}
-          className="flex w-64 items-center justify-center gap-2 rounded bg-sky-950 p-2 text-orange-400 transition-all disabled:bg-sky-600/70 disabled:text-orange-300 disabled:opacity-60"
-          onClick={insertAtToList}
-        >
-          Insert
-          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptValue}"`}</div>
-          At
-          <div className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">{`"${inptIndex}"`}</div>
-          to the list
-        </button>
       </div>
 
-      <div className="flex size-[50%] flex-col gap-4 rounded border border-zinc-700 p-4">
+      <div className="flex size-[80%] flex-col gap-4 rounded border border-zinc-700 p-4 sm:size-[50%]">
         <h2 className="text-xl font-semibold text-stone-300">JSON View:</h2>
         <HighlightedJSON
-          data={serializeLinkedList(listRef.current["head"])}
+          data={serializeLinkedList(listRef.current.head)}
           indentation={2}
         />
       </div>
