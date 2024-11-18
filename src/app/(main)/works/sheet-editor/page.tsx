@@ -1,12 +1,12 @@
 "use client"
-import { ChangeEvent, useState } from "react"
+import React, { ChangeEvent, useState } from "react"
 import * as XLSX from "xlsx"
 
 type RowData = {
   [key: string]: string | number | boolean | null
 }
 
-const SheetEditor = () => {
+export default function Page() {
   const [data, setData] = useState<RowData[]>([])
   const [selectedCell, setSelectedCell] = useState<{
     rowIndex: number
@@ -104,5 +104,3 @@ const SheetEditor = () => {
     </div>
   )
 }
-
-export default SheetEditor
