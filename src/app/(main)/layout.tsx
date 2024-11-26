@@ -5,45 +5,48 @@ import { ReactNode } from "react"
 import "./global.css"
 
 export const metadata: Metadata = {
-  title: "Daily Codes",
+  title: "Daily Codes - Web Development, Podcasts, and Poems",
   description:
-    "Personal site that i talk about anything i want and sometimes my poems",
+    "Discover Daily Codes, a personal blog by Willien Muniz. Here you may find insights on programming, web development, creative coding, my favorite podcasts, and poetry.",
   keywords: [
-    "blog",
-    "daily",
-    "codes",
-    "poems",
+    "Daily Codes",
+    "personal blog",
     "programming",
     "web development",
-    "nextjs",
-    "nextjs13",
-    "nextjs14",
-    "willien muniz",
-    "willien",
+    "poems",
+    "podcasts",
+    "darknet diaries",
+    "smashing security",
+    "developer blog",
+    "Next.js",
+    "Next.js 13",
+    "Next.js 14",
+    "Willien Muniz",
+    "web developer",
+    "web programmer",
     "progamador web",
-    "progamador",
+    "creative coding",
+    "developer journey",
   ],
   verification: {
     google: "a9WvUWUgrdGoNizhM8stU7ycvk83LEMaODs_8wXyw0M",
   },
   openGraph: {
-    title: "Daily Codes",
+    title: "Daily Codes - Web Development, Podcasts, and Poems",
     description:
-      "Personal site that i talk about anything i want and sometimes my poems",
+      "Discover Daily Codes, a personal blog by Willien Muniz. Here you may find insights on programming, web development, creative coding, my favorite podcasts, and poetry.",
     url: "https://dailycodes.dev",
     siteName: "Daily Codes",
     images: [
       {
         url: "https://dailycodes.dev/open-graph.png",
-        width: 150,
-        height: 150,
+        width: 1200,
+        height: 630,
+        alt: "Daily Codes logo - Web Development and Creativity",
       },
     ],
     locale: "en_US",
     type: "website",
-  },
-  alternates: {
-    canonical: "https://muniz.dailycodes.dev/",
   },
 }
 

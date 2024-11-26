@@ -255,6 +255,17 @@ export const feeds = [
       "Reviewing",
     ],
   },
+  {
+    title: "Hacking Humans",
+    slug: "hacking-humans",
+    image: "hacking-humans-logo.jpg",
+    url: "https://feeds.megaphone.fm/hacking-humans",
+    tags: [
+      "Cybersecurity",
+      "Tech",
+      "Reviewing",
+    ],
+  },
 ].sort((a, b) => {
   const aIsFavorite = a.tags.includes("Favorite")
   const bIsFavorite = b.tags.includes("Favorite")

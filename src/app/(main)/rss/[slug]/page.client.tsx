@@ -7,7 +7,7 @@ import { useCallback, useRef, useState } from "react"
 import { FaVolumeHigh, FaVolumeLow, FaVolumeOff } from "react-icons/fa6"
 import useSWR from "swr"
 
-type FeedItem = {
+export type FeedItem = {
   title: string
   slug: string
   image: string
@@ -250,7 +250,7 @@ export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
   }
 
   return (
-    <div className="flex w-full items-end gap-2 sm:px-4 text-white sm:items-center sm:gap-12">
+    <div className="flex w-full items-end gap-2 text-white sm:items-center sm:gap-12 sm:px-4">
       <audio
         ref={audioRef}
         src={src}
@@ -263,7 +263,7 @@ export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
         <button
           className={`h-fit w-16 min-w-fit rounded-lg bg-orange-700/80 px-2 py-0.5 font-roboto_slab text-sm font-medium text-slate-100 shadow-[3px_3px_3px_0px_#a9390c99] transition-all ease-in-out sm:w-20 md:py-1 md:text-lg md:font-bold ${
             isPlaying
-              ? "translate-x-[1.5px] translate-y-[1.2px] scale-x-[1.03] scale-y-[1.02] !bg-orange-100 tracking-[0.5px] !text-orange-900 !shadow-inner !shadow-zinc-600/80"
+              ? "translate-x-[1.5px] translate-y-[1.2px] !bg-orange-100 tracking-[0.5px] !text-orange-900 !shadow-inner !shadow-zinc-600/80"
               : "hover:translate-x-[1.5px] hover:translate-y-[1.2px] hover:shadow-none"
           }`}
           onClick={togglePlayPause}

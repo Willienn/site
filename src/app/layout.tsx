@@ -38,24 +38,33 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Daily Codes",
-    alternateName: "daily codes",
-    description: "Talk about anything i want and sometimes my poems",
+    alternateName: "Daily Codes Blog",
+    description:
+      "Discover Daily Codes, a personal blog by Willien Muniz. Here you may find insights on programming, web development, creative coding, my favorite podcasts, and poetry.",
     url: "https://dailycodes.dev/",
     keywords: [
+      "podcasts",
+      "Darknet Diaries",
+      "Smashing Security",
       "blog",
       "daily",
+      "Daily Codes",
       "codes",
       "poems",
       "programming",
       "web development",
-      "nextjs",
-      "nextjs13",
-      "nextjs14",
-      "willien muniz",
-      "willien",
-      "progamador web",
-      "progamador",
+      "Next.js",
+      "Next.js 13",
+      "Next.js 14",
+      "Willien Muniz",
+      "Willien",
+      "programador web",
+      "web developer",
+      "developer",
+      "programador",
+      "creative coding",
     ],
+    inLanguage: "en",
   }
 
   return (
@@ -64,7 +73,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         lang="en"
         className={`${firaCode.variable} ${robotoSlab.variable} ${poppins.variable} bg-zinc-900 text-slate-200`}
       >
-        <SpeedInsights />
         <body>
           <section>
             <script
@@ -75,6 +83,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             />
           </section>
           {children}
+          <SpeedInsights />
         </body>
       </html>
     </StrictMode>
