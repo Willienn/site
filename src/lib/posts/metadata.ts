@@ -8,6 +8,7 @@ export const posts = [
       "https://i.imgur.com/Eub9g3C.jpg/size/w=2000?exp=1731332008&sig=kyz52pUgCPbba4jonpRASqqCANwEqjHD3rMPc5at9m0",
     slug: "opostos",
     tags: ["poems"],
+    updatedAt: "2023",
   },
   {
     title: "Novidades NextJS V.13",
@@ -16,5 +17,6 @@ export const posts = [
       "https://i.imgur.com/P83o6DJ.png/size/w=2000?exp=1731336428&sig=V5Z7LonHE2gpVsbsDcfCy6fBKGNlKv84hP4V6uVEWXg",
     slug: "novidades-next-js-13",
     tags: ["news"],
+    updatedAt: "",
   },
 ]
