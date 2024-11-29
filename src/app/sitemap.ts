@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     //   priority: 1,
     // },
     {
-      url: `${baseUrl}/work`,
+      url: `${baseUrl}/works`,
       lastModified: new Date().toISOString(),
       changeFrequency: "monthly",
 
