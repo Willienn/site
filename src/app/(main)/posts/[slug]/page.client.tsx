@@ -49,7 +49,13 @@ type Frontmatter = {
   title: string
 }
 
-export default async function Post({ post }: { post: string }) {
+export default async function Post({
+  post,
+  altImg,
+}: {
+  post: string
+  altImg: string
+}) {
   let data: Frontmatter
   let content: string
 
@@ -79,11 +85,11 @@ export default async function Post({ post }: { post: string }) {
         />
       </div>
       {/* Title for SEO */}
-      <h1 className="self-center font-roboto_slab text-4xl font-bold">
+      <h1 className="self-center font-roboto_slab text-4xl font-bold tracking-tight">
         {title}
       </h1>
       {/* Article Content */}
-      <article className="mb-4 flex w-full max-w-[700px] flex-col justify-center gap-2 self-center px-4">
+      <article className="mb-4 flex w-full max-w-[800px] flex-col justify-center gap-2 self-center px-4 font-sans leading-relaxed tracking-normal text-stone-200">
         {/* @ts-ignore */}
         <ReactMarkdown {...markdownConfig}>{content}</ReactMarkdown>
       </article>

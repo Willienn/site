@@ -11,12 +11,11 @@ export const posts = [
     updatedAt: "2023-6-15",
   },
   {
-    title: "Novidades NextJS V.13",
-    url: "https://raw.githubusercontent.com/Willienn/site-posts/main/posts/novidades-nexts-js-13.md",
-    image:
-      "https://i.imgur.com/P83o6DJ.png/size/w=2000?exp=1731336428&sig=V5Z7LonHE2gpVsbsDcfCy6fBKGNlKv84hP4V6uVEWXg",
-    slug: "novidades-next-js-13",
-    tags: ["news"],
-    updatedAt: "2023-3-15",
+    title: "Changing from Notion to GitHub",
+    url: "https://raw.githubusercontent.com/Willienn/site-posts/refs/heads/main/posts/notion-to-github.md",
+    image: "https://i.imgur.com/5etxlhW.jpg",
+    slug: "notion-to-github",
+    tags: ["blog", "how-to", "my-experience"],
+    updatedAt: "2024-12-3",
   },
 ]

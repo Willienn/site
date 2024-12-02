@@ -3,17 +3,13 @@ import matter from "gray-matter"
 import Post from "./page.client"
 
 export async function fetchPost(slug: string) {
-  try {
-    const res = await fetch(
-      `https://raw.githubusercontent.com/Willienn/site-posts/main/posts/${slug}.md`,
-      { next: { revalidate: 3600 } }
-    )
-    if (!res.ok) throw new Error(`Failed to fetch post: ${res.statusText}`)
-    return await res.text()
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
+  const post = await fetch(
+    `https://raw.githubusercontent.com/Willienn/site-posts/main/posts/${slug}.md`,
+    { next: { revalidate: 3600 } }
+  )
+    .then((value) => value.text())
+    .catch((cause) => console.log(`Failed to fetch post: ${cause}`))
+  return post || "no-content-found"
 }
 
 export async function generateStaticParams() {
@@ -41,6 +37,7 @@ type PageProps = { params: { slug: string } }
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params
+  const postMetadata = posts.filter((item) => item.slug === slug)
   const post = await fetchPost(slug)
-  return <Post post={post} />
+  return <Post altImg={postMetadata.image} post={post} />
 }
