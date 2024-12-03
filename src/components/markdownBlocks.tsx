@@ -38,7 +38,7 @@ export const ListItem: React.FC<{ children: ReactNode }> = ({ children }) => (
   <li>{children}</li>
 )
 
-export const BlockQuote: React.FC = ({ children, ...props }) => (
+export const BlockQuote: React.FC = ({ children, ...props }) => ( 
   <blockquote
     className="font-xs mb-2.5 border-l-2 border-red-500 bg-stone-950 py-2 pl-3 font-poppins italic"
     {...props}
