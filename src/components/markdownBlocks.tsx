@@ -52,7 +52,7 @@ export const InlineCode: React.FC<{ children: ReactNode }> = ({ children }) => (
 )
 
 export const CodeBlock: React.FC<{ children: ReactNode }> = ({ children }) => (
-  <pre className="mb-4 inline rounded bg-sky-950/60 px-1 py-0.5 font-fira_code text-orange-400">
+  <pre className="mb-4 whitespace-pre-wrap break-all inline rounded bg-sky-950/60 px-1 py-0.5 font-fira_code text-orange-400">
     {children}
   </pre>
 )
