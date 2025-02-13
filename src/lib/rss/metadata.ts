@@ -277,6 +277,17 @@ export const feeds = [
       "Reviewing",
     ],
   },
+  {
+    title: "The We Society",
+    slug: "the-we-society",
+    image: "the-we-society-logo.jpg",
+    url: "https://audioboom.com/channels/5079081.rss",
+    tags: [
+      "Social Sciences",
+      "Society",
+      "Reviewing",
+    ],
+  },
 ].sort((a, b) => {
   const aIsFavorite = a.tags.includes("Favorite")
   const bIsFavorite = b.tags.includes("Favorite")
