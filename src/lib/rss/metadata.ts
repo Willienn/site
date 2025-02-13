@@ -266,17 +266,18 @@ export const feeds = [
       "Reviewing",
     ],
   },
-  {
-    title: "Compromising Positions",
-    slug: "compromising-positions",
-    image: "compromising-positions-logo.jpg",
-    url: "https://www.compromisingpositions.co.uk/podcast?format=rss",
-    tags: [
-      "Cybersecurity",
-      "Tech",
-      "Reviewing",
-    ],
-  },
+  // {
+  //   title: "Compromising Positions",
+  //   slug: "compromising-positions",
+  //   image: "compromising-positions-logo.jpg",
+  //   url: "https://www.compromisingpositions.co.uk/podcast?format=rss",
+  //   tags: [
+  //     "Cybersecurity",
+  //     "Tech",
+  //     "Reviewing",
+  //   ],
+  // },
+  //TODO ! broken
   {
     title: "The We Society",
     slug: "the-we-society",
