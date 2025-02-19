@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRef, useState } from "react"
 import { IoMdSearch } from "react-icons/io"
-
+console.log(feeds)
 const FeedItem = ({ feed }) => (
   <li key={feed.slug} className="list-none rounded-lg bg-slate-500">
     <Link

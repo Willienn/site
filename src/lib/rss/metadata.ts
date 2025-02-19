@@ -289,6 +289,94 @@ export const feeds = [
       "Reviewing",
     ],
   },
+  {
+    title: "Cyberwire Daily Podcast",
+    slug: "cyberwire-daily-podcast",
+    image: "cyberwire-daily-podcast-logo.jpg",
+    url: "https://feeds.megaphone.fm/cyberwire-daily-podcast",
+    tags: [
+      "Cybersecurity",
+      "Tech",
+      "Reviewing",
+    ],
+  },
+  {
+    title: "Control Loop",
+    slug: "control-loop",
+    image: "control-loop-logo.jpg",
+    url: "https://feeds.megaphone.fm/control-loop",
+    tags: [
+      "Cybersecurity",
+      "Tech",
+      "Reviewing",
+    ],
+  },
+  {
+    title: "CSO Perspectives",
+    slug: "cso-perspectives",
+    image: "cso-perspectives-logo.jpg",
+    url: "https://feeds.megaphone.fm/cyberwire-cso-perspectives-public",
+    tags: [
+      "Cybersecurity",
+      "Tech",
+      "Reviewing",
+    ],
+  },
+  {
+    title: "8th Layer Insights",
+    slug: "8th-layer-insights",
+    image: "8th-layer-insights-logo.jpg",
+    url: "https://feeds.megaphone.fm/8th-layer-insights",
+    tags: [
+      "Cybersecurity",
+      "Tech",
+      "Reviewing",
+    ],
+  },
+  {
+    title: "Threat Vector",
+    slug: "threat-vector",
+    image: "threat-vector-logo.jpg",
+    url: "https://feeds.megaphone.fm/unit42threatvector",
+    tags: [
+      "Cybersecurity",
+      "Tech",
+      "Reviewing",
+    ],
+  },
+  {
+    title: "Only Malware in the Building",
+    slug: "only-malware-in-the-building",
+    image: "only-malware-in-the-building-logo.jpg",
+    url: "https://feeds.megaphone.fm/only-malware-in-the-building",
+    tags: [
+      "Cybersecurity",
+      "Tech",
+      "Reviewing",
+    ],
+  },
+  {
+    title: "Cyberwire Shadowspeak",
+    slug: "cyberwire-shadowspeak",
+    image: "cyberwire-shadowspeak-logo.jpg",
+    url: "https://feeds.megaphone.fm/cyberwire-shadowspeak",
+    tags: [
+      "Cybersecurity",
+      "Tech",
+      "Reviewing",
+    ],
+  },
+  {
+    title: "Faik Files",
+    slug: "faik-files",
+    image: "faik-files-logo.jpg",
+    url: "https://feeds.megaphone.fm/faikfiles",
+    tags: [
+      "Cybersecurity",
+      "Tech",
+      "Reviewing",
+    ],
+  },
 ].sort((a, b) => {
   const aIsFavorite = a.tags.includes("Favorite")
   const bIsFavorite = b.tags.includes("Favorite")

@@ -3,7 +3,7 @@ import { feeds } from "@/lib/rss/metadata"
 import { Item, rssResponse } from "@/lib/rss/types"
 import * as Slider from "@radix-ui/react-slider"
 import Image from "next/image"
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { FaVolumeHigh, FaVolumeLow, FaVolumeOff } from "react-icons/fa6"
 import useSWR from "swr"
 
@@ -15,17 +15,39 @@ export type FeedItem = {
   url: string
 }
 
-const fetcher = (url: string) =>
-  fetch(url, { cache: "force-cache" }).then((res) => res.json())
+const getConnectionInfo = () => {
+  const connection =
+    //@ts-expect-error mozilla say that navigator have it but type dont have it
+    navigator.connection ||
+    //@ts-expect-error mozilla say that navigator have it but type dont have it
+    navigator.mozConnection ||
+    //@ts-expect-error mozilla say that navigator have it but type dont have it
+    navigator.webkitConnection
+  return {
+    effectiveType: connection?.effectiveType || "4g",
+    saveData: connection?.saveData || false,
+  }
+}
+
+const fetcher = async (url: string) => {
+  const { effectiveType, saveData } = getConnectionInfo()
+  const res = await fetch(url, {
+    cache: "force-cache",
+    ...(effectiveType === "slow-2g" && { priority: "low" }),
+    ...(saveData && { headers: { "Save-Data": "on" } }),
+  })
+  return await res.json()
+}
 
 export default function Feed({ slug }: { slug: string }) {
   const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(0)
   const itemsPerPage = 10
 
   const feedItem = feeds.find((feed) => feed.slug === slug) as FeedItem
   const url = `/rss/api/feed?url=${encodeURIComponent(feedItem?.url)}&slug=${slug}&page=${page}&limit=${itemsPerPage}`
 
-  const { data, error, isLoading } = useSWR(url, fetcher, {
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher, {
     fallbackData: {
       items: [
         null,
@@ -34,12 +56,16 @@ export default function Feed({ slug }: { slug: string }) {
         currentPage: page,
         itemsPerPage: itemsPerPage,
       },
-      imagePath: "null",
     },
   })
 
   const items = (data as rssResponse)?.items || []
-  const totalPages = (data as rssResponse)?.pagination.totalPages
+  const TPages = (data as rssResponse)?.pagination.totalPages
+
+  useEffect(() => {
+    if (TPages === undefined) return
+    setTotalPages(TPages)
+  }, [TPages])
 
   const handlePageChange = useCallback(
     (newPage: number) => {
@@ -47,16 +73,39 @@ export default function Feed({ slug }: { slug: string }) {
     },
     [totalPages]
   )
+  console.log(totalPages)
 
-  if (error) return <p>Error loading feed data.</p>
+  useEffect(() => {
+    const prefetchNextPage = async () => {
+      if (page < totalPages) {
+        const nextUrl = `/rss/api/feed?url=${encodeURIComponent(feedItem.url)}&slug=${slug}&page=${page + 1}&limit=${itemsPerPage}`
+        await fetcher(nextUrl)
+      }
+    }
+
+    prefetchNextPage()
+  }, [page, slug, totalPages, feedItem.url, itemsPerPage])
+
+  if (error)
+    return (
+      <div className="py-10 text-center">
+        <p className="mb-4 text-red-400">Error loading feed data.</p>
+        <button
+          onClick={() => mutate()}
+          className="rounded bg-orange-500/20 px-4 py-2 hover:bg-orange-500/30"
+        >
+          Retry
+        </button>
+      </div>
+    )
+
   function Skeleton() {
     return (
       <div className="flex flex-col gap-14">
-        {Array.from({ length: 10 }, (_, index) => index).map((id: number) => (
+        {Array.from({ length: itemsPerPage }).map((_, id) => (
           <div
             key={id}
-            id="episodes-skeleton"
-            className="flex max-h-96 flex-col gap-6 rounded-lg bg-stone-950 p-3 font-fira_code sm:flex-col sm:p-5"
+            className="flex max-h-96 flex-col gap-6 rounded-lg bg-stone-950 p-3 sm:p-5"
           >
             <div
               id="informations-skeleton"
@@ -110,7 +159,6 @@ export default function Feed({ slug }: { slug: string }) {
       </div>
     )
   }
-
   return (
     <main className="h-full max-w-[100svw] py-10">
       <div className="container mx-auto h-full w-full max-w-[90%] lg:max-w-[80%] xl:max-w-[60%]">
@@ -131,7 +179,7 @@ export default function Feed({ slug }: { slug: string }) {
             </span>
             <button
               onClick={() => handlePageChange(page + 1)}
-              disabled={page === totalPages}
+              disabled={page === totalPages || isLoading}
               className="h-fit rounded bg-gray-700 px-2 py-1.5 text-sm font-bold tracking-wider text-orange-400 disabled:bg-orange-100 disabled:text-orange-900 disabled:opacity-40 sm:text-lg"
             >
               Next
@@ -141,7 +189,7 @@ export default function Feed({ slug }: { slug: string }) {
             <Skeleton />
           ) : (
             <div className="flex flex-col gap-14">
-              {items.map((item: Item, idx: number) => (
+              {items.map((item: Item) => (
                 <div
                   key={item.title}
                   className="flex max-h-96 flex-col gap-4 rounded-lg bg-stone-950 p-3 font-fira_code sm:flex-col sm:p-6"
@@ -150,14 +198,16 @@ export default function Feed({ slug }: { slug: string }) {
                     {item.image && !item.image.includes(".mp3") && (
                       <Image
                         src={item.image}
-                        alt="Ep Image"
+                        alt={`Cover for ${item.title}`}
                         width={256}
                         height={256}
                         quality={80}
+                        placeholder="blur"
+                        blurDataURL={item.image}
                         className="size-28 self-center rounded-md sm:size-64"
-                        onError={(e) =>
-                          (e.currentTarget.src = `/rss-images/${slug}-logo.jpg`)
-                        }
+                        onError={(e) => {
+                          e.currentTarget.src = `/rss-images/${slug}-logo.jpg`
+                        }}
                       />
                     )}
                     <div className="line-clamp-5 flex w-full flex-col gap-1">
@@ -261,6 +311,7 @@ export function CustomAudioPlayer({ src }: CustomAudioPlayerProps) {
 
       <div className="w-20 sm:w-24">
         <button
+          aria-label={isPlaying ? "Pause audio" : "Play audio"}
           className={`h-fit w-16 min-w-fit rounded-lg bg-orange-700/80 px-2 py-0.5 font-roboto_slab text-sm font-medium text-slate-100 shadow-[3px_3px_3px_0px_#a9390c99] transition-all ease-in-out sm:w-20 md:py-1 md:text-lg md:font-bold ${
             isPlaying
               ? "translate-x-[1.5px] translate-y-[1.2px] !bg-orange-100 tracking-[0.5px] !text-orange-900 !shadow-inner !shadow-zinc-600/80"

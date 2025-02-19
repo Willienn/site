@@ -13,9 +13,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "**",
       },
+      {
+        protocol: "http",
+        hostname: "relayfm.s3.amazonaws.com",
+      },
     ],
   },
-};
+}
 
-module.exports = nextConfig;
-
+module.exports = nextConfig
