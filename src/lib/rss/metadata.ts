@@ -3,11 +3,15 @@
  */
 export const tags = {
   podcast_tags: [
-    "Programming",
+    "Social Sciences",
     "Cybersecurity",
+    "Programming",
     "Networking",
+    "Red Hat",
+    "Linux",
     "Tech",
     "RPG",
+    "IT",
   ],
   my_tags: [
     {
@@ -33,7 +37,7 @@ export const feeds = [
   {
     title: "Smashing Security",
     slug: "smashing-security",
-    image: "smashing-security-logo.jpg",
+    image: "smashing-security.jpg",
     description: "Text to describe what is and why i like it",
     url: "https://feeds.captivate.fm/smashing-security/",
     tags: [
@@ -45,7 +49,7 @@ export const feeds = [
   {
     title: "Darknet Diaries",
     slug: "darknet-diaries",
-    image: "darknet-diaries-logo.jpg",
+    image: "darknet-diaries.jpg",
     description: "Text to describe what is and why i like it",
     url: "https://podcast.darknetdiaries.com",
     tags: [
@@ -57,7 +61,7 @@ export const feeds = [
   {
     title: "The Adventure Zone",
     slug: "the-adventure-zone",
-    image: "the-adventure-zone-logo.jpg",
+    image: "the-adventure-zone.jpg",
     description: "Text to describe what is and why i like it",
     url: "https://feeds.simplecast.com/cYQVc__c",
     tags: [
@@ -69,7 +73,7 @@ export const feeds = [
   {
     title: "Javascript Jabber",
     slug: "javascript-jabber",
-    image: "javascript-jabber-logo.jpg",
+    image: "javascript-jabber.jpg",
     url: "https://www.spreaker.com/show/6102064/episodes/feed",
     tags: [
       "Programming",
@@ -79,7 +83,7 @@ export const feeds = [
   {
     title: "Programming Throwdown",
     slug: "programming-throwdown",
-    image: "programming-throwdown-logo.jpg",
+    image: "programming-throwdown.jpg",
     url: "https://feeds.transistor.fm/programming-throwdown",
     tags: [
       "Programming",
@@ -89,7 +93,7 @@ export const feeds = [
   {
     title: "Shop Talk",
     slug: "shop-talk",
-    image: "shop-talk-logo.jpg",
+    image: "shop-talk.jpg",
     url: "https://shoptalkshow.com/feed/podcast/default-podcast/",
     tags: [
       "Programming",
@@ -99,7 +103,7 @@ export const feeds = [
   {
     title: "Algorithms + Data Structures = Programs",
     slug: "adsp",
-    image: "adsp-logo.jpg",
+    image: "adsp.jpg",
     url: "https://feeds.buzzsprout.com/1501960.rss",
     tags: [
       "Programming",
@@ -109,7 +113,7 @@ export const feeds = [
   {
     title: "SE Radio",
     slug: "se-radio",
-    image: "se-radio-logo.jpg",
+    image: "se-radio.jpg",
     url: "https://seradio.libsyn.com/rss",
     tags: [
       "Programming",
@@ -119,7 +123,7 @@ export const feeds = [
   {
     title: "Syntax",
     slug: "syntax",
-    image: "syntax-logo.jpg",
+    image: "syntax.jpg",
     url: "https://feed.syntax.fm/",
     tags: [
       "Programming",
@@ -129,7 +133,7 @@ export const feeds = [
   {
     title: "JSParty",
     slug: "jsparty",
-    image: "jsparty-logo.jpg",
+    image: "jsparty.jpg",
     url: "https://changelog.com/jsparty/feed",
     tags: [
       "Programming",
@@ -139,7 +143,7 @@ export const feeds = [
   {
     title: "Daily Tech News Show",
     slug: "daily-tech-news-show",
-    image: "daily-tech-news-show-logo.jpg",
+    image: "daily-tech-news-show.jpg",
     url: "https://access.acast.com/rss/61954547cb03c875f7617118/default",
     tags: [
       "Programming",
@@ -149,7 +153,7 @@ export const feeds = [
   {
     title: "Cortex",
     slug: "cortex",
-    image: "cortex-logo.jpg",
+    image: "cortex.jpg",
     url: "https://www.relay.fm/cortex/feed",
     tags: [
       "Programming",
@@ -159,25 +163,26 @@ export const feeds = [
   {
     title: "Soft Skills",
     slug: "soft-skills",
-    image: "soft-skills-logo.jpg",
+    image: "soft-skills.jpg",
     url: "https://softskills.audio/feed.xml",
     tags: [
       "Programming",
       "Reviewing",
     ],
   },
-  // Todo Check if is really broken
-  // {
-  //   title: "Command Line Heroes",
-  //   slug: "command-line-heroes",
-  //   image: "command-line-heroes-logo.jpg",
-  //   url: "https://feeds.pacific-content.com/commandlineheroes",
-  //   tags: ["Programming", "Reviewing"],
-  // },
   {
-    title: "base.cs",
+    title: "Command Line Heroes",
+    description:
+      "Command Line Heroes tells the epic true tales of how developers, programmers, hackers, geeks, and open source rebels attempt the extraordinary and persevere.",
+    slug: "command-line-heroes",
+    image: "command-line-heroes.jpg",
+    url: "https://feeds.simplecast.com/vUHP7wpf",
+    tags: ["Programming", "Red Hat", "Reviewing"],
+  },
+  {
+    title: "Base.cs",
     slug: "base-cs",
-    image: "base-cs-logo.jpg",
+    image: "base-cs.jpg",
     url: "http://feeds.codenewbie.org/basecs_podcast.xml",
     tags: [
       "Programming",
@@ -187,7 +192,7 @@ export const feeds = [
   {
     title: "Coder Radio",
     slug: "coder-radio",
-    image: "coder-radio-logo.jpg",
+    image: "coder-radio.jpg",
     url: "https://feeds.jupiterbroadcasting.com/coder",
     tags: [
       "Programming",
@@ -197,7 +202,7 @@ export const feeds = [
   {
     title: "Software Gone Wild",
     slug: "software-gone-wild",
-    image: "software-gone-wild-logo.jpg",
+    image: "software-gone-wild.jpg",
     url: "http://feed.ipspace.net/podcast/software.gone.wild?rss=1",
     tags: [
       "Networking",
@@ -207,7 +212,7 @@ export const feeds = [
   {
     title: "PING",
     slug: "ping",
-    image: "ping-logo.jpg",
+    image: "ping.jpg",
     url: "https://feeds.blubrry.com/feeds/ping_podcast.xml",
     tags: [
       "Networking",
@@ -217,7 +222,7 @@ export const feeds = [
   {
     title: "Heavy Strategy",
     slug: "heavy-strategy",
-    image: "heavy-strategy-logo.jpg",
+    image: "heavy-strategy.jpg",
     url: "https://feeds.packetpushers.net/heavystrategy",
     tags: [
       "Networking",
@@ -227,7 +232,7 @@ export const feeds = [
   {
     title: "Heavy Networking",
     slug: "heavy-networking",
-    image: "heavy-networking-logo.jpg",
+    image: "heavy-networking.jpg",
     url: "https://feeds.packetpushers.net/PacketPushersWeeklyPodcast",
     tags: [
       "Networking",
@@ -237,28 +242,30 @@ export const feeds = [
   {
     title: "Linux Dev Time",
     slug: "linux-dev-time",
-    image: "linux-dev-time-logo.jpg",
+    image: "linux-dev-time.jpg",
     url: "https://latenightlinux.com/feed/extra",
     tags: [
       "Progamming",
       "Reviewing",
+      "Linux",
       "Tech",
     ],
   },
   {
     title: "Linux After Dark",
     slug: "linux-after-dark",
-    image: "linux-after-dark-logo.jpg",
+    image: "linux-after-dark.jpg",
     url: "https://linuxafterdark.net/feed/podcast",
     tags: [
       "Tech",
+      "Linux",
       "Reviewing",
     ],
   },
   {
     title: "Hacking Humans",
     slug: "hacking-humans",
-    image: "hacking-humans-logo.jpg",
+    image: "hacking-humans.jpg",
     url: "https://feeds.megaphone.fm/hacking-humans",
     tags: [
       "Cybersecurity",
@@ -266,22 +273,21 @@ export const feeds = [
       "Reviewing",
     ],
   },
-  // {
-  //   title: "Compromising Positions",
-  //   slug: "compromising-positions",
-  //   image: "compromising-positions-logo.jpg",
-  //   url: "https://www.compromisingpositions.co.uk/podcast?format=rss",
-  //   tags: [
-  //     "Cybersecurity",
-  //     "Tech",
-  //     "Reviewing",
-  //   ],
-  // },
-  //TODO ! broken
+  {
+    title: "Compromising Positions",
+    slug: "compromising-positions",
+    image: "compromising-positions.jpg",
+    url: "https://www.compromisingpositions.co.uk/podcast?format=rss",
+    tags: [
+      "Cybersecurity",
+      "Tech",
+      "Reviewing",
+    ],
+  },
   {
     title: "The We Society",
     slug: "the-we-society",
-    image: "the-we-society-logo.jpg",
+    image: "the-we-society.jpg",
     url: "https://audioboom.com/channels/5079081.rss",
     tags: [
       "Social Sciences",
@@ -292,7 +298,7 @@ export const feeds = [
   {
     title: "Cyberwire Daily Podcast",
     slug: "cyberwire-daily-podcast",
-    image: "cyberwire-daily-podcast-logo.jpg",
+    image: "cyberwire-daily-podcast.jpg",
     url: "https://feeds.megaphone.fm/cyberwire-daily-podcast",
     tags: [
       "Cybersecurity",
@@ -303,7 +309,7 @@ export const feeds = [
   {
     title: "Control Loop",
     slug: "control-loop",
-    image: "control-loop-logo.jpg",
+    image: "control-loop.jpg",
     url: "https://feeds.megaphone.fm/control-loop",
     tags: [
       "Cybersecurity",
@@ -314,7 +320,7 @@ export const feeds = [
   {
     title: "CSO Perspectives",
     slug: "cso-perspectives",
-    image: "cso-perspectives-logo.jpg",
+    image: "cso-perspectives.jpg",
     url: "https://feeds.megaphone.fm/cyberwire-cso-perspectives-public",
     tags: [
       "Cybersecurity",
@@ -325,7 +331,7 @@ export const feeds = [
   {
     title: "8th Layer Insights",
     slug: "8th-layer-insights",
-    image: "8th-layer-insights-logo.jpg",
+    image: "8th-layer-insights.jpg",
     url: "https://feeds.megaphone.fm/8th-layer-insights",
     tags: [
       "Cybersecurity",
@@ -336,7 +342,7 @@ export const feeds = [
   {
     title: "Threat Vector",
     slug: "threat-vector",
-    image: "threat-vector-logo.jpg",
+    image: "threat-vector.jpg",
     url: "https://feeds.megaphone.fm/unit42threatvector",
     tags: [
       "Cybersecurity",
@@ -347,7 +353,7 @@ export const feeds = [
   {
     title: "Only Malware in the Building",
     slug: "only-malware-in-the-building",
-    image: "only-malware-in-the-building-logo.jpg",
+    image: "only-malware-in-the-building.jpg",
     url: "https://feeds.megaphone.fm/only-malware-in-the-building",
     tags: [
       "Cybersecurity",
@@ -358,7 +364,7 @@ export const feeds = [
   {
     title: "Cyberwire Shadowspeak",
     slug: "cyberwire-shadowspeak",
-    image: "cyberwire-shadowspeak-logo.jpg",
+    image: "cyberwire-shadowspeak.jpg",
     url: "https://feeds.megaphone.fm/cyberwire-shadowspeak",
     tags: [
       "Cybersecurity",
@@ -369,7 +375,7 @@ export const feeds = [
   {
     title: "Faik Files",
     slug: "faik-files",
-    image: "faik-files-logo.jpg",
+    image: "faik-files.jpg",
     url: "https://feeds.megaphone.fm/faikfiles",
     tags: [
       "Cybersecurity",
@@ -377,11 +383,51 @@ export const feeds = [
       "Reviewing",
     ],
   },
-].sort((a, b) => {
-  const aIsFavorite = a.tags.includes("Favorite")
-  const bIsFavorite = b.tags.includes("Favorite")
+  {
+    title: "Code Comments",
+    description:
+      "On Code Comments, host and technologist Burr Sutter speaks with experienced professionals on the challenges along the way from whiteboard to deployment.",
+    slug: "code-comments",
+    image: "code-comments.jpg",
+    url: "https://feeds.simplecast.com/qdjfQuGX",
+    tags: [
+      "IT",
+      "Tech",
+      "Red Hat",
+      "Reviewing",
+    ],
+  },
+  {
+    title: "Compiler",
+    description:
+      "Compiler gives you perspectives and insights from the tech industry—free from jargon and judgment. We’re here to help new IT professionals understand what’s going on.",
+    slug: "compiler",
+    image: "compiler.jpg",
+    url: "https://feeds.simplecast.com/Ynq4lw9w",
+    tags: [
+      "Tech",
+      "Red Hat",
+      "IT",
+      "Reviewing",
+    ],
+  },
+]
+  .sort(function (a, b) {
+    if (a.title < b.title) {
+      return -1
+    }
+    if (a.title > b.title) {
+      return 1
+    }
+    return 0
+  })
+  .sort((a, b) => {
+    const aIsFavorite = a.tags.includes("Favorite")
+    const bIsFavorite = b.tags.includes("Favorite")
 
-  if (aIsFavorite && !bIsFavorite) return -1
-  if (!aIsFavorite && bIsFavorite) return 1
-  return 0
-})
+    if (aIsFavorite && !bIsFavorite) return -1
+    if (!aIsFavorite && bIsFavorite) return 1
+    return 0
+  })
+// If any podcast is broken check if they change the feed url
+// and some was broken cors policy, bc librewolf and firefox fingerprinting protection

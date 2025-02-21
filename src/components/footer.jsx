@@ -13,9 +13,6 @@ export default function Footer() {
           <Link href="https://www.linkedin.com/in/willien-muniz-973960255/">
             <img src="/linkedin.svg" alt="Link for my Linkedin" />
           </Link>
-          <Link href="https://www.instagram.com/whatsisyourdoubt/">
-            <img src="/instagram.svg" alt="Link for my Instagram" />
-          </Link>
         </div>
       </div>
     </footer>

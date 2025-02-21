@@ -206,7 +206,7 @@ export default function Feed({ slug }: { slug: string }) {
                         blurDataURL={item.image}
                         className="size-28 self-center rounded-md sm:size-64"
                         onError={(e) => {
-                          e.currentTarget.src = `/rss-images/${slug}-logo.jpg`
+                          e.currentTarget.src = `/rss-images/${slug}.jpg`
                         }}
                       />
                     )}

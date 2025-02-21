@@ -66,8 +66,13 @@ const parser = new Parser()
 const CACHE_DIR = path.join("/tmp", "cache")
 const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
 
+// Helper: Check if the cache is still valid
+function isCacheValid(timestamp: number): boolean {
+  return Date.now() - timestamp < CACHE_DURATION
+}
+
 // Cache handling
-async function saveToCache(feedData: Feed, slug: string): Promise<any> {
+async function setCache(feedData: Feed, slug: string): Promise<void> {
   const cacheFilePath = path.join(CACHE_DIR, `${slug}.json`)
   await fs.mkdir(CACHE_DIR, { recursive: true })
   await fs.writeFile(
@@ -75,22 +80,19 @@ async function saveToCache(feedData: Feed, slug: string): Promise<any> {
     JSON.stringify({ data: feedData, timestamp: Date.now() })
   )
 }
-async function readFromCache(slug: string): Promise<Feed | null> {
+
+async function getCache(slug: string): Promise<CachedFeed | null> {
   const cacheFilePath = path.join(CACHE_DIR, `${slug}.json`)
   try {
-    const cachedData: CachedFeed = JSON.parse(
-      await fs.readFile(cacheFilePath, "utf-8")
-    ) as CachedFeed
-    return Date.now() - cachedData.timestamp < CACHE_DURATION
-      ? cachedData.data
-      : null
-  } catch {
+    return JSON.parse(await fs.readFile(cacheFilePath, "utf-8")) as CachedFeed
+  } catch (err) {
+    console.log(err)
     return null
   }
 }
 
 // Feed processing
-function enrichItemWithImage(item: FeedItem): FeedItem {
+function addImageToFeedItem(item: FeedItem): FeedItem {
   return {
     ...item,
     image:
@@ -103,8 +105,8 @@ function enrichItemWithImage(item: FeedItem): FeedItem {
 
 async function processFeed(url: string, slug: string): Promise<Feed> {
   const feed = await parser.parseURL(url)
-  feed.items = feed.items.map(enrichItemWithImage)
-  await saveToCache(feed, slug)
+  feed.items = feed.items.map(addImageToFeedItem)
+  await setCache(feed, slug)
   return feed
 }
 
@@ -119,7 +121,6 @@ function getPaginatedItems(
   const totalPages = Math.ceil(totalItems / limit)
   const offset = (page - 1) * limit
   const paginatedItems = feed.items.slice(offset, offset + limit)
-
   return {
     items: paginatedItems,
     pagination: {
@@ -131,35 +132,27 @@ function getPaginatedItems(
   }
 }
 
-async function downloadFeedImage(imageUrl?: string, slug?: string) {
-  if (!imageUrl) {
-    throw new Error("Image URL is required")
-  } else if (!slug) {
-    throw new Error("Slug is required")
-  }
-  const imagePath = path.join(
-    process.cwd(),
-    "public/rss-images",
-    `${slug}-logo.jpg`
-  )
-
+async function downloadFeedImage(
+  imageUrl: string,
+  slug: string
+): Promise<string> {
+  // Consistently save and return as slug.jpg
+  const imagePath = path.join(process.cwd(), "public/rss-images", `${slug}.jpg`)
   try {
     await fs.access(imagePath) // Check if image already exists
     return `/rss-images/${slug}.jpg`
   } catch {
     const response = await fetch(imageUrl)
-    if (!response.ok)
+    if (!response.ok) {
       throw new Error(`Failed to fetch image: ${response.statusText}`)
-
+    }
     const buffer = await response.arrayBuffer()
     await fs.mkdir(path.dirname(imagePath), { recursive: true })
     await fs.writeFile(imagePath, Buffer.from(buffer))
-
     return `/rss-images/${slug}.jpg`
   }
 }
 
-// Main handler
 export async function GET(request: Request): Promise<Response> {
   const { searchParams } = new URL(request.url)
   const url = searchParams.get("url")
@@ -170,35 +163,39 @@ export async function GET(request: Request): Promise<Response> {
   if (!url || !slug) {
     return new Response(
       JSON.stringify({ error: "Feed URL and slug are required" }),
-      { status: 400 }
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      }
     )
   }
 
   try {
-    let feed = await readFromCache(slug)
+    const cachedFeed = await getCache(slug)
+    let feed: Feed
 
-    if (!feed) {
+    if (cachedFeed) {
+      feed = cachedFeed.data
+      // If cache is stale, refresh it in the background but still use the cached data
+      if (!isCacheValid(cachedFeed.timestamp)) {
+        processFeed(url, slug).catch(console.error)
+      } else if (Date.now() - cachedFeed.timestamp > CACHE_DURATION / 2) {
+        // Optionally trigger a background refresh if cache is half-expired
+        processFeed(url, slug).catch(console.error)
+      }
+    } else {
       feed = await processFeed(url, slug)
-    } else if (Date.now() - feed.timestamp > CACHE_DURATION) {
-      // Refresh cache in background without blocking response
-      processFeed(url, slug).catch(console.error)
     }
 
-    const { items, pagination } = getPaginatedItems(feed, {
-      page,
-      limit,
-    })
-
-    if ((feed.image?.url || feed?.itunes?.image) && slug) {
-      downloadFeedImage(feed?.image?.url || feed?.itunes?.image, slug).catch(
+    const { items, pagination } = getPaginatedItems(feed, { page, limit })
+    // Trigger image download if an image URL exists
+    if ((feed.image?.url || feed.itunes?.image) && slug) {
+      downloadFeedImage(feed.image?.url || feed.itunes?.image, slug).catch(
         console.error
       )
     }
 
-    const response: FeedResponse = {
-      items,
-      pagination,
-    }
+    const response: FeedResponse = { items, pagination }
 
     return new Response(JSON.stringify(response), {
       status: 200,
@@ -211,11 +208,16 @@ export async function GET(request: Request): Promise<Response> {
     })
   } catch (error) {
     console.error("Feed fetch error:", error)
-    throw new Error(
+    return new Response(
       JSON.stringify({
+        error: `Failed to fetch feed, reason: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+      }),
+      {
         status: 500,
-        error: `Failed to fetch feed, reason: ${error instanceof Error ? error.message : "Unknown error"}`,
-      })
+        headers: { "Content-Type": "application/json" },
+      }
     )
   }
 }
