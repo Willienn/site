@@ -411,6 +411,21 @@ export const feeds = [
       "Reviewing",
     ],
   },
+  {
+    title: "The Hedge",
+    description:
+      "The Hedge is a podcast about the world of open source software, hosted by Red Hat's Chris Short and Matt Yonkovit.",
+    slug: "the-hedge",
+    image: "the-hedge.jpg",
+    url: "http://rule11.tech/category/content-type/podcast",
+
+    tags: [
+      "Tech",
+      "Red Hat",
+      "IT",
+      "Reviewing",
+    ],
+  },
 ]
   .sort(function (a, b) {
     if (a.title < b.title) {
