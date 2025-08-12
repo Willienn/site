@@ -18,4 +18,12 @@ export const posts = [
     tags: ["blog", "how-to", "my-experience"],
     updatedAt: "2024-12-3",
   },
+  {
+    title: "Existência",
+    url: "https://raw.githubusercontent.com/Willienn/site-posts/refs/heads/main/posts/existencia.md",
+    image: "https://i.imgur.com/gdDFH6D.jpeg",
+    slug: "existencia",
+    tags: ["poems", "existentialism", "my-experience"],
+    updatedAt: "2025-12-8",
+  },
 ]

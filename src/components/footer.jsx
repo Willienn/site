@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="px-0 lg:px-7">
         <div className="ml2.5 flex h-full flex-row items-center gap-2.5 lg:ml-0 lg:gap-5">
           <p className="text-[.9rem] lg:text-[1rem]">Contact</p>
-          <Link href="https://www.linkedin.com/in/willien-muniz-973960255/">
+          <Link href="https://www.linkedin.com/in/willien-muniz-69728062/">
             <img src="/linkedin.svg" alt="Link for my Linkedin" />
           </Link>
         </div>
