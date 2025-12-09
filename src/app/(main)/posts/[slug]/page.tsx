@@ -29,7 +29,15 @@ export async function generateMetadata({
 
   return {
     title,
-    openGraph: { images: banner },
+    openGraph: {
+      title,
+      images: [
+        {
+          url: banner,
+          alt: `Banner image for ${title}`,
+        },
+      ],
+    },
   }
 }
 
@@ -37,7 +45,33 @@ type PageProps = { params: { slug: string } }
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params
-  const postMetadata = posts.filter((item) => item.slug === slug)
+  const postMetadata = posts.find((item) => item.slug === slug)
   const post = await fetchPost(slug)
-  return <Post altImg={postMetadata.image} post={post} />
+  const { data } = matter(post)
+  const { title, date } = data
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    datePublished: date,
+    dateModified: date,
+    author: [
+      {
+        "@type": "Person",
+        name: "Willien Muniz",
+        url: "https://dailycodes.dev/about",
+      },
+    ],
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Post altImg={postMetadata?.image} post={post} />
+    </>
+  )
 }

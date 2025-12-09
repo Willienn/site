@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 import Link from "next/link"
 import { useInView } from "react-intersection-observer"
 
@@ -31,10 +32,12 @@ export default function Nav() {
       >
         <div className="flex items-center justify-between px-[2svw] text-[1.2em] text-white lg:text-[1.4em]">
           <Link href="/">
-            <img
+            <Image
               className="aspect-square w-[30px] lg:w-[45px]"
               src="/sitelogo.svg"
               alt="Logo do site"
+              width={45}
+              height={45}
             />
           </Link>
           <div className="flex gap-4 lg:gap-8">

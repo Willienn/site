@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 export default function Footer() {
@@ -11,7 +12,12 @@ export default function Footer() {
         <div className="ml2.5 flex h-full flex-row items-center gap-2.5 lg:ml-0 lg:gap-5">
           <p className="text-[.9rem] lg:text-[1rem]">Contact</p>
           <Link href="https://www.linkedin.com/in/willien-muniz-69728062/">
-            <img src="/linkedin.svg" alt="Link for my Linkedin" />
+            <Image
+              src="/linkedin.svg"
+              alt="Link for my Linkedin"
+              width={24}
+              height={24}
+            />
           </Link>
         </div>
       </div>

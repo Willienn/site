@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 import React, { FC, ReactElement, ReactNode, useEffect, useState } from "react"
 import { IoMdArrowDropright } from "react-icons/io"
 import Typed from "react-typed"
@@ -53,9 +54,11 @@ const IconWindow: React.FC<{
     className="mx-1 my-0.5 flex cursor-pointer flex-col items-center justify-center"
     onClick={onClick}
   >
-    <img
+    <Image
       alt="icon"
       className="mb-[-5px]"
+      width={32}
+      height={32}
       src={
         icon.type === "computer"
           ? "/computer.png"
@@ -65,7 +68,7 @@ const IconWindow: React.FC<{
               ? "/question.png"
               : icon.type === "mail"
                 ? "/mail.png"
-                : undefined
+                : "/question.png" // Fallback image
       }
     />
     <p
@@ -232,7 +235,12 @@ export default function Boot() {
                   }))
                 }
               >
-                <img alt="start menu logo" src="/start-button.png" />
+                <Image
+                  alt="start menu logo"
+                  src="/start-button.png"
+                  width={24}
+                  height={24}
+                />
                 {state.menuOpen && (
                   <div className="absolute -left-0.5 bottom-[112%] h-[200px] w-[120px] border-2 border-b-[#2e2e2e] border-l-[#dfdfdf] border-r-[#2e2e2e] border-t-[#dfdfdf] bg-[#c6c6c6]">
                     <div className="flex flex-col">

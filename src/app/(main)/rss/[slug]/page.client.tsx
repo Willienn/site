@@ -73,7 +73,6 @@ export default function Feed({ slug }: { slug: string }) {
     },
     [totalPages]
   )
-  console.log(totalPages)
 
   useEffect(() => {
     const prefetchNextPage = async () => {

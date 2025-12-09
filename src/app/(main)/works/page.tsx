@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 import Link from "next/link"
 import { Fragment, useState } from "react"
 import styles from "./page.module.css"
@@ -33,9 +34,11 @@ export default function Works() {
     >
       {myProjects.map((project, idx) => (
         <Fragment key={idx}>
-          <img
+          <Image
             alt="imagem ilustrativa do projeto"
             src={project.image ? project.image : "/noImage.webp"}
+            width={1920}
+            height={1080}
             className={`${
               clicked === idx
                 ? styles.opened
@@ -75,7 +78,7 @@ export default function Works() {
               </Link>
               <button
                 className="rounded-md bg-white px-2.5 py-1 font-poppins text-lg font-semibold text-black"
-                onClick={() => location.reload()}
+                onClick={() => setClicked(undefined)}
               >
                 Go Back
               </button>
