@@ -39,7 +39,7 @@ export const feeds = [
     slug: "smashing-security",
     image: "smashing-security.jpg",
     description: "Text to describe what is and why i like it",
-    url: "https://feeds.captivate.fm/smashing-security/",
+    url: "https://feeds.redcircle.com/c478d684-038f-4b13-8507-bc32af486a2c",
     tags: ["Cybersecurity", "Favorite", "Recommended"],
   },
   {
